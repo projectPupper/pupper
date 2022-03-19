@@ -51,8 +51,9 @@ const profileSchema = new mongoose.Schema({
 
 });
 
+const Profile = mongoose.model('Profile', profileSchema);
+const Chat = mongoose.model('Chat', chatSchema);
+const Swipe = mongoose.model('Swipe', swipeSchema);
+const Auth = mongoose.model('Auth', authenticationSchema);
 
-
-const Pupper = mongoose.model('Pupper', profileSchema);
-
-module.exports = Pupper;
+module.exports = { Profile, Chat, Swipe, Auth };
