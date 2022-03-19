@@ -6,26 +6,6 @@ const authenticationSchema = new mongoose.Schema({
   email: String
 })
 
-const swipeSchema = new mongoose.Schema({
-  like: Boolean,
-  user1: Number,
-  user2: Number
-})
-
-const messageSchema = new mongoose.Schema({
-  body: String,
-  sender: String
-},
-{timestamps: true}
-);
-
-const chatSchema = new mongoose.Schema({
-  time: Date,
-  users: [],
-  messages: [messageSchema]
-
-});
-
 const profileSchema = new mongoose.Schema({
   name: String,
   age: Number,
@@ -48,12 +28,32 @@ const profileSchema = new mongoose.Schema({
   chats: [],
   swipes: [swipeSchema],
   username: String
-
 });
 
-const Profile = mongoose.model('Profile', profileSchema);
-const Chat = mongoose.model('Chat', chatSchema);
-const Swipe = mongoose.model('Swipe', swipeSchema);
+const swipeSchema = new mongoose.Schema({
+  like: Boolean,
+  user1: Number,
+  user2: Number
+})
+
+const chatSchema = new mongoose.Schema({
+  time: Date,
+  users: [],
+  messages: [messageSchema]
+});
+
+const messageSchema = new mongoose.Schema({
+  body: String,
+  sender: String
+},
+{timestamps: true}
+);
+
+
+
 const Auth = mongoose.model('Auth', authenticationSchema);
+const Profile = mongoose.model('Profile', profileSchema);
+const Swipe = mongoose.model('Swipe', swipeSchema);
+const Chat = mongoose.model('Chat', chatSchema);
 
 module.exports = { Profile, Chat, Swipe, Auth };
