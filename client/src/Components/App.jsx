@@ -6,6 +6,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import Typography from '@mui/material/Typography';
 import { Outlet, Link } from "react-router-dom";
+import {signInWithGoogle} from "../Firebase.js"
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
 const App = () => {
