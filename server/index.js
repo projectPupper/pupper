@@ -4,6 +4,10 @@ const app = express();
 const PORT = 3000;
 // const controller = require('./Controller')
 
+const db = require('../db/db.js');
+const model = require('../db');
+
+
 app.use(express.static('client/dist'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
