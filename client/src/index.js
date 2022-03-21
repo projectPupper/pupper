@@ -25,6 +25,4 @@ ReactDOM.render(
     </Routes>
   </BrowserRouter>,
   appElement
-  // <App />, appElement
 );
-

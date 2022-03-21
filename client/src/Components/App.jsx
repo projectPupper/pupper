@@ -7,38 +7,22 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import { Outlet, Link } from "react-router-dom";
 
 const App = () => {
+    const [value, setValue] = React.useState("/");
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
   return (
     <>
       <h1>Pupper</h1>
-      <Link to="/profile">Profile</Link>
-      <Link to="/swipe">Swipe</Link>
-      <Link to="/map">Map</Link>
-      <Link to="/matches">Matches</Link>
-      {/* <BottomNavigation>
-        <BottomNavigationAction label="Profile" icon={<PersonIcon />}>
-          <Link to="/profile">Profile</Link>
-        </BottomNavigationAction>
-      </BottomNavigation> */}
+      <BottomNavigation value={value} onChange={handleChange} showLabels={true}>
+          <BottomNavigationAction label="swipe" value="/swipe" icon={<FavoriteIcon />}  component={Link} to='/'/>
+          <BottomNavigationAction label="map" value="/" icon={<MapIcon />} component={Link} to='/map'/>
+          <BottomNavigationAction label="profile" value="/profile" icon={<PersonIcon /> } component={Link} to='/profile'/>
+          <BottomNavigationAction label="matches" value="/matches" icon={<ChatBubbleIcon />} component={Link} to='/matches'/>
+      </BottomNavigation>
      <Outlet />
     </>
   )
 };
 
 export default App;
-{/* <BottomNavigationAction label="Swipe" icon={<FavoriteIcon />} to={"/swipe"} component={Link}/>
-<BottomNavigationAction label="Map" icon={<MapIcon />} to={"/map"} component={Link}/>
-<BottomNavigationAction label="Matches" icon={<ChatBubbleIcon />} to={"/matches"} component={Link}/> */}
-
-{/* <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      ></BottomNavigation> */}
-
-
-      {/* <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
-      <BottomNavigationAction label="Swipe" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Map" icon={<MapIcon />} />
-      <BottomNavigationAction label="Matches" icon={<ChatBubbleIcon />} /> */}
