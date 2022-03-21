@@ -1,8 +1,13 @@
 import React from 'react';
+import Button from '@mui/material/Button';
 
 function Swipe () {
+
+
   return (
-      <div>Swipe</div>
+      <div>
+        <Button>hihi</Button>
+      </div>
   );
 }
 
