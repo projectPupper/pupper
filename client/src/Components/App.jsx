@@ -5,11 +5,13 @@ import MapIcon from '@mui/icons-material/Map';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import { Outlet, Link } from "react-router-dom";
+import {signInWithGoogle} from "../Firebase.js"
 
 const App = () => {
   return (
     <>
       <h1>Pupper</h1>
+      <button onClick={signInWithGoogle}>Sign in with Google</button>
       <Link to="/profile">Profile</Link>
       <Link to="/swipe">Swipe</Link>
       <Link to="/map">Map</Link>
