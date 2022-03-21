@@ -1,9 +1,9 @@
 import React from 'react';
-// import { BottomNavigation, BottomNavigationAction } from '@mui/material'
-// import PersonIcon from '@mui/icons-material/Person';
-// import MapIcon from '@mui/icons-material/Map';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import { BottomNavigation, BottomNavigationAction } from '@mui/material'
+import PersonIcon from '@mui/icons-material/Person';
+import MapIcon from '@mui/icons-material/Map';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import { Outlet, Link } from "react-router-dom";
 
 const App = () => {
