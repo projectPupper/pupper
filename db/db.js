@@ -12,20 +12,6 @@ const swipeSchema = new mongoose.Schema({
   user2: Number
 })
 
-const messageSchema = new mongoose.Schema({
-  body: String,
-  sender: String
-},
-{timestamps: true}
-);
-
-const chatSchema = new mongoose.Schema({
-  time: Date,
-  users: [],
-  messages: [messageSchema]
-
-});
-
 const profileSchema = new mongoose.Schema({
   name: String,
   age: Number,
@@ -46,13 +32,29 @@ const profileSchema = new mongoose.Schema({
     offLeash: Boolean,
   },
   chats: [],
-  swipes: [swipeSchema],
   username: String
+});
 
+const messageSchema = new mongoose.Schema({
+  body: String,
+  sender: String
+},
+{timestamps: true}
+);
+
+const chatSchema = new mongoose.Schema({
+  time: Date,
+  users: [],
+  messages: [messageSchema]
 });
 
 
 
-const Pupper = mongoose.model('Pupper', profileSchema);
 
-module.exports = Pupper;
+const Auth = mongoose.model('Auth', authenticationSchema);
+const Profile = mongoose.model('Profile', profileSchema);
+const Swipe = mongoose.model('Swipe', swipeSchema);
+const Chat = mongoose.model('Chat', chatSchema);
+
+
+module.exports = { Profile, Chat, Swipe, Auth };
