@@ -13,7 +13,6 @@ import Swipe from './Components/swipe/Swipe.jsx';
 import Matches from './Components/Matches.jsx';
 import Filters from './Components/Filters.jsx';
 
-
 const appElement = document.getElementById('app');
 
 ReactDOM.render(
