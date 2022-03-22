@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const authenticationSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-  email: String
-})
+// const authenticationSchema = new mongoose.Schema({
+//   username: String,
+//   password: String,
+//   email: String
+// })
 
 const swipeSchema = new mongoose.Schema({
   like: Boolean,
@@ -81,10 +81,10 @@ const chatSchema = new mongoose.Schema({
 
 
 
-const Auth = mongoose.model('Auth', authenticationSchema);
+// const Auth = mongoose.model('Auth', authenticationSchema);
 const Profile = mongoose.model('Profile', profileSchema);
 const Swipe = mongoose.model('Swipe', swipeSchema);
 const Chat = mongoose.model('Chat', chatSchema);
 
 
-module.exports = { Profile, Chat, Swipe, Auth };
+module.exports = { Profile, Chat, Swipe };
