@@ -19,14 +19,14 @@ const appElement = document.getElementById('app');
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="login" element={<Login />} />
-      <Route path="/" element={<App />}>
+      <Route path="/" element={<Login />} />
+      <Route path="main" element={<App />} />
         <Route path="profile" element={<Profile />} />
         <Route path="map" element={<Map />} />
         <Route path="swipe" element={<Swipe />} />
         <Route path="matches" element={<Matches />} />
         <Route path="preferences" element={<Filters />} />
-      </Route>
+      {/* </Route> */}
     </Routes>
   </BrowserRouter>,
   appElement

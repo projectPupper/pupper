@@ -4,7 +4,7 @@ import ProfileSetup from "./ProfileSetup.jsx";
 import Typography from '@mui/material/Typography';
 
 
-const Login = () => {
+function Login() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   function handleClick() {
@@ -17,17 +17,11 @@ const Login = () => {
     })
   }
 
-  // placeholder; when profile setup is completed (submitted), it should take user to swipe page
-  function handleRegistered() {
-    setLoggedIn(false)
-    console.log('loggedIn: ', loggedIn);
-  }
-
   return (
     <>
       {loggedIn ?
       <>
-        <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography> <ProfileSetup handleRegistered={handleRegistered}/>
+        <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography> <ProfileSetup />
       </> :
       <>
         <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>

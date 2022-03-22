@@ -1,20 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import { Button, Slider, TextField } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
 import React from 'react';
 
-const ProfileSetup = (props) => {
-  //, mr: 1, my: 0.5
+function ProfileSetup(props) {
+  const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
     console.log('age', e.target.age.value);
     console.log('energy', e.target.energy.value);
     console.log('size', e.target.size.value);
-    // on submt, should take user to swipe page
-    props.handleRegistered(); // placeholder
+    navigate("/preferences");
   }
   const sizeMarks = [
-    // {value: 0},
     {
       value: 1,
       label: 'Extra Small',
@@ -30,8 +29,7 @@ const ProfileSetup = (props) => {
     {
       value: 4,
       label: 'Large',
-    },
-    // {value: 5},
+    }
   ];
 
   function formatVal(value) {
@@ -45,7 +43,6 @@ const ProfileSetup = (props) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {/* <input />My Name */}
         <PetsIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
         <TextField id="input-with-sx" label="My name" variant="standard" /> <br />
         <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
@@ -56,16 +53,6 @@ const ProfileSetup = (props) => {
         <Slider name="energy" step={1} min={0} max={10} defaultValue={1} marks aria-label="Default"  valueLabelDisplay="auto" />
         Size:
         <Slider name="size" step={1} min={0} max={5} defaultValue={1} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={formatVal}/>
-
-        {/* My Pet's Name <input type="text"/> */}
-        {/* <input />Breed */}
-        {/* Size
-        Energy-Level
-        On/Off-Leash
-        <select>
-          <option value="On">On</option>
-          <option>Off</option>
-        </select> */}
         <Button type="submit">Register</Button>
       </form>
     </>
