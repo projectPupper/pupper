@@ -25,7 +25,6 @@ const App = () => {
     <>
       <ThemeProvider theme={theme}>
       <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
-      <Outlet />
       <BottomNavigation value={value} onChange={handleChange} showLabels={true}  sx={{
           bgcolor: '#ff9800',
           '& .Mui-selected': {
@@ -42,9 +41,10 @@ const App = () => {
           <BottomNavigationAction sx={{color: "#fff"}} label="swipe" value="/swipe" icon={<FavoriteIcon />}  component={Link} to='/swipe'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="map" value="/map" icon={<MapIcon />} component={Link} to='/map'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="matches" value="/matches" icon={<ChatBubbleIcon />} component={Link} to='/matches'/>
+          <BottomNavigationAction sx={{color: "#fff"}} label="preferences" value="/preferences" icon={<PersonIcon /> } component={Link} to='/preferences'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="profile" value="/profile" icon={<PersonIcon /> } component={Link} to='/profile'/>
       </BottomNavigation>
-      <Link to="/filters">temp filters link</Link>
+      <Outlet />
       </ThemeProvider>
     </>
   )
