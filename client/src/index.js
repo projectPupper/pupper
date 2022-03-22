@@ -8,7 +8,7 @@ import {
 import App from './Components/App.jsx';
 import Map from './Components/Map.jsx';
 import Profile from './Components/Profile.jsx';
-import Swipe from './Components/Swipe.jsx';
+import Swipe from './Components/swipe/Swipe.jsx';
 import Matches from './Components/Matches.jsx';
 
 const appElement = document.getElementById('app');
