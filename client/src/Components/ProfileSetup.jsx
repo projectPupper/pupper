@@ -1,11 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Slider, TextField } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
-import React from 'react';
+import Typography from '@mui/material/Typography';
+
 
 function ProfileSetup(props) {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
+  let { username } = useParams();
   function handleSubmit(e) {
     e.preventDefault();
     console.log('age', e.target.age.value);
@@ -42,6 +45,7 @@ function ProfileSetup(props) {
 
   return (
     <>
+      <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
       <form onSubmit={handleSubmit}>
         <PetsIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
         <TextField id="input-with-sx" label="My name" variant="standard" /> <br />

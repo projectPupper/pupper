@@ -11,6 +11,7 @@ function Login() {
     signInWithGoogle()
     .then(result => {
       setLoggedIn(true)
+      console.log('google: ', result)
     })
     .catch(err => {
       console.log(err);
@@ -20,13 +21,13 @@ function Login() {
   return (
     <>
       {loggedIn ?
-      <>
-        <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography> <ProfileSetup />
-      </> :
-      <>
-        <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
-        <button onClick={handleClick}>login chewy</button>
-      </>}
+        <ProfileSetup />
+        :
+        <>
+          <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
+          <button onClick={handleClick}>login chewy</button>
+        </>
+      }
     </>
   )
 }

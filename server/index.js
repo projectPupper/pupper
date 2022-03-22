@@ -17,7 +17,7 @@ app.get('/api/breeds', function(req, res) {
   res.send(breedsList.breedsList);
 })
 
-// DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH.
+// DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH. KEEP AT BOTTOM.
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'), function(err) {
     if (err) {
