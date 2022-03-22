@@ -14,10 +14,28 @@ const swipeSchema = new mongoose.Schema({
 
 const profileSchema = new mongoose.Schema({
   name: String,
-  age: Number,
+  imgUrl: String,
+  age: {
+    type: String,
+    enum : ['Puppy','Adult', 'Senior'],
+    default: 'Adult'
+},
+  gender: {
+    type: String,
+    enum : ['Female', 'Male'],
+    default: 'Male'
+},
   breed: String,
-  size: String,
-  energy: String,
+  size: {
+    type: String,
+    enum : ['Small', 'Medium', 'Large'],
+    default: 'Medium'
+},
+  energy: {
+    type: String,
+    enum : ['Low', 'Medium', 'High'],
+    default: 'Medium'
+},
   offLeash: Boolean,
   ownerName: String,
   ownerNumber: String,
@@ -25,10 +43,22 @@ const profileSchema = new mongoose.Schema({
   aboutMe: String,
   photos: [],
   prefrences: {
-    age: Number,
-    breed: String,
-    size: String,
-    energy: String,
+    age: {
+      type: String,
+      enum : ['Puppy','Adult', 'Senior'],
+      default: 'Adult'
+    },
+    breed: [],
+    size: {
+      type: String,
+      enum : ['Small','Medium', 'Large'],
+      default: 'Medium'
+  },
+    energy: {
+      type: String,
+      enum : ['Low', 'Medium', 'High'],
+      default: 'Medium'
+  },
     offLeash: Boolean,
   },
   chats: [],

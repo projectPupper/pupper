@@ -7,18 +7,14 @@ const PORT = 3000;
 
 const db = require('../db/db.js');
 const model = require('../db');
-
+const breedsList = require('../breeds.js');
 
 app.use(express.static('client/dist'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
+app.get('/breeds', function(req, res) {
+  res.send(breedsList.breedsList);
 })
 
 app.get('/*', function(req, res) {
