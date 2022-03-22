@@ -10,6 +10,7 @@ import Map from './Components/Map.jsx';
 import Profile from './Components/Profile.jsx';
 import Swipe from './Components/swipe/Swipe.jsx';
 import Matches from './Components/Matches.jsx';
+import Filters from './Components/Filters.jsx';
 
 const appElement = document.getElementById('app');
 
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="map" element={<Map />} />
         <Route path="swipe" element={<Swipe />} />
         <Route path="matches" element={<Matches />} />
+        <Route path="filters" element={<Filters />} />
       </Route>
     </Routes>
   </BrowserRouter>,

@@ -6,7 +6,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import Typography from '@mui/material/Typography';
 import { Outlet, Link } from "react-router-dom";
-import {signInWithGoogle} from "../Firebase.js"
+import {signInWithGoogle} from "../Firebase.js";
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
 const App = () => {
@@ -44,6 +44,7 @@ const App = () => {
           <BottomNavigationAction sx={{color: "#fff"}} label="matches" value="/matches" icon={<ChatBubbleIcon />} component={Link} to='/matches'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="profile" value="/profile" icon={<PersonIcon /> } component={Link} to='/profile'/>
       </BottomNavigation>
+      <Link to="/filters">temp filters link</Link>
       </ThemeProvider>
     </>
   )
