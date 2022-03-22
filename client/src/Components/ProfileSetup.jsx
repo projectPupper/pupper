@@ -3,15 +3,15 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
 import React from 'react';
 
-const ProfileSetup = () => {
+const ProfileSetup = (props) => {
   //, mr: 1, my: 0.5
   function handleSubmit(e) {
     e.preventDefault();
     console.log('age', e.target.age.value);
     console.log('energy', e.target.energy.value);
     console.log('size', e.target.size.value);
-
-    //
+    // on submt, should take user to swipe page
+    props.handleRegistered(); // placeholder
   }
   const sizeMarks = [
     // {value: 0},
