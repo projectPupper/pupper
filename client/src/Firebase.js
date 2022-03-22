@@ -1,16 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import firebaseConfig from './firebaseConfig.js';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBqs6H2lxQVPTPMGyvFyEKFjJwwG6czcY8",
-  authDomain: "pupper-7a060.firebaseapp.com",
-  projectId: "pupper-7a060",
-  storageBucket: "pupper-7a060.appspot.com",
-  messagingSenderId: "907125137286",
-  appId: "1:907125137286:web:e4fda383c5a7720f641607",
-  measurementId: "G-WGHKSQXL86"
-};
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -26,6 +19,7 @@ export const signInWithGoogle = () => {
       const email = result.user.email;
       const profilePic = result.user.photoURL;
       console.log(result);
+      const userID = result.user.uid;
 
       localStorage.setItem('gName', name)
       localStorage.setItem('gEmail', email)

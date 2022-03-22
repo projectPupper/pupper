@@ -5,17 +5,20 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import Login from './Components/Login.jsx';
 import App from './Components/App.jsx';
 import Map from './Components/Map.jsx';
 import Profile from './Components/Profile.jsx';
 import Swipe from './Components/Swipe.jsx';
 import Matches from './Components/Matches.jsx';
 
+
 const appElement = document.getElementById('app');
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
+      <Route path="login" element={<Login />} />
       <Route path="/" element={<App />}>
         <Route path="profile" element={<Profile />} />
         <Route path="map" element={<Map />} />
