@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const authenticationSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-  email: String
-})
+// const authenticationSchema = new mongoose.Schema({
+//   username: String,
+//   password: String,
+//   email: String
+// })
 
 const swipeSchema = new mongoose.Schema({
   like: Boolean,
@@ -14,10 +14,28 @@ const swipeSchema = new mongoose.Schema({
 
 const profileSchema = new mongoose.Schema({
   name: String,
-  age: Number,
+  imgUrl: String,
+  age: {
+    type: String,
+    enum : ['Puppy','Adult', 'Senior'],
+    default: 'Adult'
+},
+  gender: {
+    type: String,
+    enum : ['Female', 'Male'],
+    default: 'Male'
+},
   breed: String,
-  size: String,
-  energy: String,
+  size: {
+    type: String,
+    enum : ['Small', 'Medium', 'Large'],
+    default: 'Medium'
+},
+  energy: {
+    type: String,
+    enum : ['Low', 'Medium', 'High'],
+    default: 'Medium'
+},
   offLeash: Boolean,
   ownerName: String,
   ownerNumber: String,
@@ -25,10 +43,22 @@ const profileSchema = new mongoose.Schema({
   aboutMe: String,
   photos: [],
   prefrences: {
-    age: Number,
-    breed: String,
-    size: String,
-    energy: String,
+    age: {
+      type: String,
+      enum : ['Puppy','Adult', 'Senior'],
+      default: 'Adult'
+    },
+    breed: [],
+    size: {
+      type: String,
+      enum : ['Small','Medium', 'Large'],
+      default: 'Medium'
+  },
+    energy: {
+      type: String,
+      enum : ['Low', 'Medium', 'High'],
+      default: 'Medium'
+  },
     offLeash: Boolean,
   },
   chats: [],
@@ -51,10 +81,10 @@ const chatSchema = new mongoose.Schema({
 
 
 
-const Auth = mongoose.model('Auth', authenticationSchema);
+// const Auth = mongoose.model('Auth', authenticationSchema);
 const Profile = mongoose.model('Profile', profileSchema);
 const Swipe = mongoose.model('Swipe', swipeSchema);
 const Chat = mongoose.model('Chat', chatSchema);
 
 
-module.exports = { Profile, Chat, Swipe, Auth };
+module.exports = { Profile, Chat, Swipe };
