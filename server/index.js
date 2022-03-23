@@ -34,9 +34,9 @@ app.post('/api/profile', controller.controllerProfile.postProfile)
 app.post('/api/swipe', controller.swipe.postSwipe);
 app.get('/api/swipe', controller.swipe.getSwipe);
 
-app.post('/api/profiles', controller.profiles.postProfiles);
+app.post('/api/swipeprofiles', controller.profiles.postProfiles);
 //get profiles except for main user
-app.get('/api/profiles', controller.profiles.getOtherProfiles);
+app.get('/api/swipeprofiles', controller.profiles.getOtherProfiles);
 
 
 

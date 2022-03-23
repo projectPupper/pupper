@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { signInWithGoogle } from "../Firebase.js"
 import ProfileSetup from "./ProfileSetup.jsx";
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { useMainContext } from './Providers/MainProvider.jsx';
-
 
 function Login() {
   const { setUserProfile } = useMainContext()
@@ -31,7 +31,7 @@ function Login() {
         :
         <>
           <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
-          <button onClick={handleClick}>login chewy</button>
+          <Button variant="contained" sx={{backgroundColor:'#ff9800'}} onClick={handleClick}>Login</Button>
         </>
       }
     </>
