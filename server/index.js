@@ -25,6 +25,13 @@ app.get('/api/chats', function(req, res) {
 app.post('/api/chats', function(req, res) {
   controller.chats.postChats(req, res);
 })
+app.post('/api/swipe', controller.swipe.postSwipe);
+app.get('/api/swipe', controller.swipe.getSwipe);
+
+app.post('/api/profiles', controller.profiles.postProfiles);
+
+//get profiles except for main user
+app.get('/api/profiles', controller.profiles.getOtherProfiles);
 
 // DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH.
 app.get('/*', function(req, res) {
