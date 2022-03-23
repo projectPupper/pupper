@@ -151,7 +151,7 @@ function ProfileSetup(props) {
 
         axios.post('/api/profile', serverPackage)
           .then((result) => {
-            setUserProfile(serverPackage);
+            setUserProfile(result);
             navigate("/preferences");
           })
           .catch(err => console.log(`Profile post error:`, err))

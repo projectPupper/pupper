@@ -13,7 +13,11 @@ module.exports = {
 
   createProfile: (body, cb) => {
     Profile.updateOne({uid: body.uid}, body, {upsert: true})
-      .then((result) => cb(null, result))
+      .then((result) => {
+        Profile.find({uid: body.uid})
+          .then(result => cb(null, result[0]))
+          .catch(err => cb(err));
+      })
       .catch(err => cb(err));
   },
 }
