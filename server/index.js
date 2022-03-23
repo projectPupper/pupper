@@ -5,7 +5,6 @@ const app = express();
 const PORT = 3000;
 const controller = require('./Controller')
 
-
 const db = require('../db/db.js');
 const model = require('../db');
 const breedsList = require('../breeds.js');
@@ -18,9 +17,16 @@ app.get('/api/breeds', function(req, res) {
   res.send(breedsList.breedsList);
 })
 
-app.get('/api/profile', controller.controllerProfile.getProfile)
 
+app.get('/api/profile', controller.controllerProfile.getProfile)
 app.post('/api/profile', controller.controllerProfile.postProfile)
+
+app.post('/api/swipe', controller.swipe.postSwipe);
+app.get('/api/swipe', controller.swipe.getSwipe);
+
+app.post('/api/profiles', controller.profiles.postProfiles);
+//get profiles except for main user
+app.get('/api/profiles', controller.profiles.getOtherProfiles);
 
 // DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH. KEEP AT BOTTOM.
 app.get('/*', function(req, res) {
