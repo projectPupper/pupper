@@ -6,16 +6,19 @@ import Typography from '@mui/material/Typography';
 
 function Login() {
   const [loggedIn, setLoggedIn] = useState(false);
+  // setLoggedIn(true)
 
   function handleClick() {
-    signInWithGoogle()
-    .then(result => {
+    // signInWithGoogle()
+    // .then(result => {
+    //   setLoggedIn(true)
+    //   console.log('google: ', result)
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // })
       setLoggedIn(true)
-      console.log('google: ', result)
-    })
-    .catch(err => {
-      console.log(err);
-    })
+
   }
 
   return (
