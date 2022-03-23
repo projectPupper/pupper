@@ -1,29 +1,31 @@
 const db = require('../../db/db.js');
-//CHATS
+
 const getChats = async (params, callback) => {
   try {
     db.Profile.find({ _id: params})
       .then((result) => {
-        console.log('model result', result);
-        db.Chat.find({_id: result.chats})
+        console.log('get model result', result);
+        db.Chat.find({_id: result[0].chats})
         .then((results) => {
           callback(null, results);
         })
       })
   }
   catch (e) {
-    console.log('error', e);
+    console.log('get error', e);
   }
 }
 
 const postChats = async (params) => {
+  console.log('new params', params);
+
   try {
     db.Chat.updateOne(
        { _id : params.id },
        { $push : {messages: params.message}}
     )
     .catch((err) => {
-      console.log('error with model', err);
+      console.log('post error with model', err);
     })
   }
   catch (e){
@@ -35,4 +37,3 @@ module.exports = {
   getChats,
   postChats
 }
-// sort: { "points" : 1 },

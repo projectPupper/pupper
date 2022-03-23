@@ -1,9 +1,8 @@
 const model = require('../model/chats.js');
 
-//CHATS
 const getChats = async (req, res) => {
-  let params = req.body.id;
-  console.log('controller id', params);
+  let params = req.query.id;
+  console.log('get controller id', params);
 
   const results = await model.getChats(params, (err, results) => {
     if (err) {
@@ -16,7 +15,7 @@ const getChats = async (req, res) => {
 
 const postChats = async (req, res) => {
   let params = req.body;
-  console.log('controller', params);
+  console.log('post controller', params);
 
   const results = await model.postChats(params);
   res.status(201).send();

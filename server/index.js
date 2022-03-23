@@ -21,10 +21,11 @@ app.get('/api/breeds', function(req, res) {
 app.get('/api/chats', function(req, res) {
   controller.chats.getChats(req, res);
 })
-
 app.post('/api/chats', function(req, res) {
   controller.chats.postChats(req, res);
 })
+
+//SWIPE
 app.post('/api/swipe', controller.swipe.postSwipe);
 app.get('/api/swipe', controller.swipe.getSwipe);
 
