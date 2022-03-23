@@ -72,13 +72,13 @@ const Filters = () => {
       }}>
 
 <Typography style={{ fontSize: 16, fontWeight: 500, color: '#ff9800', textAlign: 'left', fontFamily:'Courgette' }}>What Kind of Playmate is Your Pup Looking For?</Typography>
-      <Autocomplete
+      {/* <Autocomplete
         disablePortal
         id="combo-box-demo"
         options={breedList}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Breed" />}
-      />
+      /> */}
       <Box
         sx={{
           display: 'flex',
@@ -122,6 +122,7 @@ const Filters = () => {
             <ToggleButton value="high" aria-label="high">High</ToggleButton>
           </ToggleButtonGroup>
 
+          <Typography style={{ fontSize: 14, fontWeight: 400, color: '#ff9800', textAlign: 'left', fontFamily:'Roboto' }}>Ideal Play Session</Typography>
           <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
             onChange={handleSizes} >
             <ToggleButton value="yes" aria-label="yes" >On-Leash</ToggleButton>
