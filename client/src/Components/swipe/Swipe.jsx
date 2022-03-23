@@ -5,6 +5,8 @@ import TinderCard from 'react-tinder-card';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useMainContext } from '../Providers/MainProvider.jsx';
+
 
 const db =
 [{
@@ -106,6 +108,31 @@ const db =
   chats: [],
   swiped: [],
   username: "Marley"
+},
+{
+  name: "Brownie",
+  age: "Senior",
+  gender: "Female",
+  imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/04/Labrador_Retriever_%281210559%29.jpg",
+  breed: "Bichon Frisé",
+  size: "Small",
+  energy: "Medium",
+  offLeash: false,
+  ownerName: "Glo",
+  ownerNumber: "132-456-8569",
+  location: "Chicago, Illinois",
+  aboutMe: "hmm treats!",
+  photos: [],
+  prefrences: {
+    age: "Adult",
+    breed: ["Bichon Frisé", "Labrador"],
+    size: "Small",
+    energy: "Medium",
+    offLeash: true,
+  },
+  chats: [],
+  swiped: [],
+  username: "Glo"
 }
 ];
 
@@ -166,7 +193,8 @@ const cardWrapper = {
 
 
 function Swipe () {
-  const currentId = "623aae77a72fd39be4eb7bfe";
+  const { userProfile } = useMainContext();
+
 
   const characters = db;
   const [lastDirection, setLastDirection] = useState();
@@ -174,7 +202,8 @@ function Swipe () {
 
 
   useEffect(() => {
-    axios.get('/api/profiles', { params: { id: currentId }})
+    console.log(userProfile);
+    axios.get('/api/profiles', { params: { id: userProfile._id }})
       .then((res) => {
         setprofileList(res.data);
       })
@@ -182,18 +211,18 @@ function Swipe () {
 
   const swiped = (direction, nameToDelete, idToDelete) => {
     if(direction === 'left') {
-      axios.post('/api/swipe', { id: currentId, like: false, swipedId: idToDelete })
+      axios.post('/api/swipe', { id: userProfile._id, like: false, swipedId: idToDelete })
         .then((res) => {
-          console.log('swipe false posted!')
+          console.log('swipe false posted!');
         })
     } else {
-      axios.post('/api/swipe', { id: currentId, like: true, swipedId: idToDelete })
+      axios.post('/api/swipe', { id: userProfile._id, like: true, swipedId: idToDelete })
         .then((res) => {
-          console.log('swipe true posted!')
+          console.log('swipe true posted!');
         })
     }
-    console.log('removing: ' + nameToDelete)
-    setLastDirection(direction)
+    console.log('removing: ' + nameToDelete);
+    setLastDirection(direction);
   }
 
   const outOfFrame = (name) => {
