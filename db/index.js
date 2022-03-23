@@ -1,2 +1,4 @@
 const mongoose = require('mongoose');
-mongoose.connect(`mongodb://localhost/pupper`);
+const mongoPath = require('./dbconfig.js');
+mongoose.connect(mongoPath, {useNewUrlParser: true,
+  useUnifiedTopology: true});

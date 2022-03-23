@@ -150,7 +150,7 @@ function ProfileSetup(props) {
         };
 
         axios.post('/api/profile', serverPackage)
-          .then(() => {
+          .then((result) => {
             setUserProfile(serverPackage);
             navigate("/preferences");
           })
