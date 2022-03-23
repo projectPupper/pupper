@@ -1,5 +1,4 @@
-module.exports = {
-  breedsList: [
+module.exports = [
     {
         "id": 1,
         "label": "Affenpinscher"
@@ -2057,12 +2056,23 @@ module.exports = {
         "label": "Yorkshire Terrier"
     },
     {
-      "id": 515,
-      "label": "Golden Doodle"
+        "id": 515,
+        "label": "Golden Doodle"
     },
     {
       "id": 516,
       "label": "Mixed"
+    },
+    {
+        "id": 517,
+        "label": "Maltipoo"
+    },
+    {
+        "id": 518,
+        "label": "Chiweenie"
+    },
+    {
+        "id": 518,
+        "label": "Chewinny"
     }
 ]
-}

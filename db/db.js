@@ -1,15 +1,9 @@
 const mongoose = require('mongoose');
 
-// const authenticationSchema = new mongoose.Schema({
-//   username: String,
-//   password: String,
-//   email: String
-// })
-
 const swipeSchema = new mongoose.Schema({
   like: Boolean,
-  user1: Number,
-  user2: Number
+  user1: String,
+  user2: String
 })
 
 const profileSchema = new mongoose.Schema({
@@ -41,7 +35,7 @@ const profileSchema = new mongoose.Schema({
   ownerNumber: String,
   location: String,
   aboutMe: String,
-  photos: [],
+  imgUrl: String,
   prefrences: {
     age: {
       type: String,
@@ -62,6 +56,8 @@ const profileSchema = new mongoose.Schema({
     offLeash: Boolean,
   },
   chats: [],
+  uid: String,
+  swiped: [],
   username: String
 });
 
@@ -79,12 +75,9 @@ const chatSchema = new mongoose.Schema({
 });
 
 
-
-
 // const Auth = mongoose.model('Auth', authenticationSchema);
-const Profile = mongoose.model('Profile', profileSchema);
-const Swipe = mongoose.model('Swipe', swipeSchema);
-const Chat = mongoose.model('Chat', chatSchema);
-
+const Profile = mongoose.model('Profile', profileSchema, 'profile');
+const Swipe = mongoose.model('Swipe', swipeSchema, 'swipe');
+const Chat = mongoose.model('Chat', chatSchema, 'chat');
 
 module.exports = { Profile, Chat, Swipe };
