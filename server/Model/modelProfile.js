@@ -1,14 +1,26 @@
 const { Profile } = require('../../db/db.js')
 
 module.exports = {
-  findProfile: (body, cb) => {
-    Profile.find({uid: body.uid})
-    .then((result) => {
-      cb(null, result)
-    })
-    .catch((err) => {
-      cb(err);
-    })
+  findProfile: (uid, _id, cb) => {
+    if (uid) {
+      Profile.find({uid})
+        .then((result) => {
+          cb(null, result[0])
+        })
+        .catch((err) => {
+          cb(err);
+        })
+    }
+    if (_id) {
+      Profile.find({_id})
+      .then((result) => {
+        cb(null, result[0])
+      })
+      .catch((err) => {
+        cb(err);
+      })
+    }
+
   },
 
   createProfile: (body, cb) => {

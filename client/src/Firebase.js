@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 import firebaseConfig from './firebaseConfig.js';
 
 
@@ -14,3 +14,5 @@ const provider = new GoogleAuthProvider()
 export const signInWithGoogle = () => {
   return signInWithPopup(auth, provider)
 };
+
+export { onAuthStateChanged } ;
