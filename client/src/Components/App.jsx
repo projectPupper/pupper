@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BottomNavigation, BottomNavigationAction } from '@mui/material'
 import PersonIcon from '@mui/icons-material/Person';
 import MapIcon from '@mui/icons-material/Map';
@@ -11,9 +11,16 @@ import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
 const App = () => {
     const [value, setValue] = React.useState("/");
+    const [coords, setCoords] = useState({ });
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+
+    useEffect(() => {
+      navigator.geolocation.getCurrentPosition(({ coords: {latitude, longitude} }) => {
+        setCoords({ lat: latitude, lng: longitude });
+      })
+    }, []);
 
     const theme = createTheme({
       typography: {
@@ -39,7 +46,7 @@ const App = () => {
         }}>
           <Typography style={{ fontSize: 30, fontWeight: 700, color: '#fff', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
           <BottomNavigationAction sx={{color: "#fff"}} label="swipe" value="/swipe" icon={<FavoriteIcon />}  component={Link} to='/swipe'/>
-          <BottomNavigationAction sx={{color: "#fff"}} label="map" value="/map" icon={<MapIcon />} component={Link} to='/map'/>
+          <BottomNavigationAction sx={{color: "#fff"}} label="map" value="/map" coords={coords} setCoords={setCoords} icon={<MapIcon />} component={Link} to='/map'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="matches" value="/matches" icon={<ChatBubbleIcon />} component={Link} to='/matches'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="preferences" value="/preferences" icon={<PersonIcon /> } component={Link} to='/preferences'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="profile" value="/profile" icon={<PersonIcon /> } component={Link} to='/profile'/>
