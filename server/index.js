@@ -17,6 +17,7 @@ app.get('/api/breeds', function(req, res) {
   res.send(breedsList.breedsList);
 })
 
+
 //CHAT
 app.get('/api/chats', function(req, res) {
   controller.chats.getChats(req, res);
@@ -26,15 +27,18 @@ app.post('/api/chats', function(req, res) {
 })
 
 //SWIPE
+app.get('/api/profile', controller.controllerProfile.getProfile)
+app.post('/api/profile', controller.controllerProfile.postProfile)
+
+
 app.post('/api/swipe', controller.swipe.postSwipe);
 app.get('/api/swipe', controller.swipe.getSwipe);
 
 app.post('/api/profiles', controller.profiles.postProfiles);
-
 //get profiles except for main user
 app.get('/api/profiles', controller.profiles.getOtherProfiles);
 
-// DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH.
+// DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH. KEEP AT BOTTOM.
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'), function(err) {
     if (err) {
