@@ -6,11 +6,11 @@ module.exports = {
     // db.Swipe.updateOne({_id: body.id}, )
   },
   getOtherProfiles: (query, cb) => {
-    db.Profile.find({_id: "623b6f5bd26a96dbf1b88c40"})
+    db.Profile.find({_id: query.id})
     .then((res) => {
       // console.log(res);
       let swipedList = res[0].swiped;
-      swipedList.push("623b6f5bd26a96dbf1b88c40");
+      swipedList.push(query.id);
       db.Profile.find({ _id: {$nin: swipedList} })
       // db.Profile.find({})
       .then((result) => {
