@@ -20,7 +20,7 @@ function Login() {
         const config = { params: {uid: user.uid} }
         axios.get('/api/profile', config)
           .then((result) => {
-            console.log("result.data", result.data)
+            // console.log("result.data", result.data)
             if (result.data.name) {
               setUserProfile(result.data)
               navigate("/swipe");
