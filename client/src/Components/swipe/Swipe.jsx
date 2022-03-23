@@ -202,6 +202,7 @@ function Swipe () {
 
 
   useEffect(() => {
+    console.log(userProfile);
     axios.get('/api/profiles', { params: { id: userProfile._id }})
       .then((res) => {
         setprofileList(res.data);
