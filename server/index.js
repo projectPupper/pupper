@@ -25,6 +25,7 @@ app.get('/api/chats', function(req, res) {
 app.post('/api/chats', function(req, res) {
   controller.chats.postChats(req, res);
 })
+app.get('/api/match', controller.chats.getMatch);
 
 // AUTHENTICATE
 app.get('/api/profile', controller.controllerProfile.getProfile)
