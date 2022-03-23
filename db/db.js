@@ -1,11 +1,5 @@
 const mongoose = require('mongoose');
 
-// const authenticationSchema = new mongoose.Schema({
-//   username: String,
-//   password: String,
-//   email: String
-// })
-
 const swipeSchema = new mongoose.Schema({
   like: Boolean,
   user1: String,
@@ -62,6 +56,7 @@ const profileSchema = new mongoose.Schema({
     offLeash: Boolean,
   },
   chats: [],
+  uid: String,
   swiped: [],
   username: String
 });
