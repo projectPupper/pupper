@@ -6,7 +6,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import Typography from '@mui/material/Typography';
 import { Outlet, Link } from "react-router-dom";
-import {signInWithGoogle} from "../Firebase.js"
+import {signInWithGoogle} from "../Firebase.js";
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
 const App = () => {
@@ -24,8 +24,6 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-      <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
-      <Outlet />
       <BottomNavigation value={value} onChange={handleChange} showLabels={true}  sx={{
           bgcolor: '#ff9800',
           '& .Mui-selected': {
@@ -39,9 +37,11 @@ const App = () => {
             }
           }
         }}>
+          <Typography style={{ fontSize: 30, fontWeight: 700, color: '#fff', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
           <BottomNavigationAction sx={{color: "#fff"}} label="swipe" value="/swipe" icon={<FavoriteIcon />}  component={Link} to='/swipe'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="map" value="/map" icon={<MapIcon />} component={Link} to='/map'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="matches" value="/matches" icon={<ChatBubbleIcon />} component={Link} to='/matches'/>
+          <BottomNavigationAction sx={{color: "#fff"}} label="preferences" value="/preferences" icon={<PersonIcon /> } component={Link} to='/preferences'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="profile" value="/profile" icon={<PersonIcon /> } component={Link} to='/profile'/>
       </BottomNavigation>
       </ThemeProvider>

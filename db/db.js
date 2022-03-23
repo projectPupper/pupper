@@ -1,37 +1,63 @@
 const mongoose = require('mongoose');
 
-const authenticationSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-  email: String
-})
-
 const swipeSchema = new mongoose.Schema({
   like: Boolean,
-  user1: Number,
-  user2: Number
+  user1: String,
+  user2: String
 })
 
 const profileSchema = new mongoose.Schema({
   name: String,
-  age: Number,
+  imgUrl: String,
+  age: {
+    type: String,
+    enum : ['Puppy','Adult', 'Senior'],
+    default: 'Adult'
+},
+  gender: {
+    type: String,
+    enum : ['Female', 'Male'],
+    default: 'Male'
+},
   breed: String,
-  size: String,
-  energy: String,
+  size: {
+    type: String,
+    enum : ['Small', 'Medium', 'Large'],
+    default: 'Medium'
+},
+  energy: {
+    type: String,
+    enum : ['Low', 'Medium', 'High'],
+    default: 'Medium'
+},
   offLeash: Boolean,
   ownerName: String,
   ownerNumber: String,
   location: String,
   aboutMe: String,
-  photos: [],
+  imgUrl: String,
   prefrences: {
-    age: Number,
-    breed: String,
-    size: String,
-    energy: String,
+    age: {
+      type: String,
+      enum : ['Puppy','Adult', 'Senior'],
+      default: 'Adult'
+    },
+    breed: [],
+    size: {
+      type: String,
+      enum : ['Small','Medium', 'Large'],
+      default: 'Medium'
+  },
+    energy: {
+      type: String,
+      enum : ['Low', 'Medium', 'High'],
+      default: 'Medium'
+  },
     offLeash: Boolean,
   },
   chats: [],
+  uid: String,
+  swiped: [],
   username: String
 });
 
@@ -49,12 +75,9 @@ const chatSchema = new mongoose.Schema({
 });
 
 
+// const Auth = mongoose.model('Auth', authenticationSchema);
+const Profile = mongoose.model('Profile', profileSchema, 'profile');
+const Swipe = mongoose.model('Swipe', swipeSchema, 'swipe');
+const Chat = mongoose.model('Chat', chatSchema, 'chat');
 
-
-const Auth = mongoose.model('Auth', authenticationSchema);
-const Profile = mongoose.model('Profile', profileSchema);
-const Swipe = mongoose.model('Swipe', swipeSchema);
-const Chat = mongoose.model('Chat', chatSchema);
-
-
-module.exports = { Profile, Chat, Swipe, Auth };
+module.exports = { Profile, Chat, Swipe };
