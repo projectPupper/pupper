@@ -1,10 +1,10 @@
 const { Profile } = require('../../db/db.js')
 
 module.exports = {
-  findProfile: (body, cb) => {
-    Profile.find({uid: body.uid})
+  findProfile: (uid, _id, cb) => {
+    Profile.find({uid, _id})
     .then((result) => {
-      cb(null, result)
+      cb(null, result[0])
     })
     .catch((err) => {
       cb(err);
