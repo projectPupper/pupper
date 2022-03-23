@@ -18,8 +18,18 @@ app.get('/api/breeds', function(req, res) {
 })
 
 
+//CHAT
+app.get('/api/chats', function(req, res) {
+  controller.chats.getChats(req, res);
+})
+app.post('/api/chats', function(req, res) {
+  controller.chats.postChats(req, res);
+})
+
+//SWIPE
 app.get('/api/profile', controller.controllerProfile.getProfile)
 app.post('/api/profile', controller.controllerProfile.postProfile)
+
 
 app.post('/api/swipe', controller.swipe.postSwipe);
 app.get('/api/swipe', controller.swipe.getSwipe);

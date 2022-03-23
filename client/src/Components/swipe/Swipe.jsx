@@ -166,7 +166,7 @@ const cardWrapper = {
 
 
 function Swipe () {
-  const currentId = "623a9cb9db7e4550a2086855";
+  const currentId = "623aae77a72fd39be4eb7bfe";
 
   const characters = db;
   const [lastDirection, setLastDirection] = useState();
