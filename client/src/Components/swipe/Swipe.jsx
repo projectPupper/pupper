@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 // import TinderCard from '../react-tinder-card/index'
 import TinderCard from 'react-tinder-card';
 import Card from '@mui/material/Card';
@@ -28,6 +29,7 @@ const db =
     offLeash: true,
   },
   chats: [],
+  swiped: [],
   username: "Inny Choi"
 },
 {
@@ -52,6 +54,7 @@ const db =
     offLeash: true,
   },
   chats: [],
+  swiped: [],
   username: "Kat"
 },
 {
@@ -76,6 +79,7 @@ const db =
     offLeash: true,
   },
   chats: [],
+  swiped: [],
   username: "Luna"
 },
 {
@@ -100,6 +104,7 @@ const db =
     offLeash: true,
   },
   chats: [],
+  swiped: [],
   username: "Marley"
 }
 ];
@@ -125,7 +130,7 @@ const cardStyle = {
 const cardContainer = {
   textAlign:'center',
   width: '90vw',
-  maxWidth: '260px',
+  maxWidth: '330px',
   height: '70vh',
   marginTop: '5vh',
   marginBottom: '3vh'
@@ -155,17 +160,38 @@ const cardWrapper = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center'
-
 }
 
 
 
 
-function Simple () {
-  const characters = db;
-  const [lastDirection, setLastDirection] = useState()
+function Swipe () {
+  const currentId = "623aae77a72fd39be4eb7bfe";
 
-  const swiped = (direction, nameToDelete) => {
+  const characters = db;
+  const [lastDirection, setLastDirection] = useState();
+  const [profileList, setprofileList] = useState(null);
+
+
+  useEffect(() => {
+    axios.get('/api/profiles', { params: { id: currentId }})
+      .then((res) => {
+        setprofileList(res.data);
+      })
+  }, []);
+
+  const swiped = (direction, nameToDelete, idToDelete) => {
+    if(direction === 'left') {
+      axios.post('/api/swipe', { id: currentId, like: false, swipedId: idToDelete })
+        .then((res) => {
+          console.log('swipe false posted!')
+        })
+    } else {
+      axios.post('/api/swipe', { id: currentId, like: true, swipedId: idToDelete })
+        .then((res) => {
+          console.log('swipe true posted!')
+        })
+    }
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
   }
@@ -176,9 +202,10 @@ function Simple () {
 
   return (
     <div className='tinderCardWrapper' style={cardWrapper}>
+      {profileList &&
       <div style={cardContainer}>
-        {characters.map((character) =>
-          <TinderCard className='swipe' style={swipeStyle} key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
+        {profileList.map((character) =>
+          <TinderCard className='swipe' style={swipeStyle} key={character.name} onSwipe={(dir) => swiped(dir, character.name, character._id)} onCardLeftScreen={() => outOfFrame(character.name)}>
             <div className='card' style={cardStyle}>
             <img src={character.imgUrl} style={{ position: "relative", width: '100%', height: '75%', borderTopLeftRadius: '10px 10px', borderTopRightRadius: '10px 10px' }}/>
               <Typography sx={fontStyle}>{character.name}</Typography>
@@ -187,9 +214,10 @@ function Simple () {
           </TinderCard>
         )}
       </div>
+      }
       {lastDirection ? <Typography className='infoText'>You swiped {lastDirection}</Typography> : <Typography className='infoText' />}
     </div>
   )
 }
 
-export default Simple
+export default Swipe
