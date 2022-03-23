@@ -23,7 +23,7 @@ const postChats = async (req, res) => {
 
 const getMatch = async (req, res) => {
   let params = req.body.id;
-
+  model.findMatch(params);
 }
 
 module.exports = {
