@@ -193,12 +193,8 @@ const cardWrapper = {
 
 
 function Swipe () {
-<<<<<<< HEAD
-  const currentId = "623b70e8d26a96dbf1b88de0";
-=======
   const { userProfile } = useMainContext();
 
->>>>>>> 07c84b81d76d15071381f9bdb9020c35bb1815f5
 
   const characters = db;
   const [lastDirection, setLastDirection] = useState();

@@ -21,9 +21,15 @@ const postChats = async (req, res) => {
   res.status(201).send();
 }
 
+const getMatch = async (req, res) => {
+  let params = req.body.id;
+
+}
+
 module.exports = {
   getChats,
-  postChats
+  postChats,
+  getMatch
 }
 //   model.getChats(params, (err, results) => {
 //   //   if (err) {

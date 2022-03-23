@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chat from './Chat.jsx';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Outlet, Link } from "react-router-dom";
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -31,6 +32,10 @@ const Match = ({ match }) => {
     e.preventDefault();
     setShowModal(false);
   }
+
+  // useEffect(() => {
+  //   axios.get()
+  // })
 
   return (
     <div>
