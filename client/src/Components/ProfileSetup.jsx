@@ -1,21 +1,20 @@
 import React from 'react';
+import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Slider, TextField } from '@mui/material';
+import { Autocomplete, Button, Slider, TextField } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
 import Typography from '@mui/material/Typography';
+import breeds from '../../../breeds.js'
+import { useMainContext } from './Providers/MainProvider.jsx';
 
 
 function ProfileSetup(props) {
+  const { userProfile, setUserProfile } = useMainContext();
   let navigate = useNavigate();
   let { username } = useParams();
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log('age', e.target.age.value);
-    console.log('energy', e.target.energy.value);
-    console.log('size', e.target.size.value);
-    navigate("/preferences");
-  }
+
+
   const sizeMarks = [
     {
       value: 1,
@@ -59,7 +58,6 @@ function ProfileSetup(props) {
       value: 1,
       label: 'Male',
     },
-
   ];
 
   const energyMarks = [
@@ -87,10 +85,9 @@ function ProfileSetup(props) {
       value: 1,
       label: 'off',
     },
-
   ];
 
-  function formatVal(value) {
+  function sizeFormatVal(value) {
     for (let i = 0; i < sizeMarks.length; i++) {
       if (sizeMarks[i].value === value) {
         return sizeMarks[i].label
@@ -130,37 +127,92 @@ function ProfileSetup(props) {
     }
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    e.persist();
+    const data = new FormData();
+    data.append('file', e.target.photo.files[0]);
+    data.append('upload_preset', 'pupper');
+    data.append('cloud_name', 'chewychewy');
+    axios.post('https://api.cloudinary.com/v1_1/chewychewy/image/upload', data)
+      .then((res) => {
+        let serverPackage = {
+          name: e.target.name.value,
+          age: ageFormatVal(Number(e.target.age.value)),
+          gender: genderFormatVal(Number(e.target.gender.value)),
+          breed: e.target.breed.value,
+          size: sizeFormatVal(Number(e.target.size.value)),
+          energy: energyFormatVal(Number(e.target.energy.value)),
+          offLeash: e.target.offLeash.value === '1' ? true : false,
+          ownerName: e.target.ownerName.value,
+          uid: userProfile,
+          imgUrl: res.data.url,
+        };
+
+        axios.post('/api/profile', serverPackage)
+          .then(() => {
+            setUserProfile(serverPackage);
+            navigate("/preferences");
+          })
+          .catch(err => console.log(`Profile post error:`, err))
+
+      })
+      .catch((err) => {
+        console.log('Cloudinary profile post err:', err);
+      });
+  }
+
+
   return (
     <>
       <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
       <form onSubmit={handleSubmit}>
+
         <PetsIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
-        <TextField id="input-with-sx" label="My name" variant="standard" /> <br />
+        <TextField id="name" label="My name" variant="standard" /> <br />
         <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
-        <TextField id="input-with-sx" label="My owner's name" variant="standard" />
-        <div style={{marginLeft: "30%", marginRight: "30%"}}>
+        <TextField id="ownerName" label="My owner's name" variant="standard" />
+        <Autocomplete
+        disablePortal
+        id="breed"
+        options={breeds}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="Breed" />}
+      />
+        <Typography style={{marginLeft: "30%", marginRight: "30%"}}>
 
 
-          <div style={{textAlign: "center", marginTop: "10px"}}>Size</div>
-          <Slider name="size" step={1} min={1} max={4} defaultValue={1} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={formatVal}/>
+          <Typography style={{textAlign: "center", marginTop: "10px"}}>Size</Typography>
+          <Slider name="size" step={1} min={1} max={4} defaultValue={1} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
 
 
-          <div style={{textAlign: "center", marginTop: "10px"}}>Pupper Gender</div>
-          <Slider name="age" step={1} min={0} max={1} defaultValue={0} marks={genderMarks} valueLabelFormat={genderFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Typography style={{textAlign: "center", marginTop: "10px"}}>Pupper Gender</Typography>
+          <Slider name="gender" step={1} min={0} max={1} defaultValue={0} marks={genderMarks} valueLabelFormat={genderFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
 
-          <div style={{textAlign: "center"}}>Pupper Age</div>
+          <Typography style={{textAlign: "center"}}>Pupper Age</Typography>
           <Slider name="age" step={1} min={1} max={3} defaultValue={0} marks={ageMarks} valueLabelFormat={ageFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
 
-          <div style={{textAlign: "center", marginTop: "10px"}}>Energy Level</div>
+          <Typography style={{textAlign: "center", marginTop: "10px"}}>Energy Level</Typography>
           <Slider name="energy" step={1} min={0} max={2} defaultValue={1} marks={energyMarks} valueLabelFormat={energyFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
 
-          <div style={{textAlign: "center", marginTop: "10px"}}>Leash On/Off</div>
-          <Slider name="energy" step={1} min={0} max={1} defaultValue={1} marks={leashMarks} valueLabelFormat={leashFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Typography style={{textAlign: "center", marginTop: "10px"}}>Leash On/Off</Typography>
+          <Slider name="offLeash" step={1} min={0} max={1} defaultValue={1} marks={leashMarks} valueLabelFormat={leashFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
-        </div>
+        </Typography>
+        <Button
+          variant="contained"
+          component="label"
+        >
+          Upload File
+          <input
+            id="photo"
+            type="file"
+            hidden
+          />
+        </Button>
         <Button type="submit">Register</Button>
       </form>
     </>

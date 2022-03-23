@@ -16,6 +16,7 @@ import Filters from './Components/Filters.jsx';
 import Typography from '@mui/material/Typography';
 import WithNavi from './Components/Layout/WithNavi.jsx';
 import WithoutNavi from './Components/Layout/WithoutNavi.jsx';
+import MainProvider from './Components/Providers/MainProvider.jsx'
 
 
 
@@ -42,21 +43,23 @@ const appElement = document.getElementById('app');
 //     </Routes></>
 
 ReactDOM.render(
-  <BrowserRouter>
-    {/* <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography> */}
-    <Routes>
-      <Route element={<WithoutNavi />}>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
-      </Route>
-      <Route element={<WithNavi />}>
-        <Route path="profile" element={<Profile />} />
-        <Route path="map" element={<Map />} />
-        <Route path="swipe" element={<Swipe />} />
-        <Route path="matches" element={<Matches />} />
-        <Route path="preferences" element={<Filters />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
+  <MainProvider>
+    <BrowserRouter>
+      {/* <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography> */}
+      <Routes>
+        <Route element={<WithoutNavi />}>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+        <Route element={<WithNavi />}>
+          <Route path="profile" element={<Profile />} />
+          <Route path="map" element={<Map />} />
+          <Route path="swipe" element={<Swipe />} />
+          <Route path="matches" element={<Matches />} />
+          <Route path="preferences" element={<Filters />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </MainProvider>,
   appElement
 );

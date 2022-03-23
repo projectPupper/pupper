@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Radio from '@mui/material/Radio';
 
+
 const Filters = () => {
 
   return (
@@ -49,6 +50,7 @@ const Filters = () => {
         }}
       >
         <ButtonGroup size="large" aria-label="large button group">
+          <Button key="extra-small" >Extra Small</Button>
           <Button key="small" >Small</Button>
           <Button key="medium">Medium</Button>
           <Button key="large">Large</Button>

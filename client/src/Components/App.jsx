@@ -24,7 +24,6 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-      {/* <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography> */}
       <BottomNavigation value={value} onChange={handleChange} showLabels={true}  sx={{
           bgcolor: '#ff9800',
           '& .Mui-selected': {

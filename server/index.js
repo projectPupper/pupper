@@ -3,7 +3,8 @@ const axios = require('axios');
 const path = require('path');
 const app = express();
 const PORT = 3000;
-// const controller = require('./Controller')
+const controller = require('./Controller')
+
 
 const db = require('../db/db.js');
 const model = require('../db');
@@ -16,6 +17,10 @@ app.use(express.json());
 app.get('/api/breeds', function(req, res) {
   res.send(breedsList.breedsList);
 })
+
+app.get('/api/profile', controller.controllerProfile.getProfile)
+
+app.post('/api/profile', controller.controllerProfile.postProfile)
 
 // DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH. KEEP AT BOTTOM.
 app.get('/*', function(req, res) {

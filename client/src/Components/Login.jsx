@@ -2,22 +2,25 @@ import React, { useState } from 'react';
 import { signInWithGoogle } from "../Firebase.js"
 import ProfileSetup from "./ProfileSetup.jsx";
 import Typography from '@mui/material/Typography';
+import { useMainContext } from './Providers/MainProvider.jsx';
 
 
 function Login() {
+  const { setUserProfile } = useMainContext()
   const [loggedIn, setLoggedIn] = useState(false);
   // setLoggedIn(true)
 
   function handleClick() {
-    // signInWithGoogle()
-    // .then(result => {
-    //   setLoggedIn(true)
-    //   console.log('google: ', result)
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // })
-      setLoggedIn(true)
+    signInWithGoogle()
+    .then(result => {
+      setUserProfile(result.user.uid);
+      setLoggedIn(true);
+      console.log('google: ', result)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+      // setLoggedIn(true)
 
   }
 
