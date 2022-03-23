@@ -5,6 +5,8 @@ import TinderCard from 'react-tinder-card';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useMainContext } from '../Providers/MainProvider.jsx';
+
 
 const db =
 [{
@@ -191,7 +193,8 @@ const cardWrapper = {
 
 
 function Swipe () {
-  const currentId = "623aae77a72fd39be4eb7bfe";
+  const { userProfile } = useMainContext();
+
 
   const characters = db;
   const [lastDirection, setLastDirection] = useState();
@@ -199,7 +202,7 @@ function Swipe () {
 
 
   useEffect(() => {
-    axios.get('/api/profiles', { params: { id: currentId }})
+    axios.get('/api/profiles', { params: { id: userProfile._id }})
       .then((res) => {
         setprofileList(res.data);
       })
@@ -207,18 +210,18 @@ function Swipe () {
 
   const swiped = (direction, nameToDelete, idToDelete) => {
     if(direction === 'left') {
-      axios.post('/api/swipe', { id: currentId, like: false, swipedId: idToDelete })
+      axios.post('/api/swipe', { id: userProfile._id, like: false, swipedId: idToDelete })
         .then((res) => {
-          console.log('swipe false posted!')
+          console.log('swipe false posted!');
         })
     } else {
-      axios.post('/api/swipe', { id: currentId, like: true, swipedId: idToDelete })
+      axios.post('/api/swipe', { id: userProfile._id, like: true, swipedId: idToDelete })
         .then((res) => {
-          console.log('swipe true posted!')
+          console.log('swipe true posted!');
         })
     }
-    console.log('removing: ' + nameToDelete)
-    setLastDirection(direction)
+    console.log('removing: ' + nameToDelete);
+    setLastDirection(direction);
   }
 
   const outOfFrame = (name) => {
