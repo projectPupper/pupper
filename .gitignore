@@ -2,3 +2,4 @@ node_modules
 main.js
 ignoreme.js
 dbconfig.js
+config.js
