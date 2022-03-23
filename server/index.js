@@ -3,7 +3,7 @@ const axios = require('axios');
 const path = require('path');
 const app = express();
 const PORT = 3000;
-// const controller = require('./Controller')
+const controller = require('./Controller')
 
 const db = require('../db/db.js');
 const model = require('../db');
@@ -15,6 +15,15 @@ app.use(express.json());
 
 app.get('/api/breeds', function(req, res) {
   res.send(breedsList.breedsList);
+})
+
+//CHAT
+app.get('/api/chats', function(req, res) {
+  controller.chats.getChats(req, res);
+})
+
+app.post('/api/chats', function(req, res) {
+  controller.chats.postChats(req, res);
 })
 
 // DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH.

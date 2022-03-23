@@ -79,12 +79,9 @@ const chatSchema = new mongoose.Schema({
 });
 
 
-
-
 // const Auth = mongoose.model('Auth', authenticationSchema);
 const Profile = mongoose.model('Profile', profileSchema);
 const Swipe = mongoose.model('Swipe', swipeSchema);
 const Chat = mongoose.model('Chat', chatSchema);
-
 
 module.exports = { Profile, Chat, Swipe };
