@@ -33,6 +33,15 @@ const postChats = async (params) => {
   }
 }
 
+const findMatch = async (params) => {
+  try {
+    db.Profile.find({_id: params})
+  }
+  catch (e){
+    print(e);
+  }
+}
+
 module.exports = {
   getChats,
   postChats
