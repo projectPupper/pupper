@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-const Match = ({ id }) => {
+const Match = ({ match }) => {
   const [showModal, setShowModal] = useState(false);
 
   const showChat = (e) => {
@@ -47,7 +47,7 @@ const Match = ({ id }) => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Chatroom
           </Typography>
-          <Chat />
+          <Chat match={match}/>
         </Box>
       </Modal>
     </div>

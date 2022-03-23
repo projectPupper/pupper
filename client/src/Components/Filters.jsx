@@ -7,20 +7,52 @@ import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Radio from '@mui/material/Radio';
+import { borders } from '@mui/system';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { orange } from '@mui/material/colors';
+
+
 
 
 const Filters = () => {
 
-  return (
-    <Box
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      '& > *': {
-        m: 1,
+  const [sizes, setSizes] = React.useState(() => []);
+
+  const handleSizes = (event, newSizes) => {
+    setSizes(newSizes);
+  };
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        light: orange[200],
+        main: "##ff9800",
+        dark: orange[800],
       },
-    }}>
+    },
+  });
+
+  const buttonStyles = {
+    color: '#6b6b6b',
+    borderColor: '#ff9800',
+    '&:hover': {
+      bgcolor: '#ffe0b2',
+      borderColor: '#f57c00'
+    },
+  };
+
+  return (
+
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        '& > *': {
+          m: 1,
+        },
+      }}>
       <Autocomplete
         disablePortal
         id="combo-box-demo"
@@ -28,17 +60,6 @@ const Filters = () => {
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Breed" />}
       />
-      {/* <Box sx={{ width: 300 }}>
-        <Slider
-          aria-label="Distance"
-          defaultValue={5}
-          valueLabelDisplay="auto"
-          step={5}
-          marks
-          min={5}
-          max={50}
-        />
-      </Box> */}
       <Box
         sx={{
           display: 'flex',
@@ -49,36 +70,44 @@ const Filters = () => {
           },
         }}
       >
-        <ButtonGroup size="large" aria-label="large button group">
-          <Button key="extra-small" >Extra Small</Button>
-          <Button key="small" >Small</Button>
-          <Button key="medium">Medium</Button>
-          <Button key="large">Large</Button>
-        </ButtonGroup>
+        <ThemeProvider theme={theme}>
+          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
+            onChange={handleSizes}>
+            <ToggleButton value="small" aria-label="small">Small</ToggleButton>
+            <ToggleButton value="medium">Medium</ToggleButton>
+            <ToggleButton value="large">Large</ToggleButton>
+          </ToggleButtonGroup>
 
-        <ButtonGroup size="large" aria-label="large button group">
-          <Button key="male">Male</Button>
-          <Button key="female" value="female" control={<Radio />}>Female</Button>
-        </ButtonGroup>
+          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
+            onChange={handleSizes} >
+            <ToggleButton value="male" aria-label="male">Male</ToggleButton>
+            <ToggleButton value="female" aria-label="female">Female</ToggleButton>
+          </ToggleButtonGroup>
 
-        <ButtonGroup size="large" aria-label="large button group">
-          <Button key="puppy" >Puppy</Button>
-          <Button key="adult">Adult</Button>
-          <Button key="senior">Senior</Button>
-        </ButtonGroup>
+          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
+            onChange={handleSizes} >
+            <ToggleButton value="puppy" aria-label="puppy" >Puppy</ToggleButton>
+            <ToggleButton value="adult" aria-label="adult">Adult</ToggleButton>
+            <ToggleButton value="senior" aria-label="senior">Senior</ToggleButton>
+          </ToggleButtonGroup>
 
-        <ButtonGroup size="large" aria-label="large button group">
-          <Button key="low" >Low</Button>
-          <Button key="medium">Medium</Button>
-          <Button key="high">High</Button>
-        </ButtonGroup>
+          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
+            onChange={handleSizes} >
+            <ToggleButton value="low" aria-label="low" >Low</ToggleButton>
+            <ToggleButton value="medium" aria-label="medium">Medium</ToggleButton>
+            <ToggleButton value="high" aria-label="high">High</ToggleButton>
+          </ToggleButtonGroup>
 
-        <ButtonGroup size="large" aria-label="large button group">
-          <Button key="yes" >Yes</Button>
-          <Button key="no">No</Button>
-        </ButtonGroup>
+          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
+            onChange={handleSizes} >
+            <ToggleButton value="yes" aria-label="yes" >Yes</ToggleButton>
+            <ToggleButton value="no" aria-label="no">No</ToggleButton>
+          </ToggleButtonGroup>
+        </ThemeProvider>
+
       </Box>
     </Box>
+
   )
 }
 
