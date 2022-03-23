@@ -41,7 +41,7 @@ const profileSchema = new mongoose.Schema({
   ownerNumber: String,
   location: String,
   aboutMe: String,
-  photos: [],
+  imgUrl: String,
   prefrences: {
     age: {
       type: String,

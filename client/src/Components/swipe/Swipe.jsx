@@ -106,6 +106,31 @@ const db =
   chats: [],
   swiped: [],
   username: "Marley"
+},
+{
+  name: "Brownie",
+  age: "Senior",
+  gender: "Female",
+  imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/04/Labrador_Retriever_%281210559%29.jpg",
+  breed: "Bichon Frisé",
+  size: "Small",
+  energy: "Medium",
+  offLeash: false,
+  ownerName: "Glo",
+  ownerNumber: "132-456-8569",
+  location: "Chicago, Illinois",
+  aboutMe: "hmm treats!",
+  photos: [],
+  prefrences: {
+    age: "Adult",
+    breed: ["Bichon Frisé", "Labrador"],
+    size: "Small",
+    energy: "Medium",
+    offLeash: true,
+  },
+  chats: [],
+  swiped: [],
+  username: "Glo"
 }
 ];
 
