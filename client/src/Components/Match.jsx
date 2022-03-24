@@ -7,13 +7,13 @@ import Modal from '@mui/material/Modal';
 import { Outlet, Link } from "react-router-dom";
 import axios from 'axios';
 import { useMainContext } from './Providers/MainProvider.jsx';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const style = {
   position: 'absolute',
@@ -27,6 +27,17 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const iconStyle = {
+  position: 'relative',
+  width: 70,
+  height: 70
+  // margin: 4,
+};
+
+const gridStyle = {
+  alignItems: 'center'
+}
 
 const Match = ({ match }) => {
   const [showModal, setShowModal] = useState(false);
@@ -60,14 +71,26 @@ const Match = ({ match }) => {
 
   return matchData && (
     <div>
-      <Stack direction="row" spacing={2}>
-        <Avatar
-        src={matchData.imgUrl}
-        alt="Profile Pic"
-        />
-        <Button onClick={showChat}>Chat</Button>
-        <Button>Remove</Button>
-      </Stack>
+      <Box sx={{ flexGrow: 1, alignItems: 'center', justifyContent: 'space-between', m: 5 }}>
+        <Grid container spacing={4} sx={gridStyle}>
+          <Grid item xs={3}>
+            <Avatar
+            src={matchData.imgUrl}
+            alt="Profile Pic"
+            sx={iconStyle}
+            />
+           </Grid>
+           <Grid item xs={3}>
+            <Typography>{matchData.name}</Typography>
+           </Grid>
+           <Grid item xs={2}>
+            <Button onClick={showChat}>Chat</Button>
+           </Grid>
+           <Grid item xs={2}>
+            <Button>Remove</Button>
+           </Grid>
+        </Grid>
+      </Box>
       <Modal
         open={showModal}
         onClose={closeChat}
@@ -75,8 +98,8 @@ const Match = ({ match }) => {
         aria-describedby="modal-modal-description"
         >
         <Box sx={style}>
-        <Button onClick={closeChat}>Close Chat</Button>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+        <IconButton sx={{ml: 2}} onClick={closeChat}><ArrowBackIcon/></IconButton>
+          <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
             Chatroom
           </Typography>
           <Chat match={match}/>
