@@ -82,7 +82,6 @@ const modalStyle = {
 };
 
 
-
 function Swipe () {
   const { userProfile } = useMainContext();
   const [open, setOpen] = useState(false);

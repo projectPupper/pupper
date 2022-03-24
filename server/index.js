@@ -18,14 +18,17 @@ app.get('/api/breeds', function(req, res) {
 })
 
 
-//CHAT
+//CHAT/MATCH
 app.get('/api/chats', function(req, res) {
   controller.chats.getChats(req, res);
 })
 app.post('/api/chats', function(req, res) {
   controller.chats.postChats(req, res);
 })
-app.get('/api/match', controller.chats.getMatch);
+//CHAT MESSAGES
+app.get('/api/messages', function(req, res) {
+  controller.chats.getMessages(req, res);
+})
 
 // AUTHENTICATE
 app.get('/api/profile', controller.controllerProfile.getProfile)
