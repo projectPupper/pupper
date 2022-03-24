@@ -18,18 +18,14 @@ function ProfileSetup(props) {
   const sizeMarks = [
     {
       value: 1,
-      label: 'Extra Small',
-    },
-    {
-      value: 2,
       label: 'Small',
     },
     {
-      value: 3,
+      value: 2,
       label: 'Medium',
     },
     {
-      value: 4,
+      value: 3,
       label: 'Large',
     }
   ];
@@ -183,7 +179,7 @@ function ProfileSetup(props) {
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Size</Typography>
-          <Slider name="size" step={1} min={1} max={4} defaultValue={1} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
+          <Slider name="size" step={1} min={1} max={3} defaultValue={1} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Pupper Gender</Typography>
