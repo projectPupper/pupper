@@ -4,7 +4,6 @@ const getChats = async (params, callback) => {
   try {
     db.Profile.find({ _id: params})
       .then((result) => {
-        console.log('get model result', result);
         db.Chat.find({_id: result[0].chats})
         .then((results) => {
           callback(null, results);
@@ -17,7 +16,6 @@ const getChats = async (params, callback) => {
 }
 
 const postChats = async (params) => {
-  console.log('new params', params);
 
   try {
     db.Chat.updateOne(
@@ -33,16 +31,18 @@ const postChats = async (params) => {
   }
 }
 
-const findMatch = async (params) => {
-  try {
-    db.Profile.find({_id: params})
-  }
-  catch (e){
-    print(e);
-  }
+const getMessages = async (params, callback) => {
+  db.Chat.find({_id: params})
+  .then((results) => {
+    callback(null, results);
+  })
+  .catch((err) => {
+    console.log('error with getting chat', err);
+  })
 }
 
 module.exports = {
   getChats,
-  postChats
+  postChats,
+  getMessages
 }
