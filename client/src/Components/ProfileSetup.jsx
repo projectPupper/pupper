@@ -205,6 +205,7 @@ function ProfileSetup(props) {
         <Button
           variant="contained"
           component="label"
+          onClick={() => {console.log('im clicked')}}
         >
           Upload File
           <input

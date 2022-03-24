@@ -6,19 +6,18 @@ import { Typography } from '@mui/material';
 function Profile() {
   const { userProfile } = useMainContext();
 
-
+  console.log('userProfile: ', userProfile)
   return (
     <>
-    {/* Profile Pic
-    <Typography>Name</Typography>
-    {userProfile.name}
-    <Typography>Age</Typography>
-    {userProfile.age}
-    <Typography>Breed</Typography>
-    Breed
-    {userProfile.breed} */}
+      <img src={userProfile.imgUrl} width="" height=""/>
+      <Typography>Name</Typography>
+      {userProfile.name}
 
+      <Typography>Age</Typography>
+      {userProfile.age}
 
+      <Typography>Breed</Typography>
+      {userProfile.breed}
     </>
   )
 }
