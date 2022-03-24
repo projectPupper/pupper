@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import { borderRadius } from '@mui/system';
-import { allowRefresh } from './Providers/AllowRefresh';
+import { useMainContext } from './Providers/MainProvider';
 
 const profileContainer = {
   display: 'flex',
@@ -48,20 +48,21 @@ const titleStyle = {
 }
 
 function Profile() {
+  const { userProfile } = useMainContext();
 
   return (
     <div className='profileContainer' style={profileContainer}>
       <Card className='card' raised="true" style={cardStyle}>
-        <Typography style={titleStyle}>{allowRefresh("name")}</Typography>
+        <Typography style={titleStyle}>{userProfile.name}</Typography>
 
         <div className='imgContainer' style={imgContainer}>
           <img className='img' style={imgStyle} src={allowRefresh("imgUrl")} />
         </div>
 
-        <Typography>Age {allowRefresh("age")}</Typography>
-        <Typography>Breed {allowRefresh("breed")}</Typography>
-        <Typography>Owner {allowRefresh("ownerName")}</Typography>
-        <Typography>Energy {allowRefresh("energy")}</Typography>
+        <Typography>Age {userProfile.age}</Typography>
+        <Typography>Breed {userProfile.breed}</Typography>
+        <Typography>Owner {userProfile.ownerName}</Typography>
+        <Typography>Energy {userProfile.energy}</Typography>
 
       </Card>
     </div>
