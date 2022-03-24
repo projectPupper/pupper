@@ -191,7 +191,6 @@ const cardWrapper = {
 
 
 
-
 function Swipe () {
   const { userProfile } = useMainContext();
 
