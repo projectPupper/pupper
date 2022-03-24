@@ -5,6 +5,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material';
 import mapStyles from './mapStyles';
 import useStyles from './map-styles.js';
 import axios from 'axios';
+import {REACT_APP_GOOGLE_MAPS_API_KEY, YELP_API_KEY } from '../../../config.js';
 
 
 const Map = () => {
@@ -26,7 +27,7 @@ const Map = () => {
     axios.get(
       `${corsApiUrl}/https://api.yelp.com/v3/businesses/search?term=vet&latitude=52&longitude=13`,
       {headers: {
-              "Authorization": `Bearer ${''}`
+              "Authorization": `Bearer ${YELP_API_KEY}`
               },
               // params: {
               //   term: 'vet',
@@ -46,7 +47,7 @@ const Map = () => {
     <div className={classes.mapContainer}>
       {console.log('Coords : ', coords)}
       <GoogleMapReact
-      bootstrapURLKeys={{ key: 'AIzaSyAjdy0uLt2_Ajynp6TpfhGZh0ym1C4v-eU' }}
+      bootstrapURLKeys={{ key: REACT_APP_GOOGLE_MAPS_API_KEY}}
       defaultCenter={coords}
       center={coords}
       defaultZoom={15}

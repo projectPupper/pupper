@@ -6,6 +6,14 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Outlet, Link } from "react-router-dom";
 import axios from 'axios';
+import { useMainContext } from './Providers/MainProvider.jsx';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
 const style = {
   position: 'absolute',
@@ -22,6 +30,8 @@ const style = {
 
 const Match = ({ match }) => {
   const [showModal, setShowModal] = useState(false);
+  const { userProfile, setUserProfile } = useMainContext();
+  const [matchData, setMatchData] = useState(null);
 
   const showChat = (e) => {
     e.preventDefault();
@@ -33,14 +43,31 @@ const Match = ({ match }) => {
     setShowModal(false);
   }
 
-  // useEffect(() => {
-  //   axios.get()
-  // })
+  useEffect(() => {
+    const params = {};
+    if (userProfile._id === match.users[0]) {
+      params._id = match.users[1];
+    } else {
+      params._id = match.users[0];
+    }
+    console.log('params', params);
+    axios.get('/api/profile', {params})
+      .then((res) => {
+        console.log('match 1', res.data)
+        setMatchData(res.data);
+      })
+  }, []);
 
-  return (
+  return matchData && (
     <div>
-      <Button onClick={showChat}>Chat</Button>
-      <Button>Remove</Button>
+      <Stack direction="row" spacing={2}>
+        <Avatar
+        src={matchData.imgUrl}
+        alt="Profile Pic"
+        />
+        <Button onClick={showChat}>Chat</Button>
+        <Button>Remove</Button>
+      </Stack>
       <Modal
         open={showModal}
         onClose={closeChat}
