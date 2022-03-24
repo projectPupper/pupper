@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useMainContext } from './Providers/MainProvider.jsx'
 import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
+<<<<<<< HEAD
 import { borderRadius } from '@mui/system';
+=======
+import { allowRefresh } from './Providers/AllowRefresh';
+>>>>>>> 258782ad63b31233fb5926f03a2fbfa1fcf44012
 
 const profileContainer = {
   display: 'flex',
@@ -38,9 +41,7 @@ const titleStyle = {
 }
 
 function Profile() {
-  const { userProfile } = useMainContext();
 
-  console.log('userProfile: ', userProfile)
   return (
     <div className='profileContainer' style={profileContainer}>
       <Card className='card' raised="true" style={cardStyle}>
@@ -53,10 +54,20 @@ function Profile() {
           <Typography>Breed {userProfile.breed}</Typography>
           <Typography>Owner {userProfile.ownerName}</Typography>
           <Typography>Energy {userProfile.energy}</Typography>
-          
+
 
 
       </Card>
+      <img className='img' style={imgStyle} src={allowRefresh("imgUrl")} width="" height=""/>
+      <Typography>Name</Typography>
+      {allowRefresh("name")}
+
+      <Typography>Age</Typography>
+      {allowRefresh("age")}
+
+      <Typography>Breed</Typography>
+      {allowRefresh("breed")}
+
     </div>
   )
 }

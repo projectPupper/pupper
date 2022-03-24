@@ -5,8 +5,12 @@ import LocationOnOutlinedIcon from '@mui/icons-material';
 import mapStyles from './mapStyles';
 import useStyles from './map-styles.js';
 import axios from 'axios';
+<<<<<<< HEAD
 import { REACT_APP_GOOGLE_MAPS_API_KEY, YELP_API_KEY } from '../../../config.js';
 
+=======
+import {REACT_APP_GOOGLE_MAPS_API_KEY, YELP_API_KEY } from '../../../config.js';
+>>>>>>> 258782ad63b31233fb5926f03a2fbfa1fcf44012
 
 const Map = () => {
   const media = useMediaQuery('(min-width:600px)');
@@ -47,7 +51,7 @@ const Map = () => {
     <div className={classes.mapContainer}>
       {console.log('Coords : ', coords)}
       <GoogleMapReact
-      bootstrapURLKeys={{ key: REACT_APP_GOOGLE_MAPS_API_KEY }}
+      bootstrapURLKeys={{ key: REACT_APP_GOOGLE_MAPS_API_KEY}}
       defaultCenter={coords}
       center={coords}
       defaultZoom={15}

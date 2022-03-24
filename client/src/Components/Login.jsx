@@ -22,12 +22,14 @@ function Login() {
           .then((result) => {
             // console.log("result.data", result.data)
             if (result.data.name) {
-              setUserProfile(result.data)
+              setUserProfile(result.data);
+              localStorage.setItem('userProfile', JSON.stringify(result.data));
               navigate("/swipe");
             } else {
               setUserProfile(user.uid);
               setLoggedIn(true);
             }
+            localStorage.setItem('uid', user.uid);
           })
       } else {
         setLoading(false);

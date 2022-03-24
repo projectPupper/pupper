@@ -4,10 +4,12 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import ReactDom from 'react-dom';
 import axios from 'axios';
+import { useMainContext } from './Providers/MainProvider.jsx';
 
 const Chat = ({ closeChat, match }) => {
   const [input, setInput] = useState('Send a message');
   const [chats, setChats] = useState(match);
+  const { userProfile, setUserProfile } = useMainContext();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -19,27 +21,31 @@ const Chat = ({ closeChat, match }) => {
       users: match.users,
       message: {
         body: e.target.value,
-        sender: "623bae17d26a96dbf1b8f943"
+        sender: userProfile._id
       }
     }
     setInput(message);
   }
 
+  var intervalID = setInterval(getMessages, 500);
+
+  const getMessages = () => {
+    let params = {"id": match._id};
+
+    axios.get('/api/messages', {params})
+    .then((res) => {
+      const data = res.data[0];
+      console.log('match data', data);
+      setChats(data);
+    })
+  }
+
   const sendMessage = (e) => {
     e.preventDefault();
 
-    let params = {"id": "623bae17d26a96dbf1b8f943"};
-
     axios.post('/api/chats', input)
-    //get doesn't work
     .then(() => {
-      axios.get('/api/chat', {params})
-      .then((res) => {
-        const data = res.data;
-        console.log('chat data', data);
-
-        setChats(data);
-      })
+      getMessages();
     })
     setInput('Send a message');
   }
@@ -51,8 +57,10 @@ const Chat = ({ closeChat, match }) => {
           return <Messages message={message} key={index} />
         })
       }
-      <TextField id="filled-basic" label="Send a message" variant="filled" onChange={handleChange} />
-      <Button onClick={sendMessage}>Send</Button>
+      <div style={{display: 'flex', flexDirection: 'row', position: 'fixed', bottom: '8%', width: '80%', justifyContent: 'space-evenly'}}>
+        <TextField id="filled-basic" label="Send a message" variant="filled" onChange={handleChange} />
+        <Button onClick={sendMessage}>Send</Button>
+      </div>
     </div>
   )
 }
