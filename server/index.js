@@ -3,7 +3,9 @@ const axios = require('axios');
 const path = require('path');
 const app = express();
 const PORT = 3000;
-const controller = require('./Controller')
+const controller = require('./Controller');
+const yelp = require('yelp-fusion');
+const apiKey = 'BwDL8KP6X9hDs-HgPPLomyUfctPLyAUyBcIhfXcowvAABUJMhlgJQeiMchnp7Q4gOmX3JC8hv0Oij_xp-es7q0ei0qpI_YDq-MJUWAPL9JVfPltLIhvvkB3OMf84YnYx';
 
 const db = require('../db/db.js');
 const model = require('../db');
@@ -38,7 +40,28 @@ app.post('/api/profiles', controller.profiles.postProfiles);
 //get profiles except for main user
 app.get('/api/profiles', controller.profiles.getOtherProfiles);
 
+//Yelp
+app.get(`/api/yelp`, (req, res) => {
+  {console.log('REQ :', req.query)}
+  const searchRequest = {
+    // term: req.query.term,
+    // latitude: req.query.lat,
+    // longitude: req.query.lng
+    term:req.query.term,
+    latitude: Number(req.query.latitude),
+    longitude: Number(req.query.longitude)
+  };
 
+  const client = yelp.client(apiKey);
+  client.search(searchRequest).then(response => {
+    const allResult = response.jsonBody.businesses;
+    const prettyJson = JSON.stringify(allResult, null, 4);
+    // console.log('PJSON :', prettyJson);
+    res.send(prettyJson);
+  }).catch(e => {
+    console.log(e);
+  });
+})
 
 // DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH. KEEP AT BOTTOM.
 app.get('/*', function(req, res) {
