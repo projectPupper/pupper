@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
-<<<<<<< HEAD
 import { borderRadius } from '@mui/system';
-=======
 import { allowRefresh } from './Providers/AllowRefresh';
->>>>>>> 258782ad63b31233fb5926f03a2fbfa1fcf44012
 
 const profileContainer = {
   display: 'flex',
@@ -45,29 +42,16 @@ function Profile() {
   return (
     <div className='profileContainer' style={profileContainer}>
       <Card className='card' raised="true" style={cardStyle}>
-        <Typography style={titleStyle}>{userProfile.name}</Typography>
+        <Typography style={titleStyle}>{allowRefresh("name")}</Typography>
 
+        <img className='img' style={imgStyle} src={allowRefresh("imgUrl")} width="" height=""/>
 
-          <img className='img' style={imgStyle} src={userProfile.imgUrl} width="" height=""/>
-
-          <Typography>Age {userProfile.age}</Typography>
-          <Typography>Breed {userProfile.breed}</Typography>
-          <Typography>Owner {userProfile.ownerName}</Typography>
-          <Typography>Energy {userProfile.energy}</Typography>
-
-
+        <Typography>Age {allowRefresh("age")}</Typography>
+        <Typography>Breed {allowRefresh("breed")}</Typography>
+        <Typography>Owner {allowRefresh("ownerName")}</Typography>
+        <Typography>Energy {allowRefresh("energy")}</Typography>
 
       </Card>
-      <img className='img' style={imgStyle} src={allowRefresh("imgUrl")} width="" height=""/>
-      <Typography>Name</Typography>
-      {allowRefresh("name")}
-
-      <Typography>Age</Typography>
-      {allowRefresh("age")}
-
-      <Typography>Breed</Typography>
-      {allowRefresh("breed")}
-
     </div>
   )
 }
