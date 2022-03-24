@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -13,29 +14,61 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { orange } from '@mui/material/colors';
 import breedList from '../../../breeds.js';
+import axios from 'axios';
+import { useMainContext } from './Providers/MainProvider.jsx'
 
 
 
 
 const Filters = () => {
+  const { userProfile } = useMainContext();
+  const [sizes, setSizes] = React.useState('');
+  const [gender, setGenders] = React.useState('');
+  const [age, setAges] = React.useState('');
+  const [energy, setEnergy] = React.useState('');
+  const [leash, setLeash] = React.useState('');
 
-  const [sizes, setSizes] = React.useState(() => []);
-  const [preferences, setPreferences] = React.useState(() => {});
-
-  const handleSizes = (event, newSizes) => {
-    setSizes(newSizes);
-    console.log(event);
+  const handleSizes = (event, input) => {
+    setSizes(input);
   };
 
-  const handlePreferences = (event, preference) => {
-    setPreferences(event.target.value = preference);
-    console.log(preferences);
+  const handleGenders = (event, input) => {
+    setGenders(input);
+  };
+
+  const handleAges = (event, input) => {
+    setAges(input);
+  };
+
+  const handleEnergy = (event, input) => {
+    setEnergy(input);
+  };
+
+  const handleLeash = (event, input) => {
+    setLeash(input);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const preference = {
+      input: {
+      age,
+      size: sizes,
+      gender,
+      energy,
+      offLeash: leash === 'No'
+      },
+      id: userProfile._id
+    }
+    axios.post('/api/preference', preference)
+      .then((res) => {
+        console.log('preference posted!')
+      })
+      .catch((err) => {
+        console.log('preference post error!')
+      })
+    console.log(preference);
   }
-
-
-  // const handleEnergy = (event, newEnergy) => {
-  //   setEnergy(newEnergy);
-  // };
 
   const theme = createTheme({
     palette: {
@@ -66,6 +99,7 @@ const Filters = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        marginTop: 3,
         '& > *': {
           m: 1,
         },
@@ -89,49 +123,53 @@ const Filters = () => {
           },
         }}
       >
-        <ThemeProvider theme={theme}>
+        <form onSubmit={(e) => handleSubmit(e)} style={
+          {display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'}}>
+        <Stack spacing={1} direction="column" justifyContent="center" alignItems="center" >
         <Typography style={{ fontSize: 14, fontWeight: 400, color: '#ff9800', textAlign: 'left', fontFamily:'Roboto' }}>Size</Typography>
-          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
+          <ToggleButtonGroup exclusive fullWidth size="medium" aria-label="size button group" value={sizes}
             onChange={handleSizes}>
-            <ToggleButton value="extraSmall" aria-label="extraSmall">Extra Small</ToggleButton>
-            <ToggleButton value="small" aria-label="small">Small</ToggleButton>
-            <ToggleButton value="medium">Medium</ToggleButton>
-            <ToggleButton value="large">Large</ToggleButton>
+            <ToggleButton value="Small" aria-label="small">Small</ToggleButton>
+            <ToggleButton value="Medium">Medium</ToggleButton>
+            <ToggleButton value="Large">Large</ToggleButton>
           </ToggleButtonGroup>
 
           <Typography style={{ fontSize: 14, fontWeight: 400, color: '#ff9800', textAlign: 'left', fontFamily:'Roboto' }}>Gender</Typography>
-          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
-            onChange={handleSizes, handlePreferences}>
-            <ToggleButton value="male" aria-label="male">Male</ToggleButton>
-            <ToggleButton value="female" aria-label="female">Female</ToggleButton>
+          <ToggleButtonGroup exclusive fullWidth size="medium" aria-label="gender button group" value={gender}
+            onChange={handleGenders}>
+            <ToggleButton value="Male" aria-label="male">Male</ToggleButton>
+            <ToggleButton value="Female" aria-label="female">Female</ToggleButton>
           </ToggleButtonGroup>
 
           <Typography style={{ fontSize: 14, fontWeight: 400, color: '#ff9800', textAlign: 'left', fontFamily:'Roboto' }}>Age</Typography>
-          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
-            onChange={handleSizes} >
-            <ToggleButton value="puppy" aria-label="puppy" >Puppy</ToggleButton>
-            <ToggleButton value="adult" aria-label="adult">Adult</ToggleButton>
-            <ToggleButton value="senior" aria-label="senior">Senior</ToggleButton>
+          <ToggleButtonGroup exclusive fullWidth size="medium" aria-label="age button group" value={age}
+            onChange={handleAges} >
+            <ToggleButton value="Puppy" aria-label="puppy" >Puppy</ToggleButton>
+            <ToggleButton value="Adult" aria-label="adult">Adult</ToggleButton>
+            <ToggleButton value="Senior" aria-label="senior">Senior</ToggleButton>
           </ToggleButtonGroup>
 
           <Typography style={{ fontSize: 14, fontWeight: 400, color: '#ff9800', textAlign: 'left', fontFamily:'Roboto' }}>Energy Level</Typography>
-          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
-            onChange={handleSizes} >
-            <ToggleButton value="low" aria-label="low" >Low</ToggleButton>
+          <ToggleButtonGroup exclusive fullWidth size="medium" aria-label="energy button group" value={energy}
+            onChange={handleEnergy} >
+            <ToggleButton value="Low" aria-label="low" >Low</ToggleButton>
             <ToggleButton value="Medium" aria-label="medium">Medium</ToggleButton>
-            <ToggleButton value="high" aria-label="high">High</ToggleButton>
+            <ToggleButton value="High" aria-label="high">High</ToggleButton>
           </ToggleButtonGroup>
 
           <Typography style={{ fontSize: 14, fontWeight: 400, color: '#ff9800', textAlign: 'left', fontFamily:'Roboto' }}>Ideal Play Session</Typography>
-          <ToggleButtonGroup fullWidth size="medium" aria-label="medium button group" value={sizes}
-            onChange={handleSizes} >
-            <ToggleButton value="yes" aria-label="yes" >On-Leash</ToggleButton>
-            <ToggleButton value="no" aria-label="no">Off-Leash</ToggleButton>
+          <ToggleButtonGroup exclusive fullWidth size="medium" aria-label="offleash button group" value={leash}
+            onChange={handleLeash} >
+            <ToggleButton value="Yes" aria-label="yes" >On-Leash</ToggleButton>
+            <ToggleButton value="No" aria-label="no">Off-Leash</ToggleButton>
           </ToggleButtonGroup>
-        </ThemeProvider>
-        <ThemeProvider theme={theme}>
-          <Button variant="contained" sx={{bgcolor: '#ff9800', '&:hover': {bgcolor: '#ff9800'}}}>Submit</Button>
-        </ThemeProvider>
+          </Stack>
+          <Button variant="contained" type="submit" sx={{bgcolor: '#ff9800', '&:hover': {bgcolor: '#ff9800'}, padding: '6px 130px', marginTop: 5}}>Submit</Button>
+
+        </form>
       </Box>
     </Box>
 
