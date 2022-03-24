@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { signInWithGoogle, auth, onAuthStateChanged } from "../Firebase.js"
 import ProfileSetup from "./ProfileSetup.jsx";
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { useMainContext } from './Providers/MainProvider.jsx';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadingButton from '@mui/lab/LoadingButton';
-
 
 function Login() {
   const { setUserProfile } = useMainContext()
@@ -28,6 +28,7 @@ function Login() {
               setUserProfile(user.uid);
               setLoggedIn(true);
             }
+            localStorage.setItem('uid', user.uid);
           })
       } else {
         setLoading(false);
@@ -55,7 +56,7 @@ function Login() {
         :
         <>
           <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
-          <LoadingButton loading={loading} variant="contained" onClick={handleClick}>login chewy</LoadingButton>
+          <LoadingButton loading={loading} variant="contained" sx={{backgroundColor:'#ff9800'}} onClick={handleClick}>login chewy</LoadingButton>
         </>
       }
     </>
