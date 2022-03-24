@@ -19,7 +19,7 @@ const Chat = ({ closeChat, match }) => {
       users: match.users,
       message: {
         body: e.target.value,
-        sender: '623aae77a72fd39be4eb7bfe'
+        sender: "623bae17d26a96dbf1b8f943"
       }
     }
     setInput(message);
@@ -28,7 +28,7 @@ const Chat = ({ closeChat, match }) => {
   const sendMessage = (e) => {
     e.preventDefault();
 
-    let params = {"id": "623aae77a72fd39be4eb7bfe"};
+    let params = {"id": "623bae17d26a96dbf1b8f943"};
 
     axios.post('/api/chats', input)
     //get doesn't work

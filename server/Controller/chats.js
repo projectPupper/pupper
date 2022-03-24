@@ -1,4 +1,4 @@
-const model = require('../model/chats.js');
+const model = require('../Model/chats.js');
 
 const getChats = async (req, res) => {
   let params = req.query.id;
