@@ -72,12 +72,13 @@ const modalStyle = {
   left: '50%',
   width: '70vw',
   maxWidth: 330,
-  height: "50vh",
+  height: "60vh",
   transform: 'translate(-50%, -50%)',
   borderRadius: 3,
   bgcolor: 'background.paper',
   boxShadow: 24,
-  alignItems: 'flex-start'
+  alignItems: 'center',
+  flexDirection: 'column'
 };
 
 
