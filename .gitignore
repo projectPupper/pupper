@@ -2,5 +2,5 @@ node_modules
 main.js
 ignoreme.js
 dbconfig.js
-.env
 config.js
+

@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Autocomplete, Button, Slider, TextField } from '@mui/material';
+import { Autocomplete, Button, Slider, TextField, TextareaAutosize } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
+import InfoIcon from '@mui/icons-material/Info';
 import Typography from '@mui/material/Typography';
 import breeds from '../../../breeds.js'
 import { useMainContext } from './Providers/MainProvider.jsx';
@@ -18,18 +19,14 @@ function ProfileSetup(props) {
   const sizeMarks = [
     {
       value: 1,
-      label: 'Extra Small',
-    },
-    {
-      value: 2,
       label: 'Small',
     },
     {
-      value: 3,
+      value: 2,
       label: 'Medium',
     },
     {
-      value: 4,
+      value: 3,
       label: 'Large',
     }
   ];
@@ -145,6 +142,7 @@ function ProfileSetup(props) {
           energy: energyFormatVal(Number(e.target.energy.value)),
           offLeash: e.target.offLeash.value === '1' ? true : false,
           ownerName: e.target.ownerName.value,
+          aboutMe: e.target.aboutMe.value,
           uid: userProfile,
           imgUrl: res.data.url,
         };
@@ -152,6 +150,8 @@ function ProfileSetup(props) {
         axios.post('/api/profile', serverPackage)
           .then((result) => {
             setUserProfile(result.data);
+            localStorage.setItem('userProfile', JSON.stringify(result.data));
+            localStorage.setItem('uid', result.data.uid)
             navigate("/preferences");
           })
           .catch(err => console.log(`Profile post error:`, err))
@@ -170,6 +170,8 @@ function ProfileSetup(props) {
 
         <PetsIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
         <TextField id="name" label="My name" variant="standard" /> <br />
+        <InfoIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
+        <TextareaAutosize id="aboutMe" aria-label="empty textarea" minRows={4} placeholder="About Me" style={{ width : 200 }} /> <br />
         <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
         <TextField id="ownerName" label="My owner's name" variant="standard" />
         <Autocomplete
@@ -183,7 +185,7 @@ function ProfileSetup(props) {
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Size</Typography>
-          <Slider name="size" step={1} min={1} max={4} defaultValue={1} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
+          <Slider name="size" step={1} min={1} max={3} defaultValue={1} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Pupper Gender</Typography>
@@ -205,6 +207,7 @@ function ProfileSetup(props) {
         <Button
           variant="contained"
           component="label"
+          onClick={() => {console.log('im clicked')}}
         >
           Upload File
           <input
