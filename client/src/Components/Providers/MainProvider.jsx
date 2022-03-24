@@ -13,7 +13,7 @@ export const localUID = localStorage.uid;
 export default function MainProvider({ children }) {
   const [userProfile, setUserProfile] = useState();
 
-  if (!userProfile) {
+  if (!userProfile && localUserProfile) {
     setUserProfile(localUserProfile);
   }
 
