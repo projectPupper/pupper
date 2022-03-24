@@ -103,7 +103,7 @@ const Match = ({ match }) => {
           <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
             Pup Pod
           </Typography>
-          <Chat match={match}/>
+          <Chat match={match} closeChat={showModal}/>
         </Box>
       </Modal>
     </div>
