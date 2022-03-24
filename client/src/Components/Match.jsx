@@ -14,7 +14,6 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const style = {
@@ -86,7 +85,7 @@ const Match = ({ match }) => {
             <Typography>{matchData.name}</Typography>
            </Grid>
            <Grid item xs={2}>
-            <Button onClick={showChat}><ChatBubbleIcon/></Button>
+            <Button onClick={showChat}>Chat</Button>
            </Grid>
            <Grid item xs={2}>
             <Button><DeleteIcon/></Button>
@@ -102,7 +101,7 @@ const Match = ({ match }) => {
         <Box sx={style}>
         <IconButton sx={{ml: 2}} onClick={closeChat}><ArrowBackIcon/></IconButton>
           <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
-            Chatroom
+            Pup Pod
           </Typography>
           <Chat match={match}/>
         </Box>
