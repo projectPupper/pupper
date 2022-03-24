@@ -51,8 +51,10 @@ const Chat = ({ closeChat, match }) => {
           return <Messages message={message} key={index} />
         })
       }
-      <TextField id="filled-basic" label="Send a message" variant="filled" onChange={handleChange} />
-      <Button onClick={sendMessage}>Send</Button>
+      <div style={{display: 'flex', flexDirection: 'row', position: 'fixed', bottom: '8%', width: '80%', justifyContent: 'space-evenly'}}>
+        <TextField id="filled-basic" label="Send a message" variant="filled" onChange={handleChange} />
+        <Button onClick={sendMessage}>Send</Button>
+      </div>
     </div>
   )
 }
