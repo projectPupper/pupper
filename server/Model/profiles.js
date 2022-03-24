@@ -8,7 +8,7 @@ module.exports = {
   getOtherProfiles: (query, cb) => {
     db.Profile.find({_id: query.id})
     .then((res) => {
-      // console.log(res);
+      console.log(res, query);
       let swipedList = res[0].swiped;
       swipedList.push(query.id);
       db.Profile.find({ _id: {$nin: swipedList} })

@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -14,12 +15,13 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { orange } from '@mui/material/colors';
 import breedList from '../../../breeds.js';
 import axios from 'axios';
+import { useMainContext } from './Providers/MainProvider.jsx'
 
 
 
 
 const Filters = () => {
-
+  const { userProfile } = useMainContext();
   const [sizes, setSizes] = React.useState('');
   const [gender, setGenders] = React.useState('');
   const [age, setAges] = React.useState('');
@@ -49,11 +51,14 @@ const Filters = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const preference = {
+      input: {
       age,
       size: sizes,
       gender,
       energy,
       offLeash: leash === 'No'
+      },
+      id: userProfile._id
     }
     axios.post('/api/preference', preference)
       .then((res) => {
@@ -94,6 +99,7 @@ const Filters = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        marginTop: 3,
         '& > *': {
           m: 1,
         },
@@ -117,8 +123,12 @@ const Filters = () => {
           },
         }}
       >
-        <form onSubmit={(e) => handleSubmit(e)} >
-        <ThemeProvider theme={theme}>
+        <form onSubmit={(e) => handleSubmit(e)} style={
+          {display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'}}>
+        <Stack spacing={1} direction="column" justifyContent="center" alignItems="center" >
         <Typography style={{ fontSize: 14, fontWeight: 400, color: '#ff9800', textAlign: 'left', fontFamily:'Roboto' }}>Size</Typography>
           <ToggleButtonGroup exclusive fullWidth size="medium" aria-label="size button group" value={sizes}
             onChange={handleSizes}>
@@ -156,10 +166,9 @@ const Filters = () => {
             <ToggleButton value="Yes" aria-label="yes" >On-Leash</ToggleButton>
             <ToggleButton value="No" aria-label="no">Off-Leash</ToggleButton>
           </ToggleButtonGroup>
-        </ThemeProvider>
-        <ThemeProvider theme={theme}>
-          <Button variant="contained" type="submit" sx={{bgcolor: '#ff9800', '&:hover': {bgcolor: '#ff9800'}}}>Submit</Button>
-        </ThemeProvider>
+          </Stack>
+          <Button variant="contained" type="submit" sx={{bgcolor: '#ff9800', '&:hover': {bgcolor: '#ff9800'}, padding: '6px 130px', marginTop: 5}}>Submit</Button>
+
         </form>
       </Box>
     </Box>
