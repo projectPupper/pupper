@@ -14,7 +14,6 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const style = {
@@ -86,7 +85,7 @@ const Match = ({ match }) => {
             <Typography>{matchData.name}</Typography>
            </Grid>
            <Grid item xs={2}>
-            <Button onClick={showChat}><ChatBubbleIcon/></Button>
+            <Button onClick={showChat}>Chat</Button>
            </Grid>
            <Grid item xs={2}>
             <Button><DeleteIcon/></Button>

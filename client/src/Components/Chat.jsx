@@ -7,27 +7,27 @@ import axios from 'axios';
 import { useMainContext } from './Providers/MainProvider.jsx';
 
 const Chat = ({ closeChat, match }) => {
-  const [input, setInput] = useState('Send a message');
+  // const [input, setInput] = useState('Send a message');
   const [chats, setChats] = useState(match);
   const { userProfile, setUserProfile } = useMainContext();
 
-  const handleChange = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-
-    console.log('match', match._id);
-
     let message = {
       id: match._id,
       users: match.users,
       message: {
-        body: e.target.value,
+        body: e.target.textfield.value,
         sender: userProfile._id
       }
     }
-    setInput(message);
+    e.persist();
+    axios.post('/api/chats', message)
+    .then(() => {
+      getMessages();
+      e.target.reset();
+    })
   }
-
-  var intervalID = setInterval(getMessages, 500);
 
   const getMessages = () => {
     let params = {"id": match._id};
@@ -39,15 +39,15 @@ const Chat = ({ closeChat, match }) => {
       setChats(data);
     })
   }
+  const func = getMessages();
+  setInterval(func, 1000);
 
   const sendMessage = (e) => {
-    e.preventDefault();
 
-    axios.post('/api/chats', input)
+    axios.post('/api/chats', e)
     .then(() => {
       getMessages();
     })
-    setInput('Send a message');
   }
 
   return (
@@ -58,8 +58,10 @@ const Chat = ({ closeChat, match }) => {
         })
       }
       <div style={{display: 'flex', flexDirection: 'row', position: 'fixed', bottom: '8%', width: '80%', justifyContent: 'space-evenly'}}>
-        <TextField id="filled-basic" label="Send a message" variant="filled" onChange={handleChange} />
-        <Button onClick={sendMessage}>Send</Button>
+        <form onSubmit={handleSubmit}>
+          <TextField id="textfield" label="Send a message" variant="filled"  />
+          <Button type="submit" id="submit" >Send</Button>
+        </form>
       </div>
     </div>
   )
@@ -67,6 +69,21 @@ const Chat = ({ closeChat, match }) => {
 
 export default Chat;
 
+  // const handleChange = (e) => {
+  //   e.preventDefault();
+
+  //   console.log('match', match._id);
+
+  //   let message = {
+  //     id: match._id,
+  //     users: match.users,
+  //     message: {
+  //       body: e.target.value,
+  //       sender: userProfile._id
+  //     }
+  //   }
+    // setInput(message);
+  // }
   // const [send, setSend] = useState('disabled');
   // {
   //   id: '12',
