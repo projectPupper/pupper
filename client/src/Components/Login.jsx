@@ -28,6 +28,7 @@ function Login() {
               setUserProfile(user.uid);
               setLoggedIn(true);
             }
+            localStorage.setItem('uid', user.uid);
           })
       } else {
         setLoading(false);
