@@ -5,7 +5,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material';
 import mapStyles from './mapStyles';
 import useStyles from './map-styles.js';
 import axios from 'axios';
-import { REACT_APP_GOOGLE_MAPS_API_KEY, YELP_API_KEY } from '../../../config';
+import { REACT_APP_GOOGLE_MAPS_API_KEY, YELP_API_KEY } from '../../../config.js';
 
 
 const Map = () => {
