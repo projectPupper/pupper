@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Autocomplete, Button, Slider, TextField } from '@mui/material';
+import { Autocomplete, Button, Slider, TextField, TextareaAutosize } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
+import InfoIcon from '@mui/icons-material/Info';
 import Typography from '@mui/material/Typography';
 import breeds from '../../../breeds.js'
 import { useMainContext } from './Providers/MainProvider.jsx';
@@ -141,6 +142,7 @@ function ProfileSetup(props) {
           energy: energyFormatVal(Number(e.target.energy.value)),
           offLeash: e.target.offLeash.value === '1' ? true : false,
           ownerName: e.target.ownerName.value,
+          aboutMe: e.target.aboutMe.value,
           uid: userProfile,
           imgUrl: res.data.url,
         };
@@ -166,6 +168,8 @@ function ProfileSetup(props) {
 
         <PetsIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
         <TextField id="name" label="My name" variant="standard" /> <br />
+        <InfoIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
+        <TextareaAutosize id="aboutMe" aria-label="empty textarea" minRows={4} placeholder="About Me" style={{ width : 200 }} /> <br />
         <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
         <TextField id="ownerName" label="My owner's name" variant="standard" />
         <Autocomplete

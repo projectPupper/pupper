@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useMainContext } from './Providers/MainProvider.jsx'
 import { Typography } from '@mui/material';
+import Card from '@mui/material/Card';
 
 const profileContainer = {
   display: 'flex',
