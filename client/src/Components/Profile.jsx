@@ -23,6 +23,16 @@ const cardStyle = {
   color: 'black'
 }
 
+const imgContainer = {
+  // display: 'flex',
+  // flexDirection: 'column',
+  // alignItems: 'center',
+  width: '300px',
+  height: '300px',
+  objectFit: 'contain'
+}
+
+
 const imgStyle = {
   width: '50%',
   height: '50%',
@@ -44,7 +54,9 @@ function Profile() {
       <Card className='card' raised="true" style={cardStyle}>
         <Typography style={titleStyle}>{allowRefresh("name")}</Typography>
 
-        <img className='img' style={imgStyle} src={allowRefresh("imgUrl")} width="" height=""/>
+        <div className='imgContainer' style={imgContainer}>
+          <img className='img' style={imgStyle} src={allowRefresh("imgUrl")} />
+        </div>
 
         <Typography>Age {allowRefresh("age")}</Typography>
         <Typography>Breed {allowRefresh("breed")}</Typography>
