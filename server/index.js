@@ -39,6 +39,8 @@ app.post('/api/swipeprofiles', controller.profiles.postProfiles);
 //get profiles except for main user
 app.get('/api/swipeprofiles', controller.profiles.getOtherProfiles);
 
+app.post('/api/preference', controller.preference.postPreference);
+
 
 
 // DO NOT REMOVE OR ROUTES WON'T WORK ON REFRESH. KEEP AT BOTTOM.

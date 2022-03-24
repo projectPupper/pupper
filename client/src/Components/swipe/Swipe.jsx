@@ -203,7 +203,7 @@ function Swipe () {
 
   useEffect(() => {
     console.log(userProfile);
-    axios.get('/api/swipeprofiles', { params: { id: userProfile._id }})
+    axios.get('/api/swipeprofiles', { params: { id: "623ba83ed26a96dbf1b8ec03" }})
       .then((res) => {
         setprofileList(res.data);
       })
@@ -211,12 +211,12 @@ function Swipe () {
 
   const swiped = (direction, nameToDelete, idToDelete) => {
     if(direction === 'left') {
-      axios.post('/api/swipe', { id: userProfile._id, like: false, swipedId: idToDelete })
+      axios.post('/api/swipe', { id: "623ba83ed26a96dbf1b8ec03", like: false, swipedId: idToDelete })
         .then((res) => {
           console.log('swipe false posted!');
         })
     } else {
-      axios.post('/api/swipe', { id: userProfile._id, like: true, swipedId: idToDelete })
+      axios.post('/api/swipe', { id: "623ba83ed26a96dbf1b8ec03", like: true, swipedId: idToDelete })
         .then((res) => {
           console.log('swipe true posted!');
         })
