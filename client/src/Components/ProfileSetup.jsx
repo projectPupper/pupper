@@ -150,6 +150,7 @@ function ProfileSetup(props) {
         axios.post('/api/profile', serverPackage)
           .then((result) => {
             setUserProfile(result.data);
+            localStorage.setItem('userProfile', JSON.stringify(result.data));
             localStorage.setItem('uid', result.data.uid)
             navigate("/preferences");
           })
