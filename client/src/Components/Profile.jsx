@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useMainContext } from './Providers/MainProvider.jsx'
 import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
+import { allowRefresh } from './Providers/AllowRefresh';
 
 const profileContainer = {
   display: 'flex',
@@ -19,20 +19,19 @@ const imgStyle = {
 
 
 function Profile() {
-  const { userProfile } = useMainContext();
 
-  console.log('userProfile: ', userProfile)
   return (
     <div className='profileContainer' style={profileContainer}>
-      <img className='img' style={imgStyle} src={userProfile.imgUrl} width="" height=""/>
+      <img className='img' style={imgStyle} src={allowRefresh("imgUrl")} width="" height=""/>
       <Typography>Name</Typography>
-      {userProfile.name}
+      {allowRefresh("name")}
 
       <Typography>Age</Typography>
-      {userProfile.age}
+      {allowRefresh("age")}
 
       <Typography>Breed</Typography>
-      {userProfile.breed}
+      {allowRefresh("breed")}
+
     </div>
   )
 }
