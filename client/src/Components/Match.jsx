@@ -101,7 +101,7 @@ const Match = ({ match }) => {
         <Box sx={style}>
         <IconButton sx={{ml: 2}} onClick={closeChat}><ArrowBackIcon/></IconButton>
           <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
-            Chatroom
+            Pup Pod
           </Typography>
           <Chat match={match}/>
         </Box>
