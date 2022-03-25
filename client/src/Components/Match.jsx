@@ -37,7 +37,13 @@ const iconStyle = {
 };
 
 const gridStyle = {
-  alignItems: 'center'
+  alignItems: 'center',
+  justifyContent: 'space-around'
+}
+
+const divContainer = {
+  display: 'flex',
+  justifyContent: 'space-between'
 }
 
 const Match = ({ match }) => {
@@ -82,7 +88,7 @@ const Match = ({ match }) => {
             />
            </Grid>
            <Grid item xs={3}>
-            <Typography>{matchData.name}</Typography>
+            <Typography sx={{width: '150px'}}>{matchData.name}</Typography>
            </Grid>
            <Grid item xs={2}>
             <Button onClick={showChat}>Chat</Button>
