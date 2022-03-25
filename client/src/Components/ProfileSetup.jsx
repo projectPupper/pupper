@@ -228,7 +228,7 @@ function ProfileSetup(props) {
           loadingPosition="end"
           variant="contained"
         >
-          Register
+          {props.submitLabel}
         </LoadingButton>
       </form>
     </>
