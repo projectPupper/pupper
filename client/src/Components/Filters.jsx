@@ -128,7 +128,7 @@ const Filters = () => {
         },
       }}>
 
-<Typography style={{ fontSize: 16, fontWeight: 500, color: '#ff9800', textAlign: 'left', fontFamily:'Courgette' }}>What Kind of Playmate is Your Pup Looking For?</Typography>
+<Typography style={{ fontSize: 16, fontWeight: 500, textAlign: 'left' }}>My Pupferences</Typography>
       {/* <Autocomplete
         disablePortal
         id="combo-box-demo"

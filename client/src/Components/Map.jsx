@@ -7,7 +7,7 @@ import mapStyles from './mapStyles';
 import useStyles from './map-styles.js';
 import axios from 'axios';
 // import './marker.css';
-// import {REACT_APP_GOOGLE_MAPS_API_KEY, YELP_API_KEY } from '../../../config.js';
+import {REACT_APP_GOOGLE_MAPS_API_KEY, YELP_API_KEY } from '../../../config.js';
 
 // const pin = {
 //   width: '30px';
@@ -63,7 +63,7 @@ const Map = () => {
     axios.get(
       `/api/yelp`,
       {headers: {
-              Authorization: `Bearer ${apiKey}`
+              Authorization: `Bearer ${YELP_API_KEY}`
               },
               params: {
                 term: 'vet',
@@ -82,7 +82,7 @@ const Map = () => {
     axios.get(
       `/api/yelp`,
       {headers: {
-              "Authorization": `Bearer ${apiKey}`
+              "Authorization": `Bearer ${YELP_API_KEY}`
               },
               params: {
                 term: 'dog_park',
@@ -100,7 +100,7 @@ const Map = () => {
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
-      bootstrapURLKeys={{ key: ''}}
+      bootstrapURLKeys={{ key: REACT_APP_GOOGLE_MAPS_API_KEY}}
       defaultCenter={coords}
       center={coords}
       defaultZoom={13}

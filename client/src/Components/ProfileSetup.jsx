@@ -10,7 +10,31 @@ import breeds from '../../../breeds.js'
 import { useMainContext } from './Providers/MainProvider.jsx';
 import { LoadingButton } from '@mui/lab';
 import SendIcon from '@mui/icons-material/Send';
+import CloseIcon from '@mui/icons-material/Close';
 
+
+const setupContainer = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+}
+
+const individialStyleWrapper = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center'
+}
+
+const individialStyleContainer = {
+  marginRight: '100px'
+}
+
+const buttonStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  margin: '5%'
+}
 
 function ProfileSetup(props) {
   const { userProfile, setUserProfile } = useMainContext();
@@ -124,16 +148,16 @@ function ProfileSetup(props) {
     },
   ];
 
-  // function reverseSearch(string, marksName, leashIndicator) {
-  //   if (string && leashIndicator) {
-  //     string ? string = "off" : string = "on"
-  //   }
-  //   for (let i = 0; i < marksName.length; i++) {
-  //     if (marksName[i].label === string) {
-  //       return sizeMarks[i].value;
-  //     }
-  //   }
-  // }
+  function reverseSearch(string, marksName, leashIndicator) {
+    if (string && leashIndicator) {
+      string ? string = "off" : string = "on"
+    }
+    for (let i = 0; i < marksName.length; i++) {
+      if (marksName[i].label === string) {
+        return sizeMarks[i].value;
+      }
+    }
+  }
 
   function sizeFormatVal(value) {
     for (let i = 0; i < sizeMarks.length; i++) {
@@ -179,7 +203,6 @@ function ProfileSetup(props) {
     e.preventDefault();
     setLoading(true);
     e.persist();
-    // console.log('awetargetPHOTOS:', !!e.target.photo.files)
     if (e.target.photo.files.length === 0) {
       let serverPackage = {
         name: e.target.name.value,
@@ -199,8 +222,10 @@ function ProfileSetup(props) {
           .then((result) => {
             setUserProfile(result.data);
             localStorage.setItem('userProfile', JSON.stringify(result.data));
-            localStorage.setItem('uid', result.data.uid)
-            navigate("/preferences");
+            localStorage.setItem('uid', result.data.uid);
+            props.submitLabel === 'Register' ?
+              navigate("/preferences")
+              : props.exitOutEdit();
           })
           .catch(err => console.log(`Profile post error:`, err))
     } else {
@@ -229,10 +254,11 @@ function ProfileSetup(props) {
               setUserProfile(result.data);
               localStorage.setItem('userProfile', JSON.stringify(result.data));
               localStorage.setItem('uid', result.data.uid)
-              navigate("/preferences");
+              props.submitLabel === 'Register' ?
+              navigate("/preferences")
+              : props.exitOutEdit();
             })
             .catch(err => console.log(`Profile post error:`, err))
-
         })
         .catch((err) => {
           console.log('Cloudinary profile post err:', err);
@@ -244,116 +270,90 @@ function ProfileSetup(props) {
   return (
     <>
       {props.submitLabel === "Register" && <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>}
-      {props.submitLabel === "Save Profile" && <Button onClick={props.exitOutEdit}>X</Button>}
+      {props.submitLabel === "Save Profile" && <CloseIcon onClick={props.exitOutEdit} sx={{ margin: '4% 0 0 90%', borderStyle: 'double', borderRadius: '50%', fontSize: '20px' }}></CloseIcon>}
       <form onSubmit={handleSubmit}>
+        <div style={setupContainer}>
 
-        <PetsIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
-        <TextField id="name" label="My name" variant="standard" defaultValue={userProfile && userProfile.name} /> <br />
-        <InfoIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
-        <TextareaAutosize id="aboutMe" aria-label="empty textarea" minRows={4} defaultValue={userProfile && userProfile.aboutMe} placeholder="About Me" style={{ width : 200 }} /> <br />
-        <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
-        <TextField id="ownerName" defaultValue={userProfile && userProfile.ownerName} label="My owner's name" variant="standard" />
-        <Autocomplete
-        defaultValue={userProfile && userProfile.breed}
-        disablePortal
-        id="breed"
-        options={breeds}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Breed" />}
-      />
-        <Typography style={{marginLeft: "30%", marginRight: "30%"}}>
+          <div style={individialStyleWrapper} >
+            <div style={individialStyleContainer} >
+              <PetsIcon sx={{ color: "chocolate", mr: 1, my: 3 }} />
+              <TextField id="name" label="My name" variant="standard" defaultValue={userProfile && userProfile.name} />
+            </div>
+          </div>
 
+          <div style={individialStyleWrapper} >
+            <InfoIcon sx={{ color: "chocolate", mr: 1, my: 3 }} />
+            <TextareaAutosize id="aboutMe" aria-label="empty textarea" minRows={4} defaultValue={userProfile && userProfile.aboutMe} placeholder="About Me" style={{ width: '260px', height: '55px' }} />
+          </div>
+
+          <div style={individialStyleWrapper} >
+            <div style={individialStyleContainer} >
+              <AccountCircleIcon sx={{ color: "chocolate", mr: 1, my: 3 }} />
+              <TextField id="ownerName" defaultValue={userProfile && userProfile.ownerName} label="My owner's name" variant="standard" />
+            </div>
+          </div>
+
+          <div style={individialStyleWrapper} >
+            <Autocomplete
+            defaultValue={userProfile && userProfile.breed}
+            disablePortal
+            id="breed"
+            options={breeds}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Breed" />}
+            />
+          </div>
+
+      </div>
+        <Typography style={{ marginLeft: "30%", marginRight: "30%", color: 'chocolate' }}>
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Size</Typography>
-          <Slider name="size" step={1} min={1} max={3}
-            defaultValue={
-              info.size === 'Small' ?
-                1
-              : info.size === 'Medium' ?
-                2
-              : info.size === 'Large' ?
-                3
-              :
-                1
-            } marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
+          <Slider name="size" step={1} min={0} max={2} defaultValue={reverseSearch(userProfile.size, sizeMarks)} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal} style={{color: "#ff9800"}} />
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Pupper Gender</Typography>
-          <Slider name="gender" step={1} min={0} max={1} defaultValue={info.gender === 'Male' ? 1 : 0} marks={genderMarks} valueLabelFormat={genderFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="gender" step={1} min={0} max={1} defaultValue={reverseSearch(userProfile.gender, genderMarks)} marks={genderMarks} valueLabelFormat={genderFormatVal} aria-label="Default"  valueLabelDisplay="auto" style={{color: "#ff9800"}} />
 
 
           <Typography style={{textAlign: "center"}}>Pupper Age</Typography>
-          <Slider name="age" step={1} min={1} max={3}
-          defaultValue={
-            info.age === 'Puppy' ?
-              1
-            : info.age === 'Adult' ?
-              2
-            : info.age === 'Senior' ?
-              3
-            :
-              1
-          } marks={ageMarks} valueLabelFormat={ageFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="age" step={1} min={0} max={2} defaultValue={reverseSearch(userProfile.age, ageMarks)} marks={ageMarks} valueLabelFormat={ageFormatVal} aria-label="Default"  valueLabelDisplay="auto" style={{color: "#ff9800"}} />
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Energy Level</Typography>
-          <Slider name="energy" step={1} min={0} max={2}
-            defaultValue={
-              info.energy === 'Low' ?
-                0
-              : info.energy === 'Medium' ?
-                1
-              : info.energy === 'High' ?
-                2
-              :
-                0
-              } marks={energyMarks} valueLabelFormat={energyFormatVal} aria-label="Default" valueLabelDisplay="auto" />
-
-
-          {/* <Typography style={{textAlign: "center", marginTop: "10px"}}>Leash On/Off</Typography>
-          <Slider name="offLeash" step={1} min={0} max={1} defaultValue={info.offLeash === true ? 1 : 0} marks={leashMarks} valueLabelFormat={leashFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
-          <Slider name="size" step={1} min={0} max={2} defaultValue={reverseSearch(userProfile.size, sizeMarks)} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
-
-
-          <Typography style={{textAlign: "center", marginTop: "10px"}}>Pupper Gender</Typography>
-          <Slider name="gender" step={1} min={0} max={1} defaultValue={reverseSearch(userProfile.gender, genderMarks)} marks={genderMarks} valueLabelFormat={genderFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
-
-
-          <Typography style={{textAlign: "center"}}>Pupper Age</Typography>
-          <Slider name="age" step={1} min={0} max={2} defaultValue={reverseSearch(userProfile.age, ageMarks)} marks={ageMarks} valueLabelFormat={ageFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
-
-
-          <Typography style={{textAlign: "center", marginTop: "10px"}}>Energy Level</Typography>
-          <Slider name="energy" step={1} min={0} max={2} defaultValue={reverseSearch(userProfile.energy, energyMarks)} marks={energyMarks} valueLabelFormat={energyFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="energy" step={1} min={0} max={2} defaultValue={reverseSearch(userProfile.energy, energyMarks)} marks={energyMarks} valueLabelFormat={energyFormatVal} aria-label="Default"  valueLabelDisplay="auto" style={{color: "#ff9800"}} />
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Leash On/Off</Typography>
-          <Slider name="offLeash" step={1} min={0} max={1} defaultValue={reverseSearch(userProfile.offLeash, leashMarks, true)} marks={leashMarks} valueLabelFormat={leashFormatVal} aria-label="Default"  valueLabelDisplay="auto" /> */}
+          <Slider name="offLeash" step={1} min={0} max={1} defaultValue={reverseSearch(userProfile.offLeash, leashMarks, true)} marks={leashMarks} valueLabelFormat={leashFormatVal} aria-label="Default"  valueLabelDisplay="auto" style={{color: "#ff9800"}} />
 
         </Typography>
-        <Button
-          variant="contained"
-          component="label"
-          onClick={() => {console.log('im clicked')}}
-        >
-          Upload File
-          <input
-            required={props.submitLabel === "Register" ? true : false}
-            id="photo"
-            type="file"
-            hidden
-          />
-        </Button>
-        <LoadingButton
-          type="submit"
-          size="small"
-          endIcon={<SendIcon />}
-          loading={loading}
-          loadingPosition="end"
-          variant="contained"
-        >
-          {props.submitLabel}
-        </LoadingButton>
+        <div style={buttonStyle}>
+          <Button
+            variant="contained"
+            component="label"
+            onClick={() => {console.log('im clicked')}}
+            style={{backgroundColor: "#ff9800"}}
+          >
+            Upload Profile Pic
+            <input
+              required={props.submitLabel === "Register" ? true : false}
+              id="photo"
+              type="file"
+              hidden
+            />
+          </Button>
+          <LoadingButton
+            type="submit"
+            size="medium"
+            endIcon={<SendIcon />}
+            loading={loading}
+            loadingPosition="end"
+            variant="contained"
+            style={{backgroundColor: "#ff9800"}}
+          >
+            {props.submitLabel}
+          </LoadingButton>
+        </div>
       </form>
     </>
   )

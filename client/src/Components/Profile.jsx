@@ -29,6 +29,13 @@ const cardStyle = {
   color: 'black'
 }
 
+const titleStyle = {
+  color: 'cornflowerblue',
+  fontFamily: 'Courgette',
+  fontSize: '25px',
+  margin: '20px 0 10px 0'
+}
+
 const imgContainerWrapper = {
   display: 'flex',
   flexDirection: 'column',
@@ -52,15 +59,23 @@ const imgStyle = {
   objectFit: 'cover'
 }
 
-const titleStyle = {
-  color: 'cornflowerblue',
-  fontFamily: 'Courgette',
-  fontSize: '25px',
-  margin: '20px 0 10px 0'
+const infoStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  width: '100%'
+}
+
+const invidiualInfoStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  width: '50%'
 }
 
 const editStyle = {
-  margin: '5% 0 0 80%'
+  margin: '5% 0 0 80%',
+  color: 'chocolate'
 }
 
 function Profile() {
@@ -102,16 +117,41 @@ function Profile() {
                   <img className='img' style={imgStyle} src={userProfile.imgUrl} />
                 </div>
               </div>
-              <Typography sx={{ color: 'goldenrod' }}>{userProfile.aboutMe}</Typography>
+              <Typography sx={{ color: 'goldenrod', fontStyle: 'oblique' }}>{userProfile.aboutMe}</Typography>
               <br />
               <br />
-              <Typography>Breed: {userProfile.breed}</Typography>
-              <Typography>Size: {userProfile.size}</Typography>
-              <Typography>Gender: {userProfile.gender}</Typography>
-              <Typography>Age: {userProfile.age}</Typography>
-              <Typography>Energy: {userProfile.energy}</Typography>
-              <Typography>Off-Leash: {userProfile.offLeash ? 'Yes' : 'No'}</Typography>
-              <Typography>Owner: {userProfile.ownerName}</Typography>
+
+              <div style={infoStyle}>
+                <div style={invidiualInfoStyle}>
+                  <Typography>Breed: </Typography>
+                  <Typography> {userProfile.breed} </Typography>
+                </div>
+                <div style={invidiualInfoStyle}>
+                  <Typography>Size: </Typography>
+                  <Typography> {userProfile.size} </Typography>
+                </div>
+                <div style={invidiualInfoStyle}>
+                  <Typography>Gender: </Typography>
+                  <Typography> {userProfile.gender} </Typography>
+                </div>
+                <div style={invidiualInfoStyle}>
+                  <Typography>Age: </Typography>
+                  <Typography> {userProfile.age} </Typography>
+                </div>
+                <div style={invidiualInfoStyle}>
+                  <Typography>Energy: </Typography>
+                  <Typography> {userProfile.energy} </Typography>
+                </div>
+                <div style={invidiualInfoStyle}>
+                  <Typography>Off-Leash: </Typography>
+                  <Typography> {userProfile.offLeash ? 'Yes' : 'No'} </Typography>
+                </div>
+                <div style={invidiualInfoStyle}>
+                  <Typography>Owner: </Typography>
+                  <Typography> {userProfile.ownerName} </Typography>
+                </div>
+              </div>
+
               <br />
               <LoadingButton
                 sx={{backgroundColor:'#ff9800'}}

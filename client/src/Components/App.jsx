@@ -49,11 +49,11 @@ const App = () => {
             }
           }
         }}>
-          <BottomNavigationAction sx={{color: "#fff"}} label="swipe" value="/swipe" icon={<FavoriteIcon />}  component={Link} to='/swipe'/>
-          <BottomNavigationAction sx={{color: "#fff"}} label="map" value="/map" coords={coords} setCoords={setCoords} icon={<MapIcon />} component={Link} to='/map'/>
-          <BottomNavigationAction sx={{color: "#fff"}} label="matches" value="/matches" icon={<ChatBubbleIcon />} component={Link} to='/matches'/>
-          <BottomNavigationAction sx={{color: "#fff"}} label="preferences" value="/preferences" icon={<FilterListIcon /> } component={Link} to='/preferences'/>
-          <BottomNavigationAction sx={{color: "#fff"}} label="profile" value="/profile" icon={<PersonIcon /> } component={Link} to='/profile'/>
+          <BottomNavigationAction sx={{color: "#fff"}} label="pawswipe" value="/swipe" icon={<FavoriteIcon />}  component={Link} to='/swipe'/>
+          <BottomNavigationAction sx={{color: "#fff"}} label="pupplaces" value="/map" coords={coords} setCoords={setCoords} icon={<MapIcon />} component={Link} to='/map'/>
+          <BottomNavigationAction sx={{color: "#fff"}} label="puppals" value="/matches" icon={<ChatBubbleIcon />} component={Link} to='/matches'/>
+          <BottomNavigationAction sx={{color: "#fff"}} label="pupferences" value="/preferences" icon={<FilterListIcon /> } component={Link} to='/preferences'/>
+          <BottomNavigationAction sx={{color: "#fff"}} label="pupfile" value="/profile" icon={<PersonIcon /> } component={Link} to='/profile'/>
       </BottomNavigation>
       </ThemeProvider>
     </>

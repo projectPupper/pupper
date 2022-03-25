@@ -112,7 +112,7 @@ const Match = ({ match }) => {
         aria-describedby="modal-modal-description"
         >
         <Box sx={style}>
-        <IconButton sx={{ml: 2}} onClick={closeChat}><ArrowBackIcon/></IconButton>
+        <IconButton sx={{ml: 2}} onClick={closeChat}><ArrowBackIcon sx={{ color: 'black' }}/></IconButton>
           <Typography sx={podStyle} id="modal-modal-title" variant="h6" component="h2" align="center">
             Pup Pod with {matchData.name}
           </Typography>
