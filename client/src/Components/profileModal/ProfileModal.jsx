@@ -12,15 +12,15 @@ function ProfileModal({ user }) {
   console.log(user);
   return(
     <>
-      <Card sx={{width: '100%', height: '50%', objectFit: 'cover'}}>
-        <img src={user.imgUrl} style={{ position: "relative", width: '100%', height: '100%', maxWidth: '100%', maxHeight: '100%', borderTopLeftRadius: '10px 10px', borderTopRightRadius: '10px 10px' }} />
+      <Card sx={{width: '100%', height: '50%'}}>
+        <img src={user.imgUrl} style={{ position: "relative", width: '100%', height: '100%', maxWidth: '100%', maxHeight: '100%', borderTopLeftRadius: '4px 4px', borderTopRightRadius: '4px 4px',objectFit: 'cover' }} />
       </Card>
       <Box p={3}>
         <Typography sx={{ textAlign: 'center', fontFamily:'Courgette', color: '#ff9800',fontSize: 30, fontWeight: 700}}>
           {user.name}
         </Typography>
         <Typography sx={{ textAlign: 'center', fontSize: 20}}>
-          Hi! I love toys and treats!
+        {user.aboutMe}
         </Typography>
         <Stack spacing={1} mt={3}>
           <Chip label={'Breed: '+ user.breed} variant="outlined"/>
