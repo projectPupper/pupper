@@ -206,7 +206,8 @@ function ProfileSetup(props) {
 
   return (
     <>
-      <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
+      {props.submitLabel === "Register" && <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>}
+      {props.submitLabel === "Save Profile" && <Button onClick={props.exitOutEdit}>X</Button>}
       <form onSubmit={handleSubmit}>
 
         <PetsIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
