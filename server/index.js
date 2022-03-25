@@ -44,9 +44,6 @@ app.get('/api/profiles', controller.profiles.getOtherProfiles);
 app.get(`/api/yelp`, (req, res) => {
   {console.log('REQ :', req.query)}
   const searchRequest = {
-    // term: req.query.term,
-    // latitude: req.query.lat,
-    // longitude: req.query.lng
     term:req.query.term,
     latitude: Number(req.query.latitude),
     longitude: Number(req.query.longitude)
@@ -56,7 +53,6 @@ app.get(`/api/yelp`, (req, res) => {
   client.search(searchRequest).then(response => {
     const allResult = response.jsonBody.businesses;
     const prettyJson = JSON.stringify(allResult, null, 4);
-    // console.log('PJSON :', prettyJson);
     res.send(prettyJson);
   }).catch(e => {
     console.log(e);

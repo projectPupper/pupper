@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
-import MedicationIcon from '@mui/icons-material/Medication';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import ParkIcon from '@mui/icons-material/Park';
 import mapStyles from './mapStyles';
 import useStyles from './map-styles.js';
 import axios from 'axios';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { DatePicker } from "@progress/kendo-react-dateinputs";
-// import DatePicker from "react-datepicker";
+// import Marker from './Marker';
+// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 const Map = () => {
   const media = useMediaQuery('(min-width:600px)');
@@ -76,7 +76,10 @@ const Map = () => {
       margin={[50, 50, 50, 50]}
       options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles }}
       >
-        {/* <div><DatePicker className={classes.dateContainer}/></div> */}
+          {/* <Marker
+            position={coords}
+            color="blue"
+          /> */}
         {vetPlaces?.map((vetPlace, index) => (
           <div
           className={classes.markerContainer}
@@ -84,7 +87,7 @@ const Map = () => {
           lng={(vetPlace.coordinates.longitude)}
           key={index}
         >
-          <MedicationIcon color="secondary" fontSize="large" onClick={() => window.open(vetPlace.url, '_blank')}/>
+          <LocalHospitalIcon color="secondary" fontSize="large" onClick={() => window.open(vetPlace.url, '_blank')}/>
         </div>
       ))}
         {dogParks?.map((dogPark, i) => (
