@@ -49,14 +49,16 @@ const Chat = ({ closeChat, match, recipient }) => {
       getMessages();
     })
   }
-  
+
   useEffect(() => {
     const refresh = setInterval(func, 1000);
     return () => clearInterval(refresh);
   }, []);
 
-  const element = document.getElementById("scroll");
-  element.scrollTop = element.scrollHeight;
+  // useEffect(() => {
+  //   const element = document.getElementById("scroll");
+  //   element.scrollTop = element.scrollHeight;
+  // })
 
   return (
     <div>
