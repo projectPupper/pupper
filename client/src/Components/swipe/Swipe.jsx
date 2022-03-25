@@ -5,9 +5,11 @@ import TinderCard from 'react-tinder-card';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import PersonIcon from '@mui/icons-material/Person';
+import CheckIcon from '@mui/icons-material/Check';
 import { useMainContext } from '../Providers/MainProvider.jsx';
 import ProfileModal from '../profileModal/ProfileModal.jsx';
 
@@ -42,9 +44,9 @@ const cardContainer = {
 const fontStyle = {
     position: "absolute",
     color: "#fff",
-    fontSize: "30px",
+    fontSize: "20px",
     fontWeight:700,
-    margin: "10px",
+    margin: "5px",
     marginLeft: "20px"
 }
 
@@ -52,8 +54,8 @@ const smallFontStyle = {
   // position: "absolute",
   color: "#fff",
   textAlign: "right",
-  fontSize: "18px",
-  fontWeight: 500,
+  fontSize: "13px",
+  fontWeight: 300,
   marginRight: "20px",
   margin: "10px"
 }
@@ -83,9 +85,11 @@ const modalStyle = {
 
 
 function Swipe () {
-  const { userProfile } = useMainContext();
+  const { userProfile, swipeList } = useMainContext();
   const [open, setOpen] = useState(false);
+  const [alert, setAlert] = useState(false);
   const [lastDirection, setLastDirection] = useState();
+  const [swipedRight, setSwipedRight] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
   const [profileList, setprofileList] = useState(null);
 
@@ -97,7 +101,15 @@ function Swipe () {
         setprofileList(res.data);
       })
     }
-  }, []);
+  }, [swipeList]);
+
+  const showAlert = () => {
+    setAlert(true);
+    setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setAlert(false)
+    }, 2000)
+  }
 
   const swiped = (direction, nameToDelete, idToDelete) => {
     if(direction === 'left') {
@@ -106,9 +118,12 @@ function Swipe () {
           console.log('swipe false posted!');
         })
     } else {
+      setSwipedRight(nameToDelete);
       axios.post('/api/swipe', { id: userProfile._id, like: true, swipedId: idToDelete })
         .then((res) => {
-          console.log('swipe true posted!');
+            if (res.data) {
+              showAlert();
+            }
         })
     }
     console.log('removing: ' + nameToDelete);
@@ -128,6 +143,13 @@ function Swipe () {
 
   return (
     <div className='tinderCardWrapper' style={cardWrapper}>
+      <Box sx={{ height: 30 }} mt={2.5}>
+      {alert &&
+      <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+      You are matched with {swipedRight} !
+    </Alert>
+      }
+      </Box>
       {profileList &&
       <div style={cardContainer}>
         {profileList.map((character) =>
@@ -135,9 +157,11 @@ function Swipe () {
           <TinderCard className='swipe' style={swipeStyle} key={character.name} onSwipe={(dir) => swiped(dir, character.name, character._id)} onCardLeftScreen={() => outOfFrame(character.name)}  >
             <div className='card' style={cardStyle} >
             <img  src={character.imgUrl} style={{ position: "relative", width: '100%', height: '75%', borderTopLeftRadius: '10px 10px', borderTopRightRadius: '10px 10px' }}/>
+            <Box sx={{ display: "flex", justifyContent: "space-between"}}>
               <Typography sx={fontStyle}>{character.name}</Typography>
-              <Typography sx={{ fontSize: '20px'}}>{character.breed}</Typography>
+              <Typography sx={{ fontSize: '18px', marginTop: "35px", marginLeft: "20px", textAlign: 'left', color: '#fff'}}>{character.breed}</Typography>
               <Typography sx={smallFontStyle}> {character.size}  size<br/>{character.energy} energy<br/> {character.age} | {character.gender} </Typography>
+            </Box>
             </div>
             <IconButton sx={{position: 'absolute', backgroundColor: '#fff', margin: '20px 90px'}} onClick={() => handleClick(character)} aria-label="delete" size="large"><PersonIcon /></IconButton>
           </TinderCard>
@@ -158,7 +182,7 @@ function Swipe () {
         </Box>
       </Modal>
 
-      {lastDirection ? <Typography className='infoText'>You swiped {lastDirection}</Typography> : <Typography className='infoText' />}
+      {/* {lastDirection ? <Typography className='infoText'>You swiped {lastDirection}</Typography> : <Typography className='infoText' />} */}
     </div>
   )
 }

@@ -13,7 +13,7 @@ function ProfileModal({ user }) {
   return(
     <>
       <Card sx={{width: '100%', height: '50%'}}>
-        <img src={user.imgUrl} style={{ position: "relative", width: '100%', height: '100%', maxWidth: '100%', maxHeight: '100%', borderTopLeftRadius: '10px 10px', borderTopRightRadius: '10px 10px',objectFit: 'cover' }} />
+        <img src={user.imgUrl} style={{ position: "relative", width: '100%', height: '100%', maxWidth: '100%', maxHeight: '100%', borderTopLeftRadius: '4px 4px', borderTopRightRadius: '4px 4px',objectFit: 'cover' }} />
       </Card>
       <Box p={3}>
         <Typography sx={{ textAlign: 'center', fontFamily:'Courgette', color: '#ff9800',fontSize: 30, fontWeight: 700}}>
