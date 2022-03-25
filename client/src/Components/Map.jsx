@@ -40,12 +40,7 @@ import axios from 'axios';
 //   animation-duration: '1s';
 // };
 
-// const Marker = () => {
-//   return <>
-//     <div className="pin" style={pin}></div>
-//     <div className="pulse"></div>
-//   </>
-// }
+
 
 const Map = () => {
   const media = useMediaQuery('(min-width:600px)');
