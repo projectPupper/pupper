@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Messages from './Messages.jsx';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -39,16 +39,21 @@ const Chat = ({ closeChat, match }) => {
       setChats(data);
     })
   }
-  const func = getMessages();
-  setInterval(func, 1000);
+  const func = getMessages;
+  // setInterval(func, 1000);
 
   const sendMessage = (e) => {
-
+    e.preventDefault();
     axios.post('/api/chats', e)
     .then(() => {
       getMessages();
     })
   }
+  useEffect(() => {
+    const refresh = setInterval(func, 1000);
+    return () => clearInterval(refresh);
+
+  }, []);
 
   return (
     <div>
