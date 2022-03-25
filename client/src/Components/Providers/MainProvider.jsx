@@ -13,6 +13,10 @@ export const localUID = localStorage.uid;
 export default function MainProvider({ children }) {
   const [userProfile, setUserProfile] = useState();
 
+  if (!userProfile && localUserProfile) {
+    setUserProfile(localUserProfile);
+  }
+
   return (
     <MainContext.Provider value={{userProfile, setUserProfile}}>
       {children}

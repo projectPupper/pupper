@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Autocomplete, Button, Slider, TextField, TextareaAutosize } from '@mui/material';
@@ -8,10 +8,13 @@ import InfoIcon from '@mui/icons-material/Info';
 import Typography from '@mui/material/Typography';
 import breeds from '../../../breeds.js'
 import { useMainContext } from './Providers/MainProvider.jsx';
+import { LoadingButton } from '@mui/lab';
+import SendIcon from '@mui/icons-material/Send';
 
 
 function ProfileSetup(props) {
   const { userProfile, setUserProfile } = useMainContext();
+  const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
   let { username } = useParams();
 
@@ -126,6 +129,7 @@ function ProfileSetup(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     e.persist();
     const data = new FormData();
     data.append('file', e.target.photo.files[0]);
@@ -216,7 +220,16 @@ function ProfileSetup(props) {
             hidden
           />
         </Button>
-        <Button type="submit">Register</Button>
+        <LoadingButton
+          type="submit"
+          size="small"
+          endIcon={<SendIcon />}
+          loading={loading}
+          loadingPosition="end"
+          variant="contained"
+        >
+          Register
+        </LoadingButton>
       </form>
     </>
   )
