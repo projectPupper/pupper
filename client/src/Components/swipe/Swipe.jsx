@@ -17,6 +17,7 @@ import ProfileModal from '../profileModal/ProfileModal.jsx';
 const swipeStyle = {
   position: "absolute",
   display: "inline-block",
+  zIndex: 9998
 }
 
 const cardStyle = {
@@ -172,7 +173,7 @@ function Swipe () {
               <Typography sx={smallFontStyle}> {character.size}  size<br/>{character.energy} energy<br/> {character.age} | {character.gender} </Typography>
             </Box>
             </div>
-            <IconButton sx={{position: 'absolute', backgroundColor: '#fff', margin: '20px 90px'}} onClick={() => handleClick(character)} aria-label="delete" size="large"><PersonIcon /></IconButton>
+            <IconButton sx={{position: 'absolute', backgroundColor: '#fff', margin: '20px 90px'}} onTouchStart={() => handleClick(character)} onClick={() => handleClick(character)}aria-label="delete" size="large"><PersonIcon /></IconButton>
           </TinderCard>
           </>
         )}

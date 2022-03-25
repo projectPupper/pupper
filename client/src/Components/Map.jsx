@@ -9,38 +9,63 @@ import axios from 'axios';
 // import './marker.css';
 import {REACT_APP_GOOGLE_MAPS_API_KEY, YELP_API_KEY } from '../../../config.js';
 
-// const pin = {
-//   width: '30px';
-//   height: '30p'x;
-//   border-radius: '50% 50% 50% 0';
-//   background: '#b15555';
-//   position: 'absolute';
-//   -webkit-transform: 'rotate(-45deg)';
-//   -moz-transform: 'rotate(-45deg)';
-//   -o-transform: 'rotate(-45deg)';
-//   -ms-transform: 'rotate(-45deg)';
-//   transform: 'rotate(-45deg)';
-//   left: '50%';
-//   top: '50%';
-//   margin: '-20px 0 0 -20px';
-//   -webkit-animation-name: 'bounce';
-//   -moz-animation-name: 'bounce';
-//   -o-animation-name: 'bounce';
-//   -ms-animation-name: 'bounce';
-//   animation-name: 'bounce';
-//   -webkit-animation-fill-mode: 'both';
-//   -moz-animation-fill-mode: 'both';
-//   -o-animation-fill-mode: 'both';
-//   -ms-animation-fill-mode: 'both';
-//   animation-fill-mode: 'both';
-//   -webkit-animation-duration: '1s';
-//   -moz-animation-duration: '1s';
-//   -o-animation-duration: '1s';
-//   -ms-animation-duration: '1s';
-//   animation-duration: '1s';
-// };
+const pin = {
+  width: '30px',
+  height: '30px',
+  borderRadius: '50% 50% 50% 0',
+  background: '#1709ee',
+  position: 'absolute',
+  WebkitTransform: 'rotate(-45deg)',
+  MozTransform: 'rotate(-45deg)',
+  OTransform: 'rotate(-45deg)',
+  MSTransform: 'rotate(-45deg)',
+  Transform: 'rotate(-45deg)',
+  left: '50%',
+  top: '50%',
+  margin: '-20px 0 0 -20px',
+  WebkitAnimationName: 'bounce',
+  MozAnimationName: 'bounce',
+  OAnimationName: 'bounce',
+  MsAnimationName: 'bounce',
+  AnimationNamee: 'bounce',
+  // -webkit-animation-fill-mode: 'both',
+  // -moz-animation-fill-mode: 'both',
+  // -o-animation-fill-mode: 'both',
+  // -ms-animation-fill-mode: 'both',
+  // animation-fill-mode: 'both',
+  // -webkit-animation-duration: '1s',
+  // -moz-animation-duration: '1s',
+  // -o-animation-duration: '1s',
+  // -ms-animation-duration: '1s',
+  // animation-duration: '1s',
+}
 
+const pinAfter = {
+  content: '',
+  width: '14px',
+  height: '14px',
+  margin: '8px 0 0 8px',
+  background: '#e61111',
+  position: 'absolute',
+  borderRadius: '50%'
+}
 
+const pulse = {
+  background: 'rgba(0,0,0,0.9)',
+  borderRadius: '80%',
+  height: '14px',
+  width: '14px',
+  position: 'absolute',
+  left: '50%',
+  top: '50%',
+  margin: '11px 0px 0px -12px',
+  // -webkit-transform: 'rotateX(55deg)',
+  // -moz-transform: 'rotateX(55deg)',
+  // -o-transform: 'rotateX(55deg)',
+  // -ms-transform: 'rotateX(55deg)',
+  // transform: 'rotateX(55deg)',
+  // z-index: '-2'
+}
 
 const Map = () => {
   const media = useMediaQuery('(min-width:600px)');
@@ -49,7 +74,7 @@ const Map = () => {
   const [dogParks, setDogParks] = useState([]);
   const [vetPlaces, setVetPlaces] = useState([]);
 
-  // const apiKey = 'BwDL8KP6X9hDs-HgPPLomyUfctPLyAUyBcIhfXcowvAABUJMhlgJQeiMchnp7Q4gOmX3JC8hv0Oij_xp-es7q0ei0qpI_YDq-MJUWAPL9JVfPltLIhvvkB3OMf84YnYx';
+  const apiKey = 'BwDL8KP6X9hDs-HgPPLomyUfctPLyAUyBcIhfXcowvAABUJMhlgJQeiMchnp7Q4gOmX3JC8hv0Oij_xp-es7q0ei0qpI_YDq-MJUWAPL9JVfPltLIhvvkB3OMf84YnYx';
 
 
   useEffect(() => {
@@ -108,7 +133,7 @@ const Map = () => {
       margin={[50, 50, 50, 50]}
       options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles }}
       >
-        {/* <Marker lat={coords.lat} lng={coords.lng} /> */}
+        <Marker lat={coords.lat} lng={coords.lng} />
         {vetPlaces?.map((vetPlace, index) => (
           <div
           className={classes.markerContainer}
@@ -116,7 +141,7 @@ const Map = () => {
           lng={(vetPlace.coordinates.longitude)}
           key={index}
         >
-          <LocalHospitalIcon color="secondary" fontSize="large" onClick={() => window.open(vetPlace.url, '_blank')}/>
+          <LocalHospitalIcon style={{ color: '#ee0909' }} fontSize="large" onClick={() => window.open(vetPlace.url, '_blank')}/>
         </div>
       ))}
         {dogParks?.map((dogPark, i) => (
@@ -126,12 +151,19 @@ const Map = () => {
           lng={(dogPark.coordinates.longitude)}
           key={i}
         >
-         <ParkIcon color="primary" fontSize="large" onClick={() => window.open(dogPark.url, '_blank')}/>
+         <ParkIcon style={{ color: '#4b7d40' }} fontSize="large" onClick={() => window.open(dogPark.url, '_blank')}/>
         </div>
         ))}
       </GoogleMapReact>
     </div>
   )
+}
+
+const Marker = props => {
+  return <>
+    <div className="pin" style={pin}></div>
+    <div className="pulse" style={pulse}></div>
+  </>
 }
 
 export default Map;
