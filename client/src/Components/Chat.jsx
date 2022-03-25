@@ -13,17 +13,17 @@ const Chat = ({ closeChat, match, recipient }) => {
   const messageEl = useRef(null)
 
   useEffect(() => {
+    const element = document.getElementById("scroll");
+    element.scroll({ top: element.scrollHeight, behavior: 'smooth' });
+  }, [])
+
+  useEffect(() => {
     if (messageEl) {
       messageEl.current.addEventListener('DOMNodeInserted', event => {
         const { currentTarget: target } = event;
         target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
       });
     }
-  }, [])
-
-  useEffect(() => {
-    const element = document.getElementById("scroll");
-    element.scrollTop = element.scrollHeight;
   }, [])
 
   function handleSubmit(e) {
