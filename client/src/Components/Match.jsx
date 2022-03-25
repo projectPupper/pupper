@@ -46,6 +46,12 @@ const divContainer = {
   justifyContent: 'space-between'
 }
 
+const podStyle = {
+  textAlign: 'center',
+  fontFamily: 'Courgette',
+  backgroundColor: '#ff9800',
+}
+
 const Match = ({ match }) => {
   const [showModal, setShowModal] = useState(false);
   const { userProfile, setUserProfile } = useMainContext();
@@ -106,10 +112,10 @@ const Match = ({ match }) => {
         >
         <Box sx={style}>
         <IconButton sx={{ml: 2}} onClick={closeChat}><ArrowBackIcon/></IconButton>
-          <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
+          <Typography sx={podStyle} id="modal-modal-title" variant="h6" component="h2" align="center">
             Pup Pod
           </Typography>
-          <Chat match={match} closeChat={showModal}/>
+          <Chat match={match} closeChat={showModal} recipient={matchData}/>
         </Box>
       </Modal>
     </div>

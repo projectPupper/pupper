@@ -6,7 +6,7 @@ import ReactDom from 'react-dom';
 import axios from 'axios';
 import { useMainContext } from './Providers/MainProvider.jsx';
 
-const Chat = ({ closeChat, match }) => {
+const Chat = ({ closeChat, match, recipient }) => {
   // const [input, setInput] = useState('Send a message');
   const [chats, setChats] = useState(match);
   const { userProfile, setUserProfile } = useMainContext();
@@ -49,23 +49,28 @@ const Chat = ({ closeChat, match }) => {
       getMessages();
     })
   }
+  
   useEffect(() => {
     const refresh = setInterval(func, 1000);
     return () => clearInterval(refresh);
-
   }, []);
+
+  const element = document.getElementById("scroll");
+  element.scrollTop = element.scrollHeight;
 
   return (
     <div>
-      {
-        chats.messages.map((message, index) => {
-          return <Messages message={message} key={index} />
-        })
-      }
-      <div style={{display: 'flex', flexDirection: 'row', position: 'fixed', bottom: '8%', width: '80%', justifyContent: 'space-evenly'}}>
+      <div id='scroll' style={{overflow: 'scroll', position: 'relative', height: '75vh'}}>
+        {
+          chats.messages.map((message, index) => {
+            return <Messages message={message} key={index} recipient={recipient}/>
+          })
+        }
+      </div>
+      <div style={{display: 'flex', flexDirection: 'row', position: 'fixed', bottom: '8%', width: '80%', justifyContent: 'space-evenly', position: 'absolute', 'marginLeft': '7%', alignItems: 'center'}}>
         <form onSubmit={handleSubmit}>
-          <TextField id="textfield" label="Send a message" variant="filled"  />
-          <Button type="submit" id="submit" >Send</Button>
+          <TextField sx={{ width: '70vw'}} id="textfield" label="Send a message" variant="filled"/>
+          <Button type="submit" id="submit" style={{paddingTop: '15px'}} >Send</Button>
         </form>
       </div>
     </div>
