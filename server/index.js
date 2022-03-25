@@ -20,12 +20,16 @@ app.get('/api/breeds', function(req, res) {
 })
 
 
-//CHAT
+//CHAT/MATCH
 app.get('/api/chats', function(req, res) {
   controller.chats.getChats(req, res);
 })
 app.post('/api/chats', function(req, res) {
   controller.chats.postChats(req, res);
+})
+//CHAT MESSAGES
+app.get('/api/messages', function(req, res) {
+  controller.chats.getMessages(req, res);
 })
 
 // AUTHENTICATE
@@ -36,9 +40,11 @@ app.post('/api/profile', controller.controllerProfile.postProfile)
 app.post('/api/swipe', controller.swipe.postSwipe);
 app.get('/api/swipe', controller.swipe.getSwipe);
 
-app.post('/api/profiles', controller.profiles.postProfiles);
+app.post('/api/swipeprofiles', controller.profiles.postProfiles);
 //get profiles except for main user
-app.get('/api/profiles', controller.profiles.getOtherProfiles);
+app.get('/api/swipeprofiles', controller.profiles.getOtherProfiles);
+
+app.post('/api/preference', controller.preference.postPreference);
 
 //Yelp
 app.get(`/api/yelp`, (req, res) => {

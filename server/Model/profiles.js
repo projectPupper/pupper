@@ -8,19 +8,36 @@ module.exports = {
   getOtherProfiles: (query, cb) => {
     db.Profile.find({_id: query.id})
     .then((res) => {
-      // console.log(res);
+      console.log(res, query);
+      let preference = res[0].prefrences;
       let swipedList = res[0].swiped;
       swipedList.push(query.id);
-      db.Profile.find({ _id: {$nin: swipedList} })
-      // db.Profile.find({})
-      .then((result) => {
-        cb(null, result);
-      })
-      .catch((err) => {
-        console.log('err in profiles model:', err);
-        cb(err);
-      })
+      console.log('preference', preference.offLeash);
+      // db.Profile.find({ _id: {$nin: swipedList}, 'prefrences.offLeash': preference.offLeash, 'prefrences.age': preference.age, 'prefrences.energy': preference.energy, 'prefrences.size': preference.size })
+      //use this
+      if (query.prefer === 'true') {
+        db.Profile.find({ _id: {$nin: swipedList}, 'size': preference.size, 'age': preference.age })
+        .then((result) => {
+          console.log('after query', result);
+          cb(null, result);
+        })
+        .catch((err) => {
+          console.log('err in profiles model:', err);
+          cb(err);
+        })
+      } else {
+        db.Profile.find({ _id: {$nin: swipedList}})
+        .then((result) => {
+          console.log('after query', result);
+          cb(null, result);
+        })
+        .catch((err) => {
+          console.log('err in profiles model:', err);
+          cb(err);
+        })
+      }
     })
+
 
   }
 }

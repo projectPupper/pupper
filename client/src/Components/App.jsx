@@ -4,6 +4,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import MapIcon from '@mui/icons-material/Map';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Outlet, Link } from "react-router-dom";
 import {signInWithGoogle} from "../Firebase.js";
@@ -31,6 +33,9 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
+      <Box sx={{ backgroundColor: '#ff9800', height: 80, paddingTop: 2}}>
+      <Typography style={{ fontSize: 40, fontWeight: 700, color: '#fff', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
+      </Box>
       <BottomNavigation value={value} onChange={handleChange} showLabels={true}  sx={{
           bgcolor: '#ff9800',
           '& .Mui-selected': {
@@ -44,11 +49,10 @@ const App = () => {
             }
           }
         }}>
-          <Typography style={{ fontSize: 30, fontWeight: 700, color: '#fff', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
           <BottomNavigationAction sx={{color: "#fff"}} label="swipe" value="/swipe" icon={<FavoriteIcon />}  component={Link} to='/swipe'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="map" value="/map" coords={coords} setCoords={setCoords} icon={<MapIcon />} component={Link} to='/map'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="matches" value="/matches" icon={<ChatBubbleIcon />} component={Link} to='/matches'/>
-          <BottomNavigationAction sx={{color: "#fff"}} label="preferences" value="/preferences" icon={<PersonIcon /> } component={Link} to='/preferences'/>
+          <BottomNavigationAction sx={{color: "#fff"}} label="preferences" value="/preferences" icon={<FilterListIcon /> } component={Link} to='/preferences'/>
           <BottomNavigationAction sx={{color: "#fff"}} label="profile" value="/profile" icon={<PersonIcon /> } component={Link} to='/profile'/>
       </BottomNavigation>
       </ThemeProvider>

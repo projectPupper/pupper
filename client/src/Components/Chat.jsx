@@ -1,64 +1,116 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Messages from './Messages.jsx';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import ReactDom from 'react-dom';
 import axios from 'axios';
+import { useMainContext } from './Providers/MainProvider.jsx';
 
-const Chat = ({ closeChat, match }) => {
-  const [input, setInput] = useState('Send a message');
+const Chat = ({ closeChat, match, recipient }) => {
+  // const [input, setInput] = useState('Send a message');
   const [chats, setChats] = useState(match);
+  const { userProfile, setUserProfile } = useMainContext();
+  const messageEl = useRef(null)
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    const element = document.getElementById("scroll");
+    element.scroll({ top: element.scrollHeight, behavior: 'smooth' });
+  }, [])
+
+  useEffect(() => {
+    if (messageEl) {
+      messageEl.current.addEventListener('DOMNodeInserted', event => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+      });
+    }
+  }, [])
+
+  function handleSubmit(e) {
     e.preventDefault();
-
-    console.log('match', match._id);
-
     let message = {
       id: match._id,
       users: match.users,
       message: {
-        body: e.target.value,
-        sender: '623aae77a72fd39be4eb7bfe'
+        body: e.target.textfield.value,
+        sender: userProfile._id
       }
     }
-    setInput(message);
+    e.persist();
+    axios.post('/api/chats', message)
+    .then(() => {
+      getMessages();
+      e.target.reset();
+    })
   }
+
+  const getMessages = () => {
+    let params = {"id": match._id};
+
+    axios.get('/api/messages', {params})
+    .then((res) => {
+      const data = res.data[0];
+      console.log('match data', data);
+      setChats(data);
+    })
+  }
+  const func = getMessages;
+  // setInterval(func, 1000);
 
   const sendMessage = (e) => {
     e.preventDefault();
-
-    let params = {"id": "623aae77a72fd39be4eb7bfe"};
-
-    axios.post('/api/chats', input)
-    //get doesn't work
+    axios.post('/api/chats', e)
     .then(() => {
-      axios.get('/api/chat', {params})
-      .then((res) => {
-        const data = res.data;
-        console.log('chat data', data);
-
-        setChats(data);
-      })
+      getMessages();
     })
-    setInput('Send a message');
   }
+
+  useEffect(() => {
+    const refresh = setInterval(func, 1000);
+    return () => clearInterval(refresh);
+  }, []);
+
+  // useEffect(() => {
+  //   const element = document.getElementById("scroll");
+  //   element.scrollTop = element.scrollHeight;
+  // })
 
   return (
     <div>
-      {
-        chats.messages.map((message, index) => {
-          return <Messages message={message} key={index} />
-        })
-      }
-      <TextField id="filled-basic" label="Send a message" variant="filled" onChange={handleChange} />
-      <Button onClick={sendMessage}>Send</Button>
+      <div id='scroll' ref={messageEl} style={{overflow: 'scroll', position: 'relative', height: '75vh'}}>
+        {
+          chats.messages.map((message, index) => {
+            return <Messages message={message} key={index} recipient={recipient}/>
+          })
+        }
+      </div>
+      <div style={{display: 'flex', flexDirection: 'row', position: 'fixed', bottom: '8%', width: '80%', justifyContent: 'space-evenly', position: 'absolute', 'marginLeft': '7%', alignItems: 'center'}}>
+        <form onSubmit={handleSubmit}>
+          <TextField sx={{ width: '70vw'}} id="textfield" label="Send a message" variant="filled"/>
+          <Button type="submit" id="submit" style={{paddingTop: '15px'}} >Send</Button>
+        </form>
+      </div>
     </div>
   )
 }
 
 export default Chat;
 
+  // const handleChange = (e) => {
+  //   e.preventDefault();
+
+  //   console.log('match', match._id);
+
+  //   let message = {
+  //     id: match._id,
+  //     users: match.users,
+  //     message: {
+  //       body: e.target.value,
+  //       sender: userProfile._id
+  //     }
+  //   }
+    // setInput(message);
+  // }
   // const [send, setSend] = useState('disabled');
   // {
   //   id: '12',

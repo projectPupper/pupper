@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chat from './Chat.jsx';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Outlet, Link } from "react-router-dom";
+import axios from 'axios';
+import { useMainContext } from './Providers/MainProvider.jsx';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const style = {
   position: 'absolute',
@@ -19,8 +29,33 @@ const style = {
   p: 4,
 };
 
+const iconStyle = {
+  position: 'relative',
+  width: 70,
+  height: 70
+  // margin: 4,
+};
+
+const gridStyle = {
+  alignItems: 'center',
+  justifyContent: 'space-around'
+}
+
+const divContainer = {
+  display: 'flex',
+  justifyContent: 'space-between'
+}
+
+const podStyle = {
+  textAlign: 'center',
+  fontFamily: 'Courgette',
+  backgroundColor: '#ff9800',
+}
+
 const Match = ({ match }) => {
   const [showModal, setShowModal] = useState(false);
+  const { userProfile, setUserProfile } = useMainContext();
+  const [matchData, setMatchData] = useState(null);
 
   const showChat = (e) => {
     e.preventDefault();
@@ -32,10 +67,43 @@ const Match = ({ match }) => {
     setShowModal(false);
   }
 
-  return (
+  useEffect(() => {
+    const params = {};
+    if (userProfile._id === match.users[0]) {
+      params._id = match.users[1];
+    } else {
+      params._id = match.users[0];
+    }
+    console.log('params', params);
+    axios.get('/api/profile', {params})
+      .then((res) => {
+        console.log('match 1', res.data)
+        setMatchData(res.data);
+      })
+  }, []);
+
+  return matchData && (
     <div>
-      <Button onClick={showChat}>Chat</Button>
-      <Button>Remove</Button>
+      <Box sx={{ flexGrow: 1, alignItems: 'center', justifyContent: 'space-between', m: 5 }}>
+        <Grid container spacing={4} sx={gridStyle}>
+          <Grid item xs={3}>
+            <Avatar
+            src={matchData.imgUrl}
+            alt="Profile Pic"
+            sx={iconStyle}
+            />
+           </Grid>
+           <Grid item xs={3}>
+            <Typography sx={{width: '150px'}}>{matchData.name}</Typography>
+           </Grid>
+           <Grid item xs={2}>
+            <Button onClick={showChat}>Chat</Button>
+           </Grid>
+           <Grid item xs={2}>
+            <Button><DeleteIcon/></Button>
+           </Grid>
+        </Grid>
+      </Box>
       <Modal
         open={showModal}
         onClose={closeChat}
@@ -43,11 +111,11 @@ const Match = ({ match }) => {
         aria-describedby="modal-modal-description"
         >
         <Box sx={style}>
-        <Button onClick={closeChat}>Close Chat</Button>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Chatroom
+        <IconButton sx={{ml: 2}} onClick={closeChat}><ArrowBackIcon/></IconButton>
+          <Typography sx={podStyle} id="modal-modal-title" variant="h6" component="h2" align="center">
+            Pup Pod
           </Typography>
-          <Chat match={match}/>
+          <Chat match={match} closeChat={showModal} recipient={matchData}/>
         </Box>
       </Modal>
     </div>

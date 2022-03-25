@@ -2,11 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { signInWithGoogle, auth, onAuthStateChanged } from "../Firebase.js"
 import ProfileSetup from "./ProfileSetup.jsx";
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { useMainContext } from './Providers/MainProvider.jsx';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadingButton from '@mui/lab/LoadingButton';
 
+const loginBackground = {
+  backgroundImage: "url('https://res.cloudinary.com/chewychewy/image/upload/v1648179068/Screen_Shot_2022-03-24_at_8.30.51_PM_anh8ed.png')",
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover'
+}
+
+const loginStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+}
+
+const loginButtonStyle = {
+  marginBottom: '99%',
+  marginTop: '5%',
+}
 
 function Login() {
   const { setUserProfile } = useMainContext()
@@ -20,14 +37,16 @@ function Login() {
         const config = { params: {uid: user.uid} }
         axios.get('/api/profile', config)
           .then((result) => {
-            // console.log("result.data", result.data)
+            console.log('loginGetAW:', result.data)
             if (result.data.name) {
-              setUserProfile(result.data)
+              setUserProfile(result.data);
+              localStorage.setItem('userProfile', JSON.stringify(result.data));
               navigate("/swipe");
             } else {
-              setUserProfile(user.uid);
+              setUserProfile({uid: user.uid});
               setLoggedIn(true);
             }
+            localStorage.setItem('uid', user.uid);
           })
       } else {
         setLoading(false);
@@ -38,7 +57,7 @@ function Login() {
   function handleClick() {
     signInWithGoogle()
     .then(result => {
-      setUserProfile(result.user.uid);
+      setUserProfile({uid: result.user.uid});
       setLoggedIn(true);
       console.log('google: ', result)
     })
@@ -51,12 +70,14 @@ function Login() {
   return (
     <>
       {loggedIn ?
-        <ProfileSetup />
+        <ProfileSetup submitLabel="Register"/>
         :
-        <>
-          <Typography style={{ fontSize: 30, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette' }}>Pupper</Typography>
-          <LoadingButton loading={loading} variant="contained" onClick={handleClick}>login chewy</LoadingButton>
-        </>
+        <div style={loginBackground}>
+          <div style={loginStyle}>
+            <Typography style={{ fontSize: 50, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette', marginTop: '88%'}}>Pupper</Typography>
+            <LoadingButton loading={loading} variant="contained" sx={{backgroundColor:'#ff9800'}} style={loginButtonStyle} onClick={handleClick}>login chewy</LoadingButton>
+          </div>
+        </div>
       }
     </>
   )

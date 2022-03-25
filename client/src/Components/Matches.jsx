@@ -1,12 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import Match from './Match.jsx';
 import axios from 'axios';
+import { useMainContext } from './Providers/MainProvider.jsx';
+
+const matchStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  zindex: '1',
+  marginRight: '30px'
+}
 
 function Matches () {
   const [userData, setUserData] = useState(null);
+  const { userProfile, setUserProfile } = useMainContext();
 
   useEffect(() => {
-    let params = {'id': '623aae77a72fd39be4eb7bfe'};
+    let params = {'id': userProfile._id};
 
     axios.get('/api/chats', {params})
     .then((res) => {
@@ -19,7 +29,7 @@ function Matches () {
   return (
     <>
       <div id={'chatPortal'} ></div>
-      <div style={{zindex: '1'}} >
+      <div style={matchStyle} >
         {userData &&
           userData.map((match, index) => {
             return <Match match={match} key={index} />
@@ -29,6 +39,7 @@ function Matches () {
     </>
   );
 }
+export default Matches;
 
   // {
   //   chats: ['12'],
@@ -52,7 +63,7 @@ function Matches () {
 
   // get all current users matches (profiles?)
   // render out each match to a chat component
-export default Matches;
+
 
 
 // , {
