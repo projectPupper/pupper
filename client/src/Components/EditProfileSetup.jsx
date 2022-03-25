@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Autocomplete, Button, Slider, TextField, TextareaAutosize } from '@mui/material';
@@ -12,116 +12,31 @@ import { LoadingButton } from '@mui/lab';
 import SendIcon from '@mui/icons-material/Send';
 
 
-function ProfileSetup(props) {
+function EditProfileSetup(props) {
   const { userProfile, setUserProfile } = useMainContext();
   const [loading, setLoading] = useState(false);
-  const [info, setInfo] = useState({
-    aboutMe: '',
-    age: '',
-    breed: '',
-    energy: '',
-    gender: '',
-    imgUrl: '',
-    name: '',
-    offLeash: '',
-    ownerName: '',
-    size: ''
-  })
   let navigate = useNavigate();
   let { username } = useParams();
 
-  useEffect(() => {
-    console.log('userProfile: ', userProfile._id)
-    console.log('info before: ', info)
-    if (userProfile._id) {
-      const config = { params: {_id: userProfile._id} }
-      axios.get('/api/profile', config)
-      .then ((res) => {
-        console.log('res: ', res)
-        setInfo({
-          aboutMe: res.data.aboutMe,
-          age: res.data.age,
-          breed: res.data.breed,
-          energy: res.data.energy,
-          gender: res.data.gender,
-          imgUrl: res.data.imgUrl,
-          name: res.data.name,
-          offLeash: res.data.offLeash,
-          ownerName: res.data.ownerName,
-          size: res.data.size
-        })
-      })
-    }
-  },[])
-
-  console.log('info after: ', info);
 
   const sizeMarks = [
-    {
-      value: 1,
-      label: 'Small',
-    },
-    {
-      value: 2,
-      label: 'Medium',
-    },
-    {
-      value: 3,
-      label: 'Large',
-    }
+
   ];
 
   const ageMarks = [
-    {
-      value: 1,
-      label: 'Puppy',
-    },
-    {
-      value: 2,
-      label: 'Adult',
-    },
-    {
-      value: 3,
-      label: 'Senior',
-    },
+,
   ];
 
   const genderMarks = [
-    {
-      value: 0,
-      label: 'Female',
-    },
-    {
-      value: 1,
-      label: 'Male',
-    },
+
   ];
 
   const energyMarks = [
-    {
-      value: 0,
-      label: 'Low',
-    },
-    {
-      value: 1,
-      label: 'Medium',
-    },
-    {
-      value: 2,
-      label: 'High',
-    },
 
   ];
 
   const leashMarks = [
-    {
-      value: 0,
-      label: 'on',
-    },
-    {
-      value: 1,
-      label: 'off',
-    },
+
   ];
 
   function sizeFormatVal(value) {
@@ -226,53 +141,23 @@ function ProfileSetup(props) {
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Size</Typography>
-          <Slider name="size" step={1} min={1} max={3}
-            defaultValue={
-              info.size === 'Small' ?
-                1
-              : info.size === 'Medium' ?
-                2
-              : info.size === 'Large' ?
-                3
-              :
-                1
-            } marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
+          <Slider name="size" step={1} min={1} max={3} defaultValue={1} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Pupper Gender</Typography>
-          <Slider name="gender" step={1} min={0} max={1} defaultValue={info.gender === 'Male' ? 1 : 0} marks={genderMarks} valueLabelFormat={genderFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="gender" step={1} min={0} max={1} defaultValue={0} marks={genderMarks} valueLabelFormat={genderFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
 
           <Typography style={{textAlign: "center"}}>Pupper Age</Typography>
-          <Slider name="age" step={1} min={1} max={3}
-          defaultValue={
-            info.age === 'Puppy' ?
-              1
-            : info.age === 'Adult' ?
-              2
-            : info.age === 'Senior' ?
-              3
-            :
-              1
-          } marks={ageMarks} valueLabelFormat={ageFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="age" step={1} min={1} max={3} defaultValue={0} marks={ageMarks} valueLabelFormat={ageFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Energy Level</Typography>
-          <Slider name="energy" step={1} min={0} max={2}
-            defaultValue={
-              info.energy === 'Low' ?
-                0
-              : info.energy === 'Medium' ?
-                1
-              : info.energy === 'High' ?
-                2
-              :
-                0
-              } marks={energyMarks} valueLabelFormat={energyFormatVal} aria-label="Default" valueLabelDisplay="auto" />
+          <Slider name="energy" step={1} min={0} max={2} defaultValue={1} marks={energyMarks} valueLabelFormat={energyFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Leash On/Off</Typography>
-          <Slider name="offLeash" step={1} min={0} max={1} defaultValue={info.offLeash === true ? 1 : 0} marks={leashMarks} valueLabelFormat={leashFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="offLeash" step={1} min={0} max={1} defaultValue={1} marks={leashMarks} valueLabelFormat={leashFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
         </Typography>
         <Button
@@ -302,4 +187,4 @@ function ProfileSetup(props) {
   )
 }
 
-export default ProfileSetup;
+export default EditProfileSetup;
