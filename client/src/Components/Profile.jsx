@@ -23,21 +23,28 @@ const cardStyle = {
   color: 'black'
 }
 
-const imgContainer = {
-  // display: 'flex',
-  // flexDirection: 'column',
-  // alignItems: 'center',
+const imgContainerWrapper = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
   width: '300px',
-  height: '300px',
-  objectFit: 'contain'
+  // height: '300px',
+  objectFit: 'contain',
+  marginBottom: '20px'
+}
+
+const imgContainer = {
+  width: '200px',
+  height: '200px'
 }
 
 
 const imgStyle = {
-  width: '50%',
-  height: '50%',
+  width: '100%',
+  height: '100%',
   borderRadius: '50%',
-  marginBottom: '20px'
+  marginBottom: '20px',
+  objectFit: 'cover'
 }
 
 const titleStyle = {
@@ -55,14 +62,16 @@ function Profile() {
       <Card className='card' raised="true" style={cardStyle}>
         <Typography style={titleStyle}>{userProfile.name}</Typography>
 
-        <div className='imgContainer' style={imgContainer}>
-          <img className='img' style={imgStyle} src={allowRefresh("imgUrl")} />
+        <div className='imgContainerWrapper' style={imgContainerWrapper}>
+          <div className='imgContainer' style={imgContainer}>
+            <img className='img' style={imgStyle} src={userProfile.imgUrl} />
+          </div>
         </div>
 
-        <Typography>Age {userProfile.age}</Typography>
-        <Typography>Breed {userProfile.breed}</Typography>
-        <Typography>Owner {userProfile.ownerName}</Typography>
-        <Typography>Energy {userProfile.energy}</Typography>
+        <Typography>Age: {userProfile.age}</Typography>
+        <Typography>Breed: {userProfile.breed}</Typography>
+        <Typography>Owner: {userProfile.ownerName}</Typography>
+        <Typography>Energy: {userProfile.energy}</Typography>
 
       </Card>
     </div>
