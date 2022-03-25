@@ -142,28 +142,23 @@ function ProfileSetup(props) {
     e.preventDefault();
     setLoading(true);
     e.persist();
+    // console.log('awetargetPHOTOS:', !!e.target.photo.files)
+    if (e.target.photo.files.length === 0) {
+      let serverPackage = {
+        name: e.target.name.value,
+        age: ageFormatVal(Number(e.target.age.value)),
+        gender: genderFormatVal(Number(e.target.gender.value)),
+        breed: e.target.breed.value,
+        size: sizeFormatVal(Number(e.target.size.value)),
+        energy: energyFormatVal(Number(e.target.energy.value)),
+        offLeash: e.target.offLeash.value === '1' ? true : false,
+        ownerName: e.target.ownerName.value,
+        aboutMe: e.target.aboutMe.value,
+        uid: userProfile.uid,
+        imgUrl: userProfile.imgUrl,
+      };
 
-    const data = new FormData();
-    data.append('file', e.target.photo.files[0]);
-    data.append('upload_preset', 'pupper');
-    data.append('cloud_name', 'chewychewy');
-    axios.post('https://api.cloudinary.com/v1_1/chewychewy/image/upload', data)
-      .then((res) => {
-        let serverPackage = {
-          name: e.target.name.value,
-          age: ageFormatVal(Number(e.target.age.value)),
-          gender: genderFormatVal(Number(e.target.gender.value)),
-          breed: e.target.breed.value,
-          size: sizeFormatVal(Number(e.target.size.value)),
-          energy: energyFormatVal(Number(e.target.energy.value)),
-          offLeash: e.target.offLeash.value === '1' ? true : false,
-          ownerName: e.target.ownerName.value,
-          aboutMe: e.target.aboutMe.value,
-          uid: userProfile.uid,
-          imgUrl: res.data.url,
-        };
-
-        axios.post('/api/profile', serverPackage)
+      axios.post('/api/profile', serverPackage)
           .then((result) => {
             setUserProfile(result.data);
             localStorage.setItem('userProfile', JSON.stringify(result.data));
@@ -171,11 +166,41 @@ function ProfileSetup(props) {
             navigate("/preferences");
           })
           .catch(err => console.log(`Profile post error:`, err))
+    } else {
+      const data = new FormData();
+      data.append('file', e.target.photo.files[0]);
+      data.append('upload_preset', 'pupper');
+      data.append('cloud_name', 'chewychewy');
+      axios.post('https://api.cloudinary.com/v1_1/chewychewy/image/upload', data)
+        .then((res) => {
+          let serverPackage = {
+            name: e.target.name.value,
+            age: ageFormatVal(Number(e.target.age.value)),
+            gender: genderFormatVal(Number(e.target.gender.value)),
+            breed: e.target.breed.value,
+            size: sizeFormatVal(Number(e.target.size.value)),
+            energy: energyFormatVal(Number(e.target.energy.value)),
+            offLeash: e.target.offLeash.value === '1' ? true : false,
+            ownerName: e.target.ownerName.value,
+            aboutMe: e.target.aboutMe.value,
+            uid: userProfile.uid,
+            imgUrl: res.data.url,
+          };
 
-      })
-      .catch((err) => {
-        console.log('Cloudinary profile post err:', err);
-      });
+          axios.post('/api/profile', serverPackage)
+            .then((result) => {
+              setUserProfile(result.data);
+              localStorage.setItem('userProfile', JSON.stringify(result.data));
+              localStorage.setItem('uid', result.data.uid)
+              navigate("/preferences");
+            })
+            .catch(err => console.log(`Profile post error:`, err))
+
+        })
+        .catch((err) => {
+          console.log('Cloudinary profile post err:', err);
+        });
+    }
   }
 
 
@@ -228,6 +253,7 @@ function ProfileSetup(props) {
         >
           Upload File
           <input
+            required={props.submitLabel === "Register" ? true : false}
             id="photo"
             type="file"
             hidden
