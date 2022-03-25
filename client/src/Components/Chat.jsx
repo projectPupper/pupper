@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Messages from './Messages.jsx';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -10,6 +10,21 @@ const Chat = ({ closeChat, match, recipient }) => {
   // const [input, setInput] = useState('Send a message');
   const [chats, setChats] = useState(match);
   const { userProfile, setUserProfile } = useMainContext();
+  const messageEl = useRef(null)
+
+  useEffect(() => {
+    if (messageEl) {
+      messageEl.current.addEventListener('DOMNodeInserted', event => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+      });
+    }
+  }, [])
+
+  useEffect(() => {
+    const element = document.getElementById("scroll");
+    element.scrollTop = element.scrollHeight;
+  }, [])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -62,7 +77,7 @@ const Chat = ({ closeChat, match, recipient }) => {
 
   return (
     <div>
-      <div id='scroll' style={{overflow: 'scroll', position: 'relative', height: '75vh'}}>
+      <div id='scroll' ref={messageEl} style={{overflow: 'scroll', position: 'relative', height: '75vh'}}>
         {
           chats.messages.map((message, index) => {
             return <Messages message={message} key={index} recipient={recipient}/>
