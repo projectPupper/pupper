@@ -136,6 +136,7 @@ function Swipe () {
             <div className='card' style={cardStyle} >
             <img  src={character.imgUrl} style={{ position: "relative", width: '100%', height: '75%', borderTopLeftRadius: '10px 10px', borderTopRightRadius: '10px 10px' }}/>
               <Typography sx={fontStyle}>{character.name}</Typography>
+              <Typography sx={{ fontSize: '20px'}}>{character.breed}</Typography>
               <Typography sx={smallFontStyle}> {character.size}  size<br/>{character.energy} energy<br/> {character.age} | {character.gender} </Typography>
             </div>
             <IconButton sx={{position: 'absolute', backgroundColor: '#fff', margin: '20px 90px'}} onClick={() => handleClick(character)} aria-label="delete" size="large"><PersonIcon /></IconButton>
