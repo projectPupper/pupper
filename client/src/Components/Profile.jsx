@@ -102,6 +102,7 @@ function Profile() {
               <br />
               <br />
               <Typography>Breed: {userProfile.breed}</Typography>
+              <Typography>Size: {userProfile.size}</Typography>
               <Typography>Gender: {userProfile.gender}</Typography>
               <Typography>Age: {userProfile.age}</Typography>
               <Typography>Energy: {userProfile.energy}</Typography>

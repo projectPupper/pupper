@@ -21,30 +21,30 @@ function ProfileSetup(props) {
 
   const sizeMarks = [
     {
-      value: 1,
+      value: 0,
       label: 'Small',
     },
     {
-      value: 2,
+      value: 1,
       label: 'Medium',
     },
     {
-      value: 3,
+      value: 2,
       label: 'Large',
     }
   ];
 
   const ageMarks = [
     {
-      value: 1,
+      value: 0,
       label: 'Puppy',
     },
     {
-      value: 2,
+      value: 1,
       label: 'Adult',
     },
     {
-      value: 3,
+      value: 2,
       label: 'Senior',
     },
   ];
@@ -86,6 +86,17 @@ function ProfileSetup(props) {
       label: 'off',
     },
   ];
+
+  function reverseSearch(string, marksName, leashIndicator) {
+    if (string && leashIndicator) {
+      string ? string = "off" : string = "on"
+    }
+    for (let i = 0; i < marksName.length; i++) {
+      if (marksName[i].label === string) {
+        return sizeMarks[i].value;
+      }
+    }
+  }
 
   function sizeFormatVal(value) {
     for (let i = 0; i < sizeMarks.length; i++) {
@@ -131,6 +142,7 @@ function ProfileSetup(props) {
     e.preventDefault();
     setLoading(true);
     e.persist();
+
     const data = new FormData();
     data.append('file', e.target.photo.files[0]);
     data.append('upload_preset', 'pupper');
@@ -147,7 +159,7 @@ function ProfileSetup(props) {
           offLeash: e.target.offLeash.value === '1' ? true : false,
           ownerName: e.target.ownerName.value,
           aboutMe: e.target.aboutMe.value,
-          uid: userProfile,
+          uid: userProfile.uid,
           imgUrl: res.data.url,
         };
 
@@ -173,12 +185,13 @@ function ProfileSetup(props) {
       <form onSubmit={handleSubmit}>
 
         <PetsIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
-        <TextField id="name" label="My name" variant="standard" /> <br />
+        <TextField id="name" label="My name" variant="standard" defaultValue={userProfile && userProfile.name} /> <br />
         <InfoIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
-        <TextareaAutosize id="aboutMe" aria-label="empty textarea" minRows={4} placeholder="About Me" style={{ width : 200 }} /> <br />
+        <TextareaAutosize id="aboutMe" aria-label="empty textarea" minRows={4} defaultValue={userProfile && userProfile.aboutMe} placeholder="About Me" style={{ width : 200 }} /> <br />
         <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 3 }} />
-        <TextField id="ownerName" label="My owner's name" variant="standard" />
+        <TextField id="ownerName" defaultValue={userProfile && userProfile.ownerName} label="My owner's name" variant="standard" />
         <Autocomplete
+        defaultValue={userProfile && userProfile.breed}
         disablePortal
         id="breed"
         options={breeds}
@@ -189,23 +202,23 @@ function ProfileSetup(props) {
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Size</Typography>
-          <Slider name="size" step={1} min={1} max={3} defaultValue={1} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
+          <Slider name="size" step={1} min={0} max={2} defaultValue={reverseSearch(userProfile.size, sizeMarks)} marks={sizeMarks} aria-label="Default"  valueLabelDisplay="auto" valueLabelFormat={sizeFormatVal}/>
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Pupper Gender</Typography>
-          <Slider name="gender" step={1} min={0} max={1} defaultValue={0} marks={genderMarks} valueLabelFormat={genderFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="gender" step={1} min={0} max={1} defaultValue={reverseSearch(userProfile.gender, genderMarks)} marks={genderMarks} valueLabelFormat={genderFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
 
           <Typography style={{textAlign: "center"}}>Pupper Age</Typography>
-          <Slider name="age" step={1} min={1} max={3} defaultValue={0} marks={ageMarks} valueLabelFormat={ageFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="age" step={1} min={0} max={2} defaultValue={reverseSearch(userProfile.age, ageMarks)} marks={ageMarks} valueLabelFormat={ageFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Energy Level</Typography>
-          <Slider name="energy" step={1} min={0} max={2} defaultValue={1} marks={energyMarks} valueLabelFormat={energyFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="energy" step={1} min={0} max={2} defaultValue={reverseSearch(userProfile.energy, energyMarks)} marks={energyMarks} valueLabelFormat={energyFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
 
           <Typography style={{textAlign: "center", marginTop: "10px"}}>Leash On/Off</Typography>
-          <Slider name="offLeash" step={1} min={0} max={1} defaultValue={1} marks={leashMarks} valueLabelFormat={leashFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
+          <Slider name="offLeash" step={1} min={0} max={1} defaultValue={reverseSearch(userProfile.offLeash, leashMarks, true)} marks={leashMarks} valueLabelFormat={leashFormatVal} aria-label="Default"  valueLabelDisplay="auto" />
 
         </Typography>
         <Button
