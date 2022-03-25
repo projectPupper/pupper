@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -27,6 +28,7 @@ const Filters = () => {
   const [age, setAges] = React.useState('');
   const [energy, setEnergy] = React.useState('');
   const [leash, setLeash] = React.useState('');
+  const navigate = useNavigate();
 
   const handleSizes = (event, input) => {
     setSizes(input);
@@ -48,6 +50,20 @@ const Filters = () => {
     setLeash(input);
   };
 
+  const handleClear = () => {
+    console.log('clear clicked!');
+    setSwipeList(false);
+    navigate("/swipe");
+    // axios.get('/api/swipeprofiles', { params: { id: userProfile._id }})
+    //   .then((res) => {
+    //     console.log('get is working in Swipe!');
+    //     setSwipeList(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log('preference clear error!');
+    //   })
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const preference = {
@@ -63,7 +79,13 @@ const Filters = () => {
     axios.post('/api/preference', preference)
       .then((res) => {
         console.log('preference posted!');
-        setSwipeList((initial) => !initial);
+        setSwipeList(true);
+        navigate("/swipe");
+      //   axios.get('/api/swipeprofiles', { params: { id: userProfile._id, prefer: true }})
+      // .then((res) => {
+      //   console.log(res.data);
+      //   setSwipeList(res.data);
+      // })
       })
       .catch((err) => {
         console.log('preference post error!');
@@ -162,15 +184,15 @@ const Filters = () => {
           </ToggleButtonGroup>
 
           <Typography style={{ fontSize: 14, fontWeight: 400, color: '#ff9800', textAlign: 'left', fontFamily:'Roboto' }}>Ideal Play Session</Typography>
-          <ToggleButtonGroup exclusive fullWidth size="medium" aria-label="offleash button group" value={leash}
+          <ToggleButtonGroup required exclusive fullWidth size="medium" aria-label="offleash button group" value={leash}
             onChange={handleLeash} >
             <ToggleButton value="Yes" aria-label="yes" >On-Leash</ToggleButton>
             <ToggleButton value="No" aria-label="no">Off-Leash</ToggleButton>
           </ToggleButtonGroup>
           </Stack>
           <Button variant="contained" type="submit" sx={{bgcolor: '#ff9800', '&:hover': {bgcolor: '#ff9800'}, padding: '6px 130px', marginTop: 5}}>Submit</Button>
-
         </form>
+        <Button variant="contained" onClick={handleClear} sx={{bgcolor: '#ff9800', '&:hover': {bgcolor: '#ff9800'}, padding: '6px 89px', marginTop: 1}}>Clear Preference</Button>
       </Box>
     </Box>
 

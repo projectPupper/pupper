@@ -12,7 +12,7 @@ export const localUID = localStorage.uid;
 
 export default function MainProvider({ children }) {
   const [userProfile, setUserProfile] = useState();
-  const [swipeList, setSwipeList ] = useState(true);
+  const [swipeList, setSwipeList ] = useState(false);
 
   if (!userProfile && localUserProfile) {
     setUserProfile(localUserProfile);

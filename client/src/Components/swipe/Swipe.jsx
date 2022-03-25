@@ -85,7 +85,7 @@ const modalStyle = {
 
 
 function Swipe () {
-  const { userProfile, swipeList } = useMainContext();
+  const { userProfile, swipeList, setSwipeList } = useMainContext();
   const [open, setOpen] = useState(false);
   const [alert, setAlert] = useState(false);
   const [lastDirection, setLastDirection] = useState();
@@ -94,14 +94,16 @@ function Swipe () {
   const [profileList, setprofileList] = useState(null);
 
   useEffect(() => {
-    console.log(userProfile);
+    console.log("swipe mounted:", userProfile, swipeList);
     if (userProfile) {
-    axios.get('/api/swipeprofiles', { params: { id: userProfile._id }})
+    axios.get('/api/swipeprofiles', { params: { id: userProfile._id, prefer: swipeList }})
       .then((res) => {
+        console.log('get is working in Swipe!');
         setprofileList(res.data);
       })
     }
-  }, [swipeList]);
+
+  }, []);
 
   const showAlert = () => {
     setAlert(true);
