@@ -144,6 +144,7 @@ function Swipe () {
   const handleClose = () => setOpen(false);
 
   return (
+    <>
     <div className='tinderCardWrapper' style={cardWrapper}>
       <Box sx={{ height: 30 }} mt={2.5}>
       {alert &&
@@ -152,7 +153,13 @@ function Swipe () {
     </Alert>
       }
       </Box>
+      {!profileList &&
+        <Box>
+          <Typography sx={{color: '#e0e0e0', display: 'flex', flexDirection: 'column',justifyContent: 'center', alignItems: 'center' }}>Loading ...</Typography>
+        </Box>
+      }
       {profileList &&
+      <>
       <div style={cardContainer}>
         {profileList.map((character) =>
         <>
@@ -167,11 +174,9 @@ function Swipe () {
             </div>
             <IconButton sx={{position: 'absolute', backgroundColor: '#fff', margin: '20px 90px'}} onClick={() => handleClick(character)} aria-label="delete" size="large"><PersonIcon /></IconButton>
           </TinderCard>
-
           </>
         )}
       </div>
-      }
 
       <Modal
         open={open}
@@ -184,8 +189,14 @@ function Swipe () {
         </Box>
       </Modal>
 
-      {/* {lastDirection ? <Typography className='infoText'>You swiped {lastDirection}</Typography> : <Typography className='infoText' />} */}
+      <Box sx={{position: 'absolute', textAlign:'center', width: '90vw', maxWidth: '330px', height: '55vh', marginTop: '5vh', marginBottom: '3vh', zIndex: -999}}>
+          <img  src="https://res.cloudinary.com/chewychewy/image/upload/v1648228295/Screen_Shot_2022-03-25_at_12.01.35_PM_b1zciu.jpg" style={{ position: "relative", width: '100%', height: '100%', borderRadius: "10px"}}/>
+        </Box>
+        </>
+      }
     </div>
+
+          </>
   )
 }
 
