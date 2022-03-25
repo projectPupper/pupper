@@ -23,7 +23,6 @@ const profileContainer = {
 const cardStyle = {
   display: 'flex',
   flexDirection: 'column',
-  // justifyContent: 'center',
   alignItems: 'center',
   paddingBottom: '70px',
   backgroundColor: 'blanchedalmond',
@@ -35,7 +34,6 @@ const imgContainerWrapper = {
   flexDirection: 'column',
   alignItems: 'center',
   width: '300px',
-  // height: '300px',
   objectFit: 'contain',
   marginBottom: '20px'
 }
@@ -94,16 +92,12 @@ function Profile() {
               <div style={editStyle}>
                 <EditProfile  setSetup={setSetup}/>
               </div>
-
-
               <Typography style={titleStyle}>{userProfile.name}</Typography>
-
               <div className='imgContainerWrapper' style={imgContainerWrapper}>
                 <div className='imgContainer' style={imgContainer}>
                   <img className='img' style={imgStyle} src={userProfile.imgUrl} />
                 </div>
               </div>
-
               <Typography sx={{ color: 'goldenrod' }}>{userProfile.aboutMe}</Typography>
               <br />
               <br />
@@ -111,7 +105,6 @@ function Profile() {
               <Typography>Gender: {userProfile.gender}</Typography>
               <Typography>Age: {userProfile.age}</Typography>
               <Typography>Energy: {userProfile.energy}</Typography>
-
               <Typography>Off-Leash: {userProfile.offLeash ? 'Yes' : 'No'}</Typography>
               <Typography>Owner: {userProfile.ownerName}</Typography>
               <br />
@@ -126,17 +119,12 @@ function Profile() {
               >
                 Log Out
               </LoadingButton>
-
             </Card>
           </div>
         )
       }
     </>
-
-
   )
 }
 
 export default Profile;
-
-// use UID
