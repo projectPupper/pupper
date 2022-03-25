@@ -3,6 +3,14 @@ import Match from './Match.jsx';
 import axios from 'axios';
 import { useMainContext } from './Providers/MainProvider.jsx';
 
+const matchStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  zindex: '1',
+  marginRight: '30px'
+}
+
 function Matches () {
   const [userData, setUserData] = useState(null);
   const { userProfile, setUserProfile } = useMainContext();
@@ -21,7 +29,7 @@ function Matches () {
   return (
     <>
       <div id={'chatPortal'} ></div>
-      <div style={{zindex: '1'}} >
+      <div style={matchStyle} >
         {userData &&
           userData.map((match, index) => {
             return <Match match={match} key={index} />
