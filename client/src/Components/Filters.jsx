@@ -21,7 +21,7 @@ import { useMainContext } from './Providers/MainProvider.jsx'
 
 
 const Filters = () => {
-  const { userProfile } = useMainContext();
+  const { userProfile, setSwipeList  } = useMainContext();
   const [sizes, setSizes] = React.useState('');
   const [gender, setGenders] = React.useState('');
   const [age, setAges] = React.useState('');
@@ -62,10 +62,11 @@ const Filters = () => {
     }
     axios.post('/api/preference', preference)
       .then((res) => {
-        console.log('preference posted!')
+        console.log('preference posted!');
+        setSwipeList((initial) => !initial);
       })
       .catch((err) => {
-        console.log('preference post error!')
+        console.log('preference post error!');
       })
     console.log(preference);
   }
