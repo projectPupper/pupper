@@ -37,12 +37,13 @@ function Login() {
         const config = { params: {uid: user.uid} }
         axios.get('/api/profile', config)
           .then((result) => {
+            console.log('loginGetAW:', result.data)
             if (result.data.name) {
               setUserProfile(result.data);
               localStorage.setItem('userProfile', JSON.stringify(result.data));
               navigate("/swipe");
             } else {
-              setUserProfile(user.uid);
+              setUserProfile({uid: user.uid});
               setLoggedIn(true);
             }
             localStorage.setItem('uid', user.uid);
@@ -56,7 +57,7 @@ function Login() {
   function handleClick() {
     signInWithGoogle()
     .then(result => {
-      setUserProfile(result.user.uid);
+      setUserProfile({uid: result.user.uid});
       setLoggedIn(true);
       console.log('google: ', result)
     })

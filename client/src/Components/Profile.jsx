@@ -69,6 +69,10 @@ function Profile() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  function exitOutEdit() {
+    setSetup(false);
+  }
+
   function handleLogOut() {
     setLoading(true);
     signOut(auth)
@@ -85,7 +89,7 @@ function Profile() {
   return (
     <>
       {setup ?
-          <ProfileSetup submitLabel="Save Profile" />
+          <ProfileSetup submitLabel="Save Profile" exitOutEdit={exitOutEdit}/>
       : (
           <div className='profileContainer' style={profileContainer}>
             <Card className='card' raised="true" style={cardStyle}>
@@ -102,6 +106,7 @@ function Profile() {
               <br />
               <br />
               <Typography>Breed: {userProfile.breed}</Typography>
+              <Typography>Size: {userProfile.size}</Typography>
               <Typography>Gender: {userProfile.gender}</Typography>
               <Typography>Age: {userProfile.age}</Typography>
               <Typography>Energy: {userProfile.energy}</Typography>
