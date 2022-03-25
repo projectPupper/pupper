@@ -24,11 +24,11 @@ module.exports = {
   },
 
   createProfile: (body, cb) => {
-    Profile.updateOne({uid: body.uid}, body, {upsert: true})
-      .then((result) => {
-        Profile.find({uid: body.uid})
-          .then(result => cb(null, result[0]))
-          .catch(err => cb(err));
+    console.log('createprofileAWbody:', body)
+    Profile.findOneAndUpdate({uid: body.uid}, body, {upsert: true, new: true})
+      .then(result => {
+        console.log('AWcreateprofileresultCL', result)
+        cb(null, result)
       })
       .catch(err => cb(err));
   },
