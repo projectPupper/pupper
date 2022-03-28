@@ -75,7 +75,7 @@ function Login() {
         <div style={loginBackground}>
           <div style={loginStyle}>
             <Typography style={{ fontSize: 50, fontWeight: 700, color: '#ff9800', textAlign: 'center', fontFamily:'Courgette', marginTop: '88%'}}>Pupper</Typography>
-            <LoadingButton loading={loading} variant="contained" sx={{backgroundColor:'#ff9800'}} style={loginButtonStyle} onClick={handleClick}>login chewy</LoadingButton>
+            <LoadingButton loading={loading} variant="contained" sx={{backgroundColor:'#ff9800'}} style={loginButtonStyle} onClick={handleClick}>login playground</LoadingButton>
           </div>
         </div>
       }
