@@ -4,16 +4,16 @@
 A responsive application where puppers create their own profile and match with other puppers for a meetup.
 
 
-## Components and Contributers
-Login Authentication: Lorene Chew, Austin Wang
-Profile (Pupfile): Lorene Chew, Austin Wang
-Preference (Pupferences): Inny Choi, Kat Bakalova
-Swipe (Pawswipe): Inny Choi
-Chat (Puppal): Gloria Chen, Anthony Blelloch
-Map (Pupplaces): David Unuigbe
+## Components and Contributers \
+Login Authentication: Lorene Chew, Austin Wang \
+Profile (Pupfile): Lorene Chew, Austin Wang \
+Preference (Pupferences): Inny Choi, Kat Bakalova \
+Swipe (Pawswipe): Inny Choi \
+Chat (Puppal): Gloria Chen, Anthony Blelloch \
+Map (Pupplaces): David Unuigbe \
 
-React Router: Lorene Chew
-React Context API: Austin Wang
+React Router: Lorene Chew \
+React Context API: Austin Wang \
 
 
 ## Available Scripts
