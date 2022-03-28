@@ -4,7 +4,7 @@
 A responsive application where puppers create their own profile and match with other puppers for a meetup.
 
 
-## Components and Contributers \
+## Components and Contributers 
 Login Authentication: Lorene Chew, Austin Wang \
 Profile (Pupfile): Lorene Chew, Austin Wang \
 Preference (Pupferences): Inny Choi, Kat Bakalova \
