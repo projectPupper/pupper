@@ -95,11 +95,10 @@ function Swipe () {
   const [profileList, setprofileList] = useState(null);
 
   useEffect(() => {
-    console.log("swipe mounted:", userProfile, swipeList);
+    // console.log("swipe mounted:", userProfile, swipeList);
     if (userProfile) {
     axios.get('/api/swipeprofiles', { params: { id: userProfile._id, prefer: swipeList }})
       .then((res) => {
-        console.log('get is working in Swipe!');
         setprofileList(res.data);
       })
     }
@@ -118,7 +117,7 @@ function Swipe () {
     if(direction === 'left') {
       axios.post('/api/swipe', { id: userProfile._id, like: false, swipedId: idToDelete })
         .then((res) => {
-          console.log('swipe false posted!');
+          // console.log('swipe false posted!');
         })
     } else {
       setSwipedRight(nameToDelete);
@@ -129,18 +128,16 @@ function Swipe () {
             }
         })
     }
-    console.log('removing: ' + nameToDelete);
     setLastDirection(direction);
   }
 
   const outOfFrame = (name) => {
-    console.log(name + ' left the screen!')
+    // console.log(name + ' left the screen!')
   }
 
   const handleClick = (user) => {
     setCurrentUser(user)
     setOpen(true);
-    console.log(user, 'clicked!');
   }
   const handleClose = () => setOpen(false);
 
@@ -204,130 +201,3 @@ function Swipe () {
 export default Swipe
 
 
-// const db =
-// [{
-//   name: "Woody",
-//   age: "Adult",
-//   imgUrl: "https://images.pexels.com/photos/2253275/pexels-photo-2253275.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500",
-//   gender: "Male",
-//   breed: "Golden doodle",
-//   size: "Medium",
-//   energy: "High",
-//   offLeash: true,
-//   ownerName: "Inny",
-//   ownerNumber: "132-456-7910",
-//   location: "Chicago, Illinois",
-//   aboutMe: "I am chill",
-//   photos: [],
-//   prefrences: {
-//     age: "Adult",
-//     breed: ["Golden Doodle", "Golden Retriever", "Poodle"],
-//     size: "Medium",
-//     energy: "High",
-//     offLeash: true,
-//   },
-//   chats: [],
-//   swiped: [],
-//   username: "Inny Choi"
-// },
-// {
-//   name: "Hansel",
-//   age: "Audult",
-//   imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/04/Labrador_Retriever_%281210559%29.jpg",
-//   gender: "Male",
-//   breed: "Labrador",
-//   size: "Large",
-//   energy: "Medium",
-//   offLeash: true,
-//   ownerName: "Kat",
-//   ownerNumber: "132-456-8654",
-//   location: "Seattle, Washington",
-//   aboutMe: "I love treats!",
-//   photos: [],
-//   prefrences: {
-//     age: "Adult",
-//     breed: ["Golden Doodle", "Golden Retriever", "Labrador"],
-//     size: "Large",
-//     energy: "Medium",
-//     offLeash: true,
-//   },
-//   chats: [],
-//   swiped: [],
-//   username: "Kat"
-// },
-// {
-//   name: "Ditto",
-//   age: "Puppy",
-//   imgUrl: "https://www.thelabradorsite.com/wp-content/uploads/2020/05/10-tips.jpg",
-//   gender: "Male",
-//   breed: "Mixed",
-//   size: "Small",
-//   energy: "High",
-//   offLeash: true,
-//   ownerName: "Luna",
-//   ownerNumber: "132-456-8520",
-//   location: "Seattle, Washington",
-//   aboutMe: "I have a lot of energy!",
-//   photos: [],
-//   prefrences: {
-//     age: "Puppy",
-//     breed: ["Golden Retriever", "Labrador"],
-//     size: "Small",
-//     energy: "High",
-//     offLeash: true,
-//   },
-//   chats: [],
-//   swiped: [],
-//   username: "Luna"
-// },
-// {
-//   name: "Joey",
-//   age: "Adult",
-//   gender: "Male",
-//   imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/04/Labrador_Retriever_%281210559%29.jpg",
-//   breed: "Australian Cattle Dog",
-//   size: "Medium",
-//   energy: "Medium",
-//   offLeash: true,
-//   ownerName: "Luna",
-//   ownerNumber: "132-456-1234",
-//   location: "Seattle, Washington",
-//   aboutMe: "I love my mom!",
-//   photos: [],
-//   prefrences: {
-//     age: "Puppy",
-//     breed: ["Australian Cattle Dog", "Labrador"],
-//     size: "Medium",
-//     energy: "Medium",
-//     offLeash: true,
-//   },
-//   chats: [],
-//   swiped: [],
-//   username: "Marley"
-// },
-// {
-//   name: "Brownie",
-//   age: "Senior",
-//   gender: "Female",
-//   imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/04/Labrador_Retriever_%281210559%29.jpg",
-//   breed: "Bichon Frisé",
-//   size: "Small",
-//   energy: "Medium",
-//   offLeash: false,
-//   ownerName: "Glo",
-//   ownerNumber: "132-456-8569",
-//   location: "Chicago, Illinois",
-//   aboutMe: "hmm treats!",
-//   photos: [],
-//   prefrences: {
-//     age: "Adult",
-//     breed: ["Bichon Frisé", "Labrador"],
-//     size: "Small",
-//     energy: "Medium",
-//     offLeash: true,
-//   },
-//   chats: [],
-//   swiped: [],
-//   username: "Glo"
-// }
-// ];

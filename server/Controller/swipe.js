@@ -11,7 +11,6 @@ module.exports = {
     });
   },
   getSwipe: (req, res) => {
-    // console.log('here!');
     models.swipe.getSwipe(req.query, (err, result) => {
       if (err) {
         res.status(500).send(err);
