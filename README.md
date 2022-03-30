@@ -1,24 +1,20 @@
 # Pupper
 
 ## Description
+![](https://media.giphy.com/media/RmIE8oj8EfhWgHdjWj/giphy.gif)
+![](https://media.giphy.com/media/cV2Fx7I0bDfUrMftk7/giphy.gif)
+![](https://media.giphy.com/media/t6td54h2ybVcyGvDCL/giphy.gif)
 A responsive application where puppers create their own profile and match with other puppers for a meetup.
 
 
 ## Components and Contributers
+
 Login Authentication: Lorene Chew, Austin Wang \
 Profile (Pupfile): Lorene Chew, Austin Wang \
-![](https://media.giphy.com/media/RmIE8oj8EfhWgHdjWj/giphy.gif)
-
-
 Preference (Pupferences): Inny Choi, Kat Bakalova \
 Swipe (Pawswipe): Inny Choi \
 Chat (Puppal): Gloria Chen, Anthony Blelloch \
-![](https://media.giphy.com/media/cV2Fx7I0bDfUrMftk7/giphy.gif)
-
-
-Map (Pupplaces): David Unuigbe
-![](https://media.giphy.com/media/t6td54h2ybVcyGvDCL/giphy.gif)
-
+Map (Pupplaces): David Unuigbe \
 
 React Router: Lorene Chew \
 React Context API: Austin Wang
