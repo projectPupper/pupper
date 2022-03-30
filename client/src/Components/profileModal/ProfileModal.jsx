@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 
 
 function ProfileModal({ user }) {
-  console.log(user);
+
   return(
     <>
       <Card sx={{width: '100%', height: '50%'}}>
