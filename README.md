@@ -14,7 +14,7 @@ Profile (Pupfile): Lorene Chew, Austin Wang \
 Preference (Pupferences): Inny Choi, Kat Bakalova \
 Swipe (Pawswipe): Inny Choi \
 Chat (Puppal): Gloria Chen, Anthony Blelloch \
-Map (Pupplaces): David Unuigbe \
+Map (Pupplaces): David Unuigbe
 
 React Router: Lorene Chew \
 React Context API: Austin Wang
