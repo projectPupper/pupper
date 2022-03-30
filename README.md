@@ -3,7 +3,7 @@
 ## Description
 ![](https://media.giphy.com/media/RmIE8oj8EfhWgHdjWj/giphy.gif)
 ![](https://media.giphy.com/media/cV2Fx7I0bDfUrMftk7/giphy.gif)
-![](https://media.giphy.com/media/t6td54h2ybVcyGvDCL/giphy.gif)
+![](https://media.giphy.com/media/t6td54h2ybVcyGvDCL/giphy.gif)\
 A responsive application where puppers create their own profile and match with other puppers for a meetup.
 
 
