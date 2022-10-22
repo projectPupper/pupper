@@ -1,11 +1,12 @@
 # Pupper
 
 ## Description
+A responsive application where puppers create their own profile and match with other puppers for a meetup.\
+
 ![](https://media.giphy.com/media/dV3y1Wvn2ruMN3z5YM/giphy.gif)\
 ![](https://media.giphy.com/media/RmIE8oj8EfhWgHdjWj/giphy.gif)
 ![](https://media.giphy.com/media/cV2Fx7I0bDfUrMftk7/giphy.gif)
 ![](https://media.giphy.com/media/t6td54h2ybVcyGvDCL/giphy.gif)\
-A responsive application where puppers create their own profile and match with other puppers for a meetup.
 
 
 ## Components and Contributers
